@@ -1,0 +1,1156 @@
+.not_pb
+  padding-bottom 0!important
+.not_pt
+  padding-top 0!important
+.not_mb
+  margin-bottom 0!important
+.not_mt
+  margin-top 0!important
+
+
+
+.loading_teachers div
+  display inline-block
+  left 50%
+  top -7px
+.print
+  display none
+
+.section
+  &.cabecalho
+    padding-top 10px
+    padding-bottom 0
+    .summary
+      .paragraph
+        margin-bottom 10px
+        .visions
+          >div
+            margin-bottom 10px
+  &.conteudo
+    padding-top 0
+    display none
+    &.situacao,
+    &.comparativo,
+    &.planejamento
+      display block
+    &.situacao
+      .container
+
+
+        &.devolutiva
+          &.resumo
+            display block
+            .pedagogica,
+            .cidadania,
+            .desenvolvimento
+              h2
+                color #ffffff
+                border-top-left-radius 10px
+                border-top-right-radius 10px
+                padding-top 10px
+                padding-bottom 10px
+                margin-bottom 0
+            .pedagogica
+              h2
+                background-color #6d0f59
+              .niveis
+                li
+                  .densidade
+                    background-color #6d0f59
+            .cidadania
+              h2
+                background-color #068587
+              .niveis
+                li
+                  .densidade
+                    background-color #068587
+            .desenvolvimento
+              h2
+                background-color #4198df
+              .niveis
+                li
+                  .densidade
+                    background-color #4198df
+            .niveis
+              li
+                align-items center
+                position relative
+                color black
+                &:last-child
+                  border-bottom-left-radius 10px
+                  border-bottom-right-radius 10px
+                  .densidade
+                    border-bottom-left-radius 10px
+                    border-bottom-right-radius 10px
+                .densidade
+                  position absolute
+                  width 100%
+                  height 100%
+                  z-index 0
+                .nivel
+                  z-index 1
+                  font-weight bold
+                .valor
+                  z-index 1
+                  font-size 1.4em
+          .tabela
+            .nivel_rede
+              display block
+          .ver_dados
+            display block
+            padding-right 0
+          .titulo_detalhamento
+            margin-top 2rem
+          .legenda_densidade
+            margin-top -20px
+            font-size 0.9em
+            display block
+            h3
+              font-weight bold
+            .escala
+              width 50px
+              height 11px
+              margin-right 5px
+              display inline-block
+              background-image linear-gradient(to right, rgba(109, 15, 89, .1), #131D3C)
+          [data-ref="pedagogica"]
+            .legenda_densidade
+              .escala
+                background-image linear-gradient(to right, #f1e7ef, #6d0f59)
+          [data-ref="cidadania"]
+            .legenda_densidade
+              .escala
+                background-image linear-gradient(to right, #e7f3f3, #068587)
+          [data-ref="desenvolvimento"]
+            .legenda_densidade
+              .escala
+                background-image linear-gradient(to right, #ecf5fc, #4198df)
+
+    &.comparativo
+      .container
+
+        &.devolutiva
+          &.subfiltro_grafico
+            display block
+            .legenda
+              h3
+                font-weight bold
+              ul
+                padding-left 15px
+                font-size 0.9em
+                &.bullets
+                  li
+                    padding-left 30px
+                    .dados
+                      position relative
+                      &.rede
+                        &:before, &:after
+                          background-color #1f77b4
+                      &.estados
+                        &:before, &:after
+                          background-color #ff7f0e
+                      &.nacional
+                        &:before, &:after
+                          background-color #2ca02c
+                      &:before, &:after
+                        content ''
+                        position absolute
+                        margin-left -30px
+                        opacity .8
+                      &:before
+                        width 20px
+                        height 1px
+                        top 50%
+                        left 0
+                      &:after
+                        width 7px
+                        height 7px
+                        top 5px
+                        left 7px
+                        border-radius 4px
+            .grafico
+              display flex
+              align-items center
+              justify-content center
+              height 100%
+              width 100%
+              svg
+                >g
+                  >g
+                    >g
+                      >text
+                        font-size 0.8em
+                    >g:nth-child(3) > text,
+                    >g:nth-child(4) > text,
+                    >g:nth-child(5) > text,
+                    >g:nth-child(6) > text,
+                    >g:nth-child(7) > text
+                      text-anchor start
+                    >g:nth-child(9) > text,
+                    >g:nth-child(10) > text,
+                    >g:nth-child(11) > text,
+                    >g:nth-child(12) > text,
+                    >g:nth-child(13) > text
+                      text-anchor end
+
+              .loading
+                display flex
+                align-items center
+                justify-content center
+                flex-direction column
+                .text
+                  font-size .8em
+                  margin-top 10px
+          .tabela
+            .valor
+              border-right 1px dotted gray!important
+              border-bottom 1px dotted gray!important
+              padding 0
+              height 80px
+              .celula
+                background-color #ffffff!important
+              .numeros
+                display none
+              .comparacao
+                display block
+                width 100%
+                .loading
+                  text-align center
+                ul
+                  padding-left 24px
+                  li
+                    font-size 0.7rem
+                    position relative
+                    line-height 1.7em
+                    left -24px
+                    width 0
+                    &.r
+                      &:before
+                        background-color #1f77b4
+                    &.e
+                      &:before
+                        background-color #ff7f0e
+                    &.n
+                      &:before
+                        background-color #2ca02c
+                    &:before
+                      position absolute
+                      content ''
+                      width 100%
+                      height 17px
+                      top 0
+                      left 24px
+                      z-index -1
+                      opacity .8
+
+          .legenda_comparativo
+            display flex
+            align-items center
+            justify-content space-around
+            .item
+              p
+                font-size 0.9em
+                padding-left 30px
+                position relative
+                &.rede
+                  &:before
+                    background-color #1f77b4
+                &.estados
+                  &:before
+                    background-color #ff7f0e
+                &.nacional
+                  &:before
+                    background-color #2ca02c
+                &:before
+                  content ''
+                  position absolute
+                  width 20px
+                  height 10px
+                  top calc(50% - 5px)
+                  left 0
+                  opacity .8
+    &.planejamento
+      .container
+        &.devolutiva
+          margin-bottom 0
+          &.estrategias_ensino
+            display block
+          &.legendas
+            display none
+          .estrategia_titulo
+            margin-top 30px
+            text-align center
+            .fixo
+              font-size 1.1em
+            .titulo
+              font-size 1.5em
+          .saiba_mais
+            margin-left 10px;
+          .titulo_definicao
+            font-size .7em
+            font-weight bold
+            text-transform uppercase
+          .box
+            margin-top 20px
+            background-color #ffffff
+            padding 1rem
+            box-shadow 0 2px 4px #cccccc
+            border-radius 4px
+            border 1px solid #ccc
+          .titulo
+            h1
+              margin-top 2rem
+              font-size 1.2em
+              font-weight bold
+          .view_data
+            display none
+          .area_titulo
+            display flex
+            align-items center
+            justify-content center
+            font-weight bold
+            border-left 1px solid lightgray
+            border-top 1px solid lightgray
+            &:last-child
+              border-right 1px solid lightgray
+            .pedagogica
+              color #6d0f59
+            .cidadania
+              color #068587
+            .desenvolvimento
+              color #4198df
+          .estrategias
+            margin-bottom 0.75rem
+            .box_estrategia
+              padding 10px
+              .estrategia
+                transition all .2s ease-in-out
+                align-items center
+                background-color #f5f5f5
+                color #645b51
+                border-radius 5px
+                border 1px solid #cccccc
+                &:hover, &:focus
+                  box-shadow 0 2px 4px rgba(0, 0, 0, 0.2)
+                .nome
+                  margin-bottom 10px
+                .descricao
+                  font-size 0.85em
+                  font-weight normal
+          .tabela
+            &.resultado
+              .linha
+                .linha_interna
+                  border-color lightgray
+              .valor
+                &:last-child
+                  border-right 1px solid lightgray
+                border-color lightgray
+            &.competencias_titulos
+              height 130px
+            .nivel_titulo
+              display flex
+              align-items center
+              justify-content center
+              text-align center
+              border-left 1px solid lightgray
+              border-bottom 1px solid lightgray
+              &.first
+                border-top 1px solid lightgray
+            .linha
+              padding-top 0
+              padding-bottom 0
+              .linha_interna
+                height 100%
+                margin-top 0
+                margin-bottom 0
+                border-bottom 1px solid #ffffff
+            .tooltip
+              color #ffffff
+              padding 3px
+              transform rotate(270deg)
+            .valor
+              border-left 1px solid #ffffff
+              &.pedagogica
+                background-color #6d0f59
+              &.cidadania
+                background-color #068587
+              &.desenvolvimento
+                background-color #4198df
+              &.objetivo
+                position relative
+                &:before
+                  background-color #ffffff
+                  content ''
+                  position absolute
+                  width 16px
+                  height 16px
+                  border-radius 8px
+                  top calc(50% - 8px)
+                  left calc(50% - 8px)
+              .vertical
+                background-color gray
+              .celula
+                opacity 0!important
+                background-color #ffffff!important
+              .numeros
+                display none
+          .instrucoes
+            margin-bottom 2rem
+            .instrucao_1
+              align-self flex-end
+            .numero
+              font-size 3em
+            .descricao
+              font-size 0.9em
+
+
+  .container // Dados padroes
+
+
+    &.devolutiva
+      &.campos
+        display flex
+        flex-direction column
+        .label
+          margin-right 10px
+          &.label:not(:first-child)
+            margin-left 10px
+
+      margin-bottom 2.5rem
+      &.resumo,
+      &.subfiltro_grafico,
+      &.estrategias_ensino
+        display none
+      &.filtros_container
+        margin-bottom 1.4rem
+        .filtros
+          .label
+            margin-bottom 4px
+            display inline-block
+      &.legendas
+        margin-bottom 1rem
+        h3
+          font-weight bold
+        .legenda_pratica_pedagogicas,
+        .legenda_densidade,
+        .legenda_comparativo
+          display none
+      &.estrategias_ensino
+        margin-bottom 1rem
+      h2
+        font-size 1.4em
+        margin-bottom .5rem
+        font-weight bold
+      p.infos
+        margin-bottom 1rem
+      .ver_dados
+        display none
+      .tipo_visualizacao
+        border 1px solid #cccccc
+        .botao
+          border-top 0
+          border-left 0
+          border-right 0
+      .total
+        .notification
+          border 1px solid #cccccc
+          padding 10px 15px
+          .loading
+            display block
+            font-size 1.8em
+            background-color transparent
+            border 0
+            height auto
+            &:after
+              border-left-color #131d3c!important
+              border-bottom-color #131d3c!important
+        .quantidade
+          font-weight bold
+          font-size 1.2em
+          padding 0 5px
+
+      .tabela
+        .nivel_rede
+          display none
+        .nivel
+          font-weight bold
+          text-align right
+          border 1px dotted gray!important
+        .nivel_area
+          margin-bottom 2rem
+          .loading
+            display inline-block
+            margin-left 10px
+        &.pedagogica
+          h2
+            color #6d0f59
+          .valor
+            .celula
+              background-color #6d0f59
+            .numeros
+              .porcentagem
+                background-color #6d0f59
+          .ppi
+            color #6d0f59
+        &.cidadania
+          h2
+            color #068587
+          .valor
+            .celula
+              background-color #068587
+            .numeros
+              .porcentagem
+                background-color #068587
+          .ppi
+            color #068587
+        &.desenvolvimento
+          h2
+            color #4198df
+          .valor
+            .celula
+              background-color #4198df
+            .numeros
+              .porcentagem
+                background-color #4198df
+          .ppi
+            color #4198df
+        .ppi
+          &:first-child
+            border 0!important
+          border 1px dotted gray
+        .competencia
+          border-right 1px dotted gray
+          border-bottom 1px dotted gray
+          word-break break-word
+        .valor
+          position relative
+          display flex
+          align-items center
+          justify-content center
+          .celula
+            &.transparent
+              opacity 0!important
+            text-align center
+            font-weight bold
+            position absolute
+            width 100%
+            height 100%
+            left 0
+            z-index 0
+            top 0
+          .comparacao
+            background-color rgba(255,255,255,0.5)
+            color #000000
+            padding 0px 10px
+            font-weight bold
+            border-radius 40px
+            position absolute
+            z-index 1
+            top auto
+            left auto
+          .numeros
+            background-color rgba(255,255,255,0.5)
+            color #000000
+            padding-left 10px
+            font-weight bold
+            border-radius 7px
+            position absolute
+            z-index 1
+            top auto
+            left auto
+            display flex
+            align-items center
+            .porcentagem
+              margin-left 10px
+              display flex
+              background-color #777
+              font-size 0.7em
+              border-radius 7px
+              align-items center
+              color #ffffff
+              justify-content center
+              height 25px
+              padding 0 7px
+          .comparacao
+            display none
+
+
+
+@media screen and (max-width: 768px)
+  .section
+  &.conteudo
+    &.planejamento
+      .container
+        &.devolutiva
+          .tabela
+            .tooltip
+              transform rotate(0deg)!important
+
+
+@media print
+  .not_print
+    display none
+
+  .print
+    @page {
+      size: A4;
+      margin: 10mm 10mm 10mm 10mm;
+    }
+
+    .page_break
+      page-break-before always
+
+    display block
+    color #000000!important
+    padding 1rem 0
+    hr
+      margin 0.5rem 0
+    h1
+      font-weight bold
+      font-size 1.4em
+      margin-bottom 1rem
+
+    .bottomless
+      padding-bottom 0!important
+      margin-bottom 0!important
+
+    .header
+      background-color #131d3c
+      padding 20px 20px 12px
+      margin-bottom 2rem
+      color #ffffff
+      .logo_principal
+        width 75px
+        margin-right 20px
+        border-right 1px solid #ffffff
+        padding-right 20px
+      .logo_guiaedutec
+        width 190px
+      .url
+        margin-top 12px
+
+    .paragraph
+      margin-bottom 1rem
+      &:last-child
+        margin-bottom 0
+      .visions
+        display flex
+        justify-content space-between
+        >div
+          padding-right 10px
+          &:last-child
+            padding-right 0
+
+    .matriz_competencias
+      margin-top 0
+      h2
+        font-size 1.1em
+        margin 0 0 10px
+        padding 0
+      table
+        thead
+          tr
+            th
+              background-color #131D3C
+              color white
+        tbody
+          tr
+            th
+              background-color #85c440
+              color white
+        tr
+          th
+            text-align center
+            vertical-align middle
+          td
+            text-align center
+            vertical-align middle
+            p
+              line-height 1.2em
+
+    .filtros
+      margin-top 1rem
+
+    .notification
+      margin 1rem 0
+
+    .total
+      font-size 1.2em
+
+    .situacao
+      .resumo
+        &.pedagogica
+          h2
+            background-color #6d0f59
+          .niveis
+            li
+              .densidade
+                background-color #6d0f59
+        &.cidadania
+          h2
+            background-color #068587
+          .niveis
+            li
+              .densidade
+                background-color #068587
+        &.desenvolvimento
+          h2
+            background-color #4198df
+          .niveis
+            li
+              .densidade
+                background-color #4198df
+        &.pedagogica,
+        &.cidadania,
+        &.desenvolvimento
+          h2
+            color #ffffff
+            border-top-left-radius 10px
+            border-top-right-radius 10px
+            padding-top 10px
+            padding-bottom 10px
+            margin-bottom 0
+            font-size 1.4em
+          .niveis
+            li
+              align-items center
+              position relative
+              color black
+              &:last-child
+                border-bottom-left-radius 10px
+                border-bottom-right-radius 10px
+                .densidade
+                  border-bottom-left-radius 10px
+                  border-bottom-right-radius 10px
+              .densidade
+                position absolute
+                width 100%
+                height 100%
+                z-index 0
+              .nivel, .valor
+                padding-top 0.5rem
+                padding-bottom 0.5rem
+              .nivel
+                z-index 1
+                font-weight bold
+              .valor
+                z-index 1
+                font-size 1.4em
+      .tabela
+        div:last-child
+          .nivel
+            border-bottom 1px solid lightgray!important
+        h2
+          font-size 1.4em
+          margin 0
+          padding 0
+        .nivel
+          font-weight bold
+          text-align right
+          border-top 1px solid lightgray!important
+          border-left 1px solid lightgray!important
+        &.pedagogica
+          h2
+            color #6d0f59
+          .valor
+            .celula
+              background-color #6d0f59
+            .numeros
+              .porcentagem
+                background-color #6d0f59
+          .ppi
+            color #6d0f59
+        &.cidadania
+          h2
+            color #068587
+          .valor
+            .celula
+              background-color #068587
+            .numeros
+              .porcentagem
+                background-color #068587
+          .ppi
+            color #068587
+        &.desenvolvimento
+          h2
+            color #4198df
+          .valor
+            .celula
+              background-color #4198df
+            .numeros
+              .porcentagem
+                background-color #4198df
+          .ppi
+            color #4198df
+        .ppi
+          &:first-child
+            border 0!important
+          &:last-child
+            border-right 1px solid lightgray
+          border-top 1px solid lightgray
+          border-left 1px solid lightgray
+        .valor
+          position relative
+          display flex
+          align-items center
+          justify-content center
+          .celula
+            &.transparent
+              opacity 0!important
+            text-align center
+            font-weight bold
+            position absolute
+            width 100%
+            height 100%
+            left 0
+            z-index 0
+            top 0
+          .numeros
+            background-color rgba(255,255,255,0.5)
+            color #000000
+            padding-left 10px
+            font-weight bold
+            border-radius 7px
+            position absolute
+            z-index 1
+            top auto
+            left auto
+            display flex
+            align-items center
+            .porcentagem
+              margin-left 10px
+              display flex
+              background-color #777
+              font-size 0.7em
+              border-radius 7px
+              align-items center
+              color #ffffff
+              justify-content center
+              height 25px
+              padding 0 7px
+      .legenda_densidade
+        margin-top -10px
+        font-size 0.9em
+        display block
+        h3
+          font-weight bold
+        .escala
+          width 50px
+          height 11px
+          margin-right 5px
+          display inline-block
+          background-image linear-gradient(to right, rgba(109, 15, 89, .1), #131D3C)
+      [data-ref="pedagogica"]
+        .legenda_densidade
+          .escala
+            background-image linear-gradient(to right, #f1e7ef, #6d0f59)
+      [data-ref="cidadania"]
+        .legenda_densidade
+          .escala
+            background-image linear-gradient(to right, #e7f3f3, #068587)
+      [data-ref="desenvolvimento"]
+        .legenda_densidade
+          .escala
+            background-image linear-gradient(to right, #ecf5fc, #4198df)
+
+    .comparativo
+      .legenda
+        ul
+          padding-left 15px
+          font-size 0.9em
+          &.bullets
+            li
+              padding-left 30px
+              .dados
+                position relative
+                &.rede
+                  &:before, &:after
+                    background-color #1f77b4
+                &.estados
+                  &:before, &:after
+                    background-color #ff7f0e
+                &.nacional
+                  &:before, &:after
+                    background-color #2ca02c
+                &:before, &:after
+                  content ''
+                  position absolute
+                  margin-left -30px
+                  opacity .8
+                &:before
+                  width 20px
+                  height 1px
+                  top 50%
+                  left 0
+                &:after
+                  width 7px
+                  height 7px
+                  top 3px
+                  left 7px
+                  border-radius 4px
+      .grafico
+        display flex
+        align-items center
+        justify-content center
+        height 100%
+        width 100%
+        svg
+          >g
+            >g
+              >g
+                >text
+                  font-size 0.8em
+              >g:nth-child(3) > text,
+              >g:nth-child(4) > text,
+              >g:nth-child(5) > text,
+              >g:nth-child(6) > text,
+              >g:nth-child(7) > text
+                text-anchor start
+              >g:nth-child(9) > text,
+              >g:nth-child(10) > text,
+              >g:nth-child(11) > text,
+              >g:nth-child(12) > text,
+              >g:nth-child(13) > text
+                text-anchor end
+      .tabela
+        >div:last-child
+          border-bottom 1px solid lightgray!important
+        h2
+          font-size 1.4em
+          margin 0
+          padding 0
+        .nivel
+          font-weight bold
+          text-align right
+          border-left 1px solid lightgray!important
+          border-top 1px solid lightgray!important
+        &.pedagogica
+          h2
+            color #6d0f59
+          .valor
+            .celula
+              background-color #6d0f59
+            .numeros
+              .porcentagem
+                background-color #6d0f59
+          .ppi
+            color #6d0f59
+        &.cidadania
+          h2
+            color #068587
+          .valor
+            .celula
+              background-color #068587
+            .numeros
+              .porcentagem
+                background-color #068587
+          .ppi
+            color #068587
+        &.desenvolvimento
+          h2
+            color #4198df
+          .valor
+            .celula
+              background-color #4198df
+            .numeros
+              .porcentagem
+                background-color #4198df
+          .ppi
+            color #4198df
+        .ppi
+          &:first-child
+            border 0!important
+          &:last-child
+            border-right 1px solid lightgray
+          border-top 1px solid lightgray
+          border-left 1px solid lightgray
+        .valor
+          border-left 1px solid lightgray!important
+          border-top 1px solid lightgray!important
+          padding 0
+          &:last-child
+            border-right 1px solid lightgray!important
+          .celula
+            background-color #ffffff!important
+          .numeros
+            display none
+          .comparacao
+            display block
+            width 100%
+            ul
+              padding 5px 10px
+              li
+                display flex
+                align-items flex-start
+                font-size 0.6rem
+                font-weight bold
+                line-height 1.7em
+                width 100%
+                .perc
+                  width 20%
+                  text-align right
+                  display inline-block
+                  padding-right 2px
+                .wrap_barra
+                  width 80%
+                  height 14px
+                  display inline-block
+                  .barra
+                    display inline-block
+                    height 12px
+                    opacity .8
+                &.r
+                  .wrap_barra
+                    .barra
+                      background-color #1f77b4
+                &.e
+                  .wrap_barra
+                    .barra
+                      background-color #ff7f0e
+                &.n
+                  .wrap_barra
+                    .barra
+                      background-color #2ca02c
+
+      .legenda_comparativo
+        display flex
+        align-items center
+        justify-content space-around
+        .item
+          p
+            font-size 0.9em
+            padding-left 30px
+            position relative
+            &.rede
+              &:before
+                background-color #1f77b4
+            &.estados
+              &:before
+                background-color #ff7f0e
+            &.nacional
+              &:before
+                background-color #2ca02c
+            &:before
+              content ''
+              position absolute
+              width 20px
+              height 10px
+              top calc(50% - 5px)
+              left 0
+              opacity .8
+    .planejamento
+      &.matriz
+        margin-top 30px
+      h2
+        margin 1.2rem 0 1rem
+        font-size 1.2em
+        font-weight bold
+      .infos
+        margin-bottom 10px
+      .area_titulo
+        display flex
+        align-items center
+        justify-content center
+        font-weight bold
+        border-left 1px solid lightgray
+        border-top 1px solid lightgray
+        &:last-child
+          border-right 1px solid lightgray
+        .pedagogica
+          color #6d0f59
+        .cidadania
+          color #068587
+        .desenvolvimento
+          color #4198df
+      .estrategia
+        align-items center
+        background-color #f5f5f5
+        color #231c1a
+        padding 0 20px
+        margin-bottom 1rem
+        .nome
+          margin-bottom 10px
+        .descricao
+          font-weight normal
+      .tabela
+        &.resultado
+          .linha
+            .linha_interna
+              border-color lightgray
+          .valor
+            &:last-child
+              border-right 1px solid lightgray
+            border-color lightgray
+        &.competencias_titulos
+          height 130px
+        .nivel_titulo
+          display flex
+          align-items center
+          justify-content center
+          text-align center
+          border-left 1px solid lightgray
+          border-bottom 1px solid lightgray
+          &.first
+            border-top 1px solid lightgray
+        .linha
+          padding-top 0
+          padding-bottom 0
+          .linha_interna
+            height 100%
+            margin-top 0
+            margin-bottom 0
+            border-bottom 2px solid #ffffff
+        .tooltip
+          color #ffffff
+          padding 3px
+          display block
+          transform rotate(270deg)
+          -ms-transform rotate(270deg)
+          -o-transform rotate(270deg)
+          -moz-transform rotate(270deg)
+        .valor
+          position relative
+          display flex
+          align-items center
+          justify-content center
+          border-left 1px solid #ffffff
+          &.pedagogica
+            background-color #6d0f59
+          &.cidadania
+            background-color #068587
+          &.desenvolvimento
+            background-color #4198df
+          &.objetivo
+            position relative
+            &:before
+              background-color #ffffff
+              content ''
+              position absolute
+              width 16px
+              height 16px
+              border-radius 8px
+              top calc(50% - 8px)
+              left calc(50% - 8px)
+          .vertical
+            background-color gray
+          .celula
+            opacity 0!important
+            background-color #ffffff!important
+          .numeros
+            display none
+      .instrucoes
+        margin-bottom 2rem
+        .instrucao_1
+          align-self flex-end
+        .numero
+          font-size 3em
+        .descricao
+          font-size 0.9em
+
+
+.campos
+  display flex
+  flex-direction column
+  strong
+    color #69707a

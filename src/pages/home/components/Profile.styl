@@ -1,0 +1,64 @@
+@import '../../../variables.styl'
+
+.profile__tagline
+  width 70%
+  margin auto
+
+  strong
+    color white
+
+  @media screen and (max-width: 850px)
+    width 100%
+
+.profile__body
+  margin-bottom 6rem
+  .item
+    background-color #ffffff
+    border-width: $profile-border-width
+    border-style: $profile-border-style
+    border-color: $profile-border-color
+    color $secondary-color
+    padding 20px 10px
+    border-radius $profile-border-radius
+    height 100%
+
+    .icon
+      margin 20px auto 10px
+      img
+        width auto
+        height 40px
+
+    .btn__light
+      margin 20px auto 10px
+      border-width 1px
+      &:hover,
+      &:focus
+        color #ffffff
+  @media screen and (max-width: 768px)
+    padding 0 30px
+
+.profile__title
+  font-size 2.7em
+  line-height 1.2em
+
+.stripe
+  background-color $pink
+  height 5px
+  width 115px
+  margin auto
+
+.control__signing__btn__size
+  min-width 200px !important
+
+.control__signing__btn
+  background-color rgba(0, 0, 0, 0.5) !important
+  padding 20px
+
+.profile__signing__container
+  background-color rgba(255, 255, 255, 0.30)
+  padding 40px
+  text-align center
+
+.margin__auto
+  margin auto
+

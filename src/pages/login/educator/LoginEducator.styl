@@ -1,0 +1,261 @@
+@import '../../../variables.styl';
+
+.login
+  background-color #ffffff
+  .section
+    padding 1rem 1.5rem
+  p
+    font-size 1.2em
+  h1
+    color $secondary-color
+    font-size 2.2em
+    strong
+      font-size 1.2em
+      color $secondary-color
+  h2
+    text-transform uppercase
+    font-size 2em
+    margin-bottom 5px
+    font-weight bold
+    color $primary-color
+    text-shadow 0px 1px 3px #ffffff
+  .icon
+    margin-bottom 20px
+    img
+      width auto
+      height 50px
+  .big_image
+    max-height 13rem
+    &.espelho
+      margin-top 1rem
+  .oque
+    background-color #efefef;
+  .porque
+    background-color #ffffff;
+  .call
+    padding 3rem 0
+
+.form
+  .section
+    padding 2rem 1.5rem
+
+.video
+  padding-top 2rem
+  .video_container
+    position relative
+    padding-bottom 54.45%
+    padding-top 10px
+    height 0
+    overflow hidden
+    iframe,
+    object,
+    embed
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+
+.structure
+  background-color $structure-bg-color
+  color $structure-text-color
+
+  .section
+    padding-top 3rem
+  h2
+    color $structure-text-color-header
+    text-shadow none
+
+  .arrow
+    margin-bottom 2rem
+
+    .diagonal
+      height 3rem
+      background linear-gradient(to top right, $structure-bg-color calc(50% - 1px),  $structure-text-color-header, $structure-bg-color calc(50% + 1px))
+
+      &.negative
+        background linear-gradient(to top left, $structure-bg-color calc(50% - 1px),  $structure-text-color-header, $structure-bg-color calc(50% + 1px))
+
+  .amount
+    text-align center
+
+    .number
+      font-size 3rem
+      font-weight bold
+      position relative
+      color $structure-amount-number-text-color
+      background-color $structure-amount-number-bg-color
+      padding 6px
+      width 90px
+      height 90px
+      margin 0 auto 15px
+      border-radius 50%
+      display flex
+      justify-content center
+      align-items center
+
+      &:before
+        content ''
+        position absolute
+        width 114px
+        height 114px
+        border 1px dashed $structure-amount-number-bg-color
+        top -12px
+        left -12px
+        border-radius 50%
+
+    .text
+      font-size 1.2em
+  .number_area
+    flex-direction column
+    justify-content center
+  .area
+    text-align center
+    .pedadogica,
+    .cidadania,
+    .desenvolvimento
+      border-radius 10px
+      padding 20px 10px
+      width 100%
+    .pedadogica
+      background-color $pedagogica-color
+      color #ffffff
+    .cidadania
+      background-color $cidadania-digital-color
+      color #ffffff
+    .desenvolvimento
+      background-color $dev-profissional
+      color #ffffff
+    .icon
+      margin-bottom 20px
+      img
+        width auto
+        height 8rem
+    .title
+      font-size 1.2em
+      text-transform uppercase
+  .competences
+    li
+      border-bottom-width 5px
+      border-bottom-style solid
+      margin-bottom 15px
+      padding-bottom 5px
+      font-size 1em
+      text-transform uppercase
+  .pedadogica
+    .competences
+      li
+        border-bottom-color $pedagogica-color
+  .cidadania
+    .competences
+      li
+        border-bottom-color $cidadania-digital-color
+  .desenvolvimento
+    .competences
+      li
+        border-bottom-color $dev-profissional
+  .levels
+    .panel_heading
+      border-radius 0
+
+    .panel_block
+      p
+        font-size 1em
+        color #ffffff
+
+    .tabs
+      ul
+        a
+          font-size 1em!important
+
+.devolutive
+  background-color $primary-color
+  color #ffffff
+
+  h2
+    color #ffffff
+    text-shadow none
+
+  .diagram
+    align-items flex-end
+    margin-bottom 1.5rem
+
+    > div
+      display flex
+      flex-direction column
+      align-items center
+      border-bottom 1px solid white
+      text-align center
+      font-size 1.4em
+      font-weight bold
+      >span
+        padding 0.5rem 0 1rem 0
+      &:nth-child(2)
+        margin-bottom 1.5rem
+      &:nth-child(3)
+        margin-bottom 3.1rem
+      &:nth-child(4)
+        margin-bottom 4.6rem
+      &:nth-child(5)
+        margin-bottom 6.3rem
+      &:nth-child(2), &:nth-child(4)
+        transform rotate(-24.7deg)
+        height 1px
+        align-self flex-end
+        margin-left -0.6rem
+
+@media screen and (max-width: 1407px)
+  .devolutive
+    .diagram
+      >div
+        &:nth-child(2), &:nth-child(4)
+          transform rotate(-28.3deg)
+
+@media screen and (max-width: 1215px)
+  .devolutive
+    .diagram
+      >div
+        &:nth-child(2), &:nth-child(4)
+          transform rotate(-33.7deg)
+
+@media screen and (max-width: 1125px)
+  .devolutive
+    .diagram
+      >div
+        &:nth-child(2), &:nth-child(4)
+          transform rotate(-32deg)
+
+@media screen and (max-width: 996px)
+  .devolutive
+    .diagram
+      >div
+        &:nth-child(2), &:nth-child(4)
+          transform rotate(-33.7deg)
+
+@media screen and (max-width: 900px)
+  .devolutive
+    .diagram
+      >div
+        &:nth-child(2), &:nth-child(4)
+          transform rotate(-41.7deg)
+
+@media screen and (max-width: 768px)
+  .devolutive
+    .diagram
+      >div
+        margin-bottom 1rem!important
+
+.calltoaction
+  .section
+    padding 3rem
+  h2
+    color $secondary-color
+    text-shadow none
+    margin-bottom 20px
+    font-size 2em
+
+.notes
+  background-color #efefef
+  font-size 0.7rem
+  .section
+    padding .5rem

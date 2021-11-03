@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "MadaniArabicBold";
+  src: url("./fonts/MadaniArabicBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NeometricAltLight";
+  src: url("./fonts/NeometricAltLight.otf") format("opentype");
+}

@@ -1,0 +1,226 @@
+@import '../../variables.styl';
+.form_label_input_file
+  display inline-flex
+  justify-content center;
+  border none;
+  background-color $primary-color;
+  color white;
+  border-radius 100px;
+  padding 10px 15px;
+  cursor pointer
+  font-weight bold
+
+.form_label_input_file:hover
+  background-color: $primary-7
+
+
+.uploadDescription
+  font-size 15px
+  color #69707a
+
+.termLink
+  font-size 15px
+
+
+.container
+  height 70vh
+
+.section
+  background none
+  padding-left 10px
+
+.highlighted
+  font-weight bold
+
+.header__title_stripe
+  background-color $primary-color
+  width 50%
+  height 4px
+  margin 20px 0
+
+.form__label
+  color #69707a
+  margin 10px 0 0
+  &.sharing
+    margin-top 20px
+
+.form__input
+  margin 10px 0 0
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  margin-bottom 10px
+  padding-top 0
+  padding-bottom 0
+  margin-left 0!important
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background $primary-color !important
+
+.form__checkbox
+  outline none
+  margin-right 10px
+
+.form__submit_button, .button_share
+  margin-top 25px
+  display flex
+  justify-content space-between
+
+.field__warning
+  position absolute
+  right 6px
+  top 3px
+  color #a7a9ab
+  z-index 9
+  background #ffffff
+  padding 6px
+  border-radius 20px
+
+.btn__light
+  font-size 0.9rem !important
+  border-width 1px
+  color $secondary-color
+  &:hover,
+  &:focus
+    color #ffffff
+
+.field__description
+  font-size 0.8em
+  margin -0.5em 0 0.5em
+  font-style italic
+
+.field__datepicker
+  padding-left 30px!important
+
+.field__calendar
+  position absolute
+  left 10px
+  top 10px
+  color $primary-color
+  z-index 9
+
+.form_cpf
+  padding 0 10px 0 0!important
+
+.form_born
+  padding 0 0 0 10px!important
+
+@media screen and (max-width: 768px)
+  .form_cpf
+    padding 0!important
+
+  .form_born
+    padding 0!important
+
+.is_danger
+  border 1px solid #ff3860
+  border-radius 10px
+
+.title_section
+  font-size 1.7em
+  text-transform uppercase
+  color $primary-color
+  font-weight bold
+
+.modal_termo
+  font-size .9em
+  header
+    p
+      flex-shrink 1
+      font-size 1.4rem
+      line-height 1.3
+      text-align center
+  ol
+    counter-reset item
+    margin-top 10px
+    padding-inline-start 15px
+  li
+    display block
+    margin-bottom 20px
+    &:before
+      margin-right 5px
+      content counters(item, ".") " "
+      counter-increment item
+
+.is_relative
+  position relative
+
+
+.title_section
+  font-size 1.7em
+  text-transform uppercase
+  color $primary-color
+  font-weight bold
+
+
+.container
+  height 70vh
+
+.followup_container
+  padding 0 30px
+
+.section
+  background none
+  padding-left 10px
+
+.highlighted
+  font-weight bold
+
+.header__title_stripe
+  background-color $primary-color
+  width 50%
+  height 4px
+  margin 20px 0
+
+.header__holder
+  float left
+
+.header__holder ~ p
+  float left
+
+@media(max-width 700px)
+  .header__holder, .header__holder ~ p
+    float initial
+
+.form
+  padding 0 80px
+
+.remove
+  color red
+  text-align right;
+
+.form__label
+  color #69707a
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background green !important
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.field
+  margin 10px 0
+

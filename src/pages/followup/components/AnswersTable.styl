@@ -1,0 +1,40 @@
+@import '../../../variables.styl';
+
+
+
+.answers_table_container_msg
+  border: 1px solid $primary-color
+  border-radius: 8px
+  width: 100%
+
+.loader_table
+  display flex
+  flex-direction  column
+  align-items center
+  justify-content center
+  padding 25px 0
+
+.anwsers_table_container_text
+  font-size: 16px;
+  font-weight: bold;
+
+th.sorting-field:after
+  content ''
+  position absolute
+
+th.sorting_field.sorting_field__asc:after
+  content '↑'
+  margin-left 5px
+
+th.sorting_field.sorting_field__desc:after
+  content '↓'
+  margin-left 5px
+
+span.followup__info__table_obs_td
+  &:hover:after
+    opacity 1
+
+  &:after
+    opacity 0
+    content 'Editar'
+    cursor pointer

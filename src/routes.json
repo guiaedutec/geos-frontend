@@ -1,0 +1,271 @@
+[
+  {
+    "path": "/init-setup",
+    "page": "./pages/init_setup"
+  },
+  {
+    "path": "/",
+    "page": "./pages/home"
+  },
+  {
+    "path": "/escola",
+    "page": "./pages/login"
+  },
+  {
+    "path": "/sair",
+    "page": "./pages/logout"
+  },
+  {
+    "path": "/educador",
+    "page": "./pages/login"
+  },
+  {
+    "path": "/bndes",
+    "page": "./pages/login"
+  },
+  {
+    "path": "/gestor",
+    "page": "./pages/login"
+  },
+  {
+    "path": "/painel",
+    "page": "./pages/mainboard"
+  },
+  {
+    "path": "/acompanhamento-respostas",
+    "page": "./pages/followup"
+  },
+  {
+    "path": "/criar-escola",
+    "page": "./pages/school"
+  },
+  {
+    "path": "/criar-pais",
+    "page": "./pages/country"
+  },
+  {
+    "path": "/criar-afiliacao",
+    "page": "./pages/affiliation"
+  },
+  {
+    "path": "/criar-admin-pais",
+    "page": "./pages/admin_country"
+  },
+
+  {
+    "path": "/criar-pergunta",
+    "page": "./pages/local_question"
+  },
+  {
+    "path": "/listar-paises",
+    "page": "./pages/country/list"
+  },
+  {
+    "path": "/listar-admin-paises",
+    "page": "./pages/admin_country/list"
+  },
+  {
+    "path": "/listar-afiliacoes",
+    "page": "./pages/affiliation/list"
+  },
+  {
+    "path": "/listar-gestores",
+    "page": "./pages/admin_state/list"
+  },
+  {
+    "path": "/listar-escolas",
+    "page": "./pages/school/list"
+  },
+  {
+    "path": "/listar-escolas-infra",
+    "page": "./pages/school/listInfra"
+  },
+  {
+    "path": "/listar-escolas-classes",
+    "page": "./pages/school/listClasses"
+  },
+  {
+    "path": "/listar-tecnicos",
+    "page": "./pages/technical/list"
+  },
+  {
+    "path": "/listar-usuario/administradores",
+    "page": "./pages/technical/list"
+  },
+  {
+    "path": "/listar-usuario/diretores",
+    "page": "./pages/technical/list"
+  },
+  {
+    "path": "/listar-usuario/professores",
+    "page": "./pages/technical/list"
+  },
+  {
+    "path": "/traducoes",
+    "page": "./pages/translations/list"
+  },
+  {
+    "path": "/questionario",
+    "page": "./pages/translations/pageTranslateQuestions"
+  },
+  {
+    "path": "/devolutivas",
+    "page": "./pages/translations/pageTranslateDevolutives"
+  },
+  {
+    "path": "/listar-devolutiva",
+    "page": "./pages/devolutive/list"
+  },
+  {
+    "path": "/customizar-devolutiva",
+    "page": "./pages/devolutive"
+  },
+  {
+    "path": "/periodo-questionario",
+    "page": "./pages/scheduling"
+  },
+  {
+    "path": "/responder-questionario",
+    "page": "./pages/survey"
+  },
+  {
+    "path": "/acessar-respostas",
+    "page": "./pages/resources/answers"
+  },
+  {
+    "path": "/imprimir-questionario",
+    "page": "./pages/resources/print"
+  },
+  {
+    "path": "/criar-contato",
+    "page": "./pages/manager"
+  },
+  {
+    "path": "/listar-contatos",
+    "page": "./pages/manager/list"
+  },
+  {
+    "path": "/criar-conta/escola",
+    "page": "./pages/signup"
+  },
+  {
+    "path": "/criar-conta/gestor",
+    "page": "./pages/signup"
+  },
+  {
+    "path": "/criar-conta/educador",
+    "page": "./pages/signup"
+  },
+  {
+    "path": "/recursos",
+    "page": "./pages/resources"
+  },
+  {
+    "path": "/editar-dados",
+    "page": "./pages/edit_user"
+  },
+  {
+    "path": "/criar-usuario/administradores",
+    "page": "./pages/technical"
+  },
+  {
+    "path": "/criar-usuario/diretores",
+    "page": "./pages/signup"
+  },
+  {
+    "path": "/criar-usuario/professores",
+    "page": "./pages/signup"
+  },
+  {
+    "path": "/editar-usuario/administradores",
+    "page": "./pages/technical"
+  },
+  {
+    "path": "/editar-usuario/diretores",
+    "page": "./pages/edit_user"
+  },
+  {
+    "path": "/editar-usuario/professores",
+    "page": "./pages/edit_user"
+  },
+  {
+    "path": "/diagnostico-escola",
+    "page": "./pages/resources_diagnosis"
+  },
+  {
+    "path": "/recuperar-senha",
+    "page": "./pages/password_forgot"
+  },
+  {
+    "path": "/alterar-senha",
+    "page": "./pages/password_reset"
+  },
+  {
+    "path": "/mudar-senha",
+    "page": "./pages/password_change"
+  },
+  {
+    "path": "/error",
+    "page": "./pages/error"
+  },
+  {
+    "path": "/spreadsheet_school",
+    "page": "./pages/spreadsheet"
+  },
+  {
+    "path": "/listar-atividades",
+    "page": "./pages/activities/list"
+  },
+  {
+    "path": "/editar-footer-feedback",
+    "page": "./pages/feedback"
+  },
+  {
+    "path": "/painel-diagnostico",
+    "page": "./pages/dashboard"
+  },
+  {
+    "path": "/painel-autoavaliacao",
+    "page": "./pages/dashboard/self_evaluation"
+  },
+  {
+    "path": "/dashboard/indicadores",
+    "page": "./pages/dashboard/indicators"
+  },
+  {
+    "path": "/dimensoes",
+    "page": "./pages/four_in_balance"
+  },
+  {
+    "path": "/resultado",
+    "page": "./pages/results"
+  },
+  {
+    "path": "/resultado-detalhes",
+    "page": "./pages/results_details"
+  },
+  {
+    "path": "/visao-geral/municipios",
+    "page": "./pages/overview/cities"
+  },
+  {
+    "path": "/visao-geral/estados",
+    "page": "./pages/overview/states"
+  },
+  {
+    "path": "/mapeamento-professor",
+    "page": "./pages/resources_diagnosis_teacher"
+  },
+  {
+    "path": "/mapeamento-professor/resultados",
+    "page": "./pages/dashboard/devolutive"
+  },
+  {
+    "path": "/mapeamento-professor/divulgacao",
+    "page": "./pages/activities/disclosure"
+  },
+  {
+    "path": "/mapeamento-professor/frequencia",
+    "page": "./pages/scheduling_teacher"
+  }
+]

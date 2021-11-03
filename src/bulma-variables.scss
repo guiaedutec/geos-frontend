@@ -1,0 +1,32 @@
+// Variables
+
+@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url("https://docs.handsontable.com/0.31.2/bower_components/handsontable/dist/handsontable.full.css");
+@import url("../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css");
+
+$yellow: #ffcb38;
+$pink: #ed3079;
+$blue: #00a0d7;
+$green: #85c440;
+$grey: #a7a9ab;
+$dark-blue: #131d3c;
+
+$primary: $green;
+$family-sans-serif: "Lato", "Calibri", "Helvetica", "Arial", sans-serif;
+
+$spaceamounts: (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100);
+$sides: (top, bottom, left, right);
+
+@each $space in $spaceamounts {
+  @each $side in $sides {
+    .m#{str-slice($side, 0, 1)}-#{$space} {
+      margin-#{$side}: #{$space}px !important;
+    }
+
+    .p#{str-slice($side, 0, 1)}-#{$space} {
+      padding-#{$side}: #{$space}px !important;
+    }
+  }
+}
+
+@import "~bulma";

@@ -1,0 +1,323 @@
+@import '../../variables.styl'
+
+.main
+  background $mainboard-bg
+  padding $mainboard-padding
+  color $mainboard-color
+
+.container
+  margin-top 30px
+  margin-left 0 !important
+  margin-right 0 !important
+
+  strong
+    color white
+
+.box_deactive
+  opacity 0.3
+  background white
+
+.tutor
+  margin-left 2em
+  margin-bottom 2em
+  font-size 15pt
+  cursor pointer
+
+.main__container
+  padding 80px 40px 30px 40px
+
+.columns_board
+  z-index 1
+  position relative
+  padding 0 30px
+
+  &:last-child
+    padding-bottom 2rem
+
+  .title
+    position relative
+    padding-bottom 5px
+    margin-bottom 30px
+    color $dark-blue
+
+  .title:before
+    content ''
+    position absolute
+    width 70px
+    height 5px
+    background-color $primary-color
+    bottom -8px
+    left 0px
+
+.title_board_bg
+  background-image url(../../../public/images/mainboard_title_card_bg.png)
+  background-size 100% 100%
+  height 450px
+  width 40%
+  position absolute
+  z-index 0
+
+.title_board
+  margin 25px 0 0
+  //height 350px
+
+  h1
+    font-size 24px
+    font-weight 700
+    padding-bottom 20px
+
+  p
+    margin-right 70px
+
+  a
+    color $dark-blue
+    text-decoration underline
+    background-color #7db742
+    padding 0px 4px
+
+.content_board
+  margin 20px
+  background-image url(../../../public/images/mainboard_card_bg.png)
+  background-size 100% 100%
+  //height 310px
+
+.content_board_image_1
+  margin-left 20px
+  background-image url(../../../public/images/mainboard_card_1_bg.png)
+  -webkit-clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  background-repeat no-repeat
+  background-position center
+  width 100%
+  position relative
+  height 160px
+  top 20px
+
+.content_board_image_2
+  margin-left 20px
+  background-image url(../../../public/images/mainboard_card_2_bg.png)
+  -webkit-clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  background-repeat no-repeat
+  background-position center
+  width 100%
+  position relative
+  height 160px
+  top 20px
+
+.content_board_image_3
+  margin-left 20px
+  background-image url(../../../public/images/mainboard_card_3.1_bg.png)
+  -webkit-clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  background-repeat no-repeat
+  background-position center
+  width 100%
+  position relative
+  height 160px
+  top 20px
+
+.content_board_image_4
+  margin-left 20px
+  background-image url(../../../public/images/mainboard_card_4_bg.png)
+  -webkit-clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  background-repeat no-repeat
+  background-position center
+  width 100%
+  position relative
+  height 160px
+  top 20px
+
+.content_board_image_5
+  margin-left 20px
+  background-image url(../../../public/images/mainboard_card_5_bg.png)
+  -webkit-clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  background-repeat no-repeat
+  background-position center
+  width 100%
+  position relative
+  height 160px
+  top 20px
+
+.content_board_image_6
+  margin-left 20px
+  background-image url(../../../public/images/mainboard_card_6_bg.png)
+  -webkit-clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  clip-path: polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%);
+  background-repeat no-repeat
+  background-position center
+  width 100%
+  position relative
+  height 160px
+  top 20px
+
+.content_board_image_7
+  margin-left 20px
+  background-image url(../../../public/images/mainboard_card_7_bg.png)
+  -webkit-clip-path polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%)
+  clip-path polygon(18% 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 23%)
+  background-repeat no-repeat
+  background-position center
+  width 100%
+  position relative
+  height 160px
+  top 20px
+
+.content_board_name
+  background-color $green
+  margin-left 20px
+  margin-top 20px
+  padding 5px 10px
+  width 100%
+  font-size 16px
+  position relative
+
+  a
+    color white
+
+  a:hover
+    color white
+    font-weight 700
+
+.content_board_text
+  padding 10px 20px
+  width 100%
+  font-size 12px
+  position relative
+  color $dark-blue
+
+.disabled
+  background-color rgba(60, 60, 60, 0.7)
+  -webkit-clip-path polygon(17% 0, calc(100% - 20px) 0%, calc(100% - 20px) 6%, 100% 6%, 100% 80%, 100% 70%, calc(100% - 20px) 70%, calc(100% - 20px) 100%, 0 100%, 0 100%, 0 11.8%)
+  clip-path polygon(17% 0, calc(100% - 20px) 0%, calc(100% - 20px) 6%, 100% 6%, 100% 80%, 100% 70%, calc(100% - 20px) 70%, calc(100% - 20px) 100%, 0 100%, 0 100%, 0 11.8%)
+  z-index 20
+  position absolute
+  height 310px
+  width calc(25% - 60px)
+  margin 0px -20px 0px 0px
+
+.admin_principal
+  padding 40px 0
+  h1
+    font-size 2em
+    font-weight bold
+    text-transform uppercase
+    position relative
+    margin-bottom 30px
+    &:after
+      content ''
+      position absolute
+      bottom 0
+      left 0
+      width 50%
+      height 5px
+      background-color $primary-color
+      margin-bottom -10px
+  h2
+    font-weight bold
+    font-size 1.4em
+    text-transform uppercase
+
+
+.title_section
+  font-size 1.4em
+  text-transform uppercase
+  color white
+  text-align center
+  font-weight bold
+
+.visao
+  .header
+    background-color $products-visao-bg
+    p
+      color $products-visao-color
+
+.formacao
+  .header
+    background-color $products-formacao-bg
+    p
+      color $products-formacao-color
+
+.red
+  .header
+    background-color $products-red-bg
+    p
+      color $products-red-color
+
+.infra
+  .header
+    background-color $products-infra-bg
+    p
+      color $products-infra-color
+
+.header
+  p
+    color white
+    font-size 1.25em
+
+.dimensions_box
+  margin 10px
+
+.box
+  margin 10px
+  padding 0px
+  background-color #ffffffdd
+
+.main_card_footer
+  background $mainboard-card-footer-bg
+  border-width $mainboard-card-footer-border-width
+  border-style $mainboard-card-footer-border-style
+  border-color $mainboard-card-footer-border-color
+
+  > p
+    padding $mainboard-card-footer-p-padding
+    display $mainboard-card-footer-p-diplay
+    justify-content $mainboard-card-footer-p-justify-content
+
+    a
+      display $mainboard-card-footer-p-a-display
+      background $mainboard-card-footer-p-a-bg
+      padding $mainboard-card-footer-p-a-padding
+      border-radius $mainboard-card-footer-p-a-border-radius
+      color $mainboard-card-footer-p-a-color
+
+      &:hover
+        color $mainboard-card-footer-p-a-color-hover
+        background $mainboard-card-footer-p-a-bg-hover
+
+
+.card
+  box-shadow $mainboard-card-box-shadow
+  height 100%
+  display flex
+  flex-direction column
+  justify-content space-between
+  border-radius $mainboard-card-border-radius
+  overflow: hidden;
+
+  .subtitle
+    font-size 0.9rem
+
+
+.button_link
+  text-transform uppercase
+
+// Products
+.products_container
+  background $products_container-bg
+  margin $products_container-margin
+  padding $products_container-padding
+  flex-wrap wrap
+  align-items: stretch;
+
+  .products_column
+    width $products-column-width
+
+    @media screen and (max-width: $products-column-media-screen-max-width)
+      width 100%
+
+    .products_column_content
+      height 100%
+      box-shadow none

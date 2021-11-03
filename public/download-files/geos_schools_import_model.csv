@@ -1,0 +1,6 @@
+type,affiliation,school_name,level_1_name,level_2_name,level_3_name,level_4_name,unique_code
+Public,Affiliation 1,School 1,Your Country Name,Level 2 Name 1,Level 3 Name 1,Level 4 Name 1,00001
+Private,Affiliation 1,School 2,Your Country Name,Level 2 Name 1,Level 3 Name 2,Level 4 Name 1,00002
+Comunal,Affiliation 2,School 3,Your Country Name,Level 2 Name 1,Level 3 Name 1,Level 4 Name 2,00030
+Public,Affiliation 3,School 4,Your Country Name,Level 2 Name 2,Level 3 Name 3,Level 4 Name 3,00010
+Public,Affiliation 3,School 5,Your Country Name,Level 2 Name 3,Level 3 Name 4,Level 4 Name 4,00040

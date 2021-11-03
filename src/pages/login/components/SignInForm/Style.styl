@@ -1,0 +1,278 @@
+@import '../../../../variables.styl'
+
+.form__width
+  background-color rgba(0,0,0,.2)
+  padding 5px 25px 25px
+  margin 0
+
+.form__white_wrap
+  background-color #ffffff
+  box-shadow $form-white-wrap-box-shadow
+  border-radius: $form-white-wrap-border-radius
+  border-width $form-white-wrap-border-width
+  border-style $form-white-wrap-border-style
+  border-color $form-white-wrap-border-color
+
+  .form__white
+    padding 20px
+    background-color transparent
+    .login__title
+      font-size: 1.2em;
+      margin-top: 10px;
+    .login__input
+      padding-left 30px
+      color $primary-color
+      margin-bottom 2px
+      border-bottom 1px solid $primary-color !important
+      &::-webkit-input-placeholder
+        color $primary-color
+      &::-moz-placeholder
+        color $primary-color
+      &:-ms-input-placeholder
+        color $primary-color
+      &:-moz-placeholder
+        color $primary-color
+    .login__input:-webkit-autofill
+      color $primary-color
+      margin-bottom 2px
+      border-bottom 1px solid $primary-color !important
+    .login__input__password div
+      margin-top 5px
+    .login_div_forgot_link
+      .login__forgot_link
+        color $primary-color
+        &:hover, &:focus
+          color $primary-5
+
+.form__not_registered
+  text-align center
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-left 1px dotted #A7A9AB
+  .button__normal
+    margin-top 10px
+
+@media screen and (max-width: 768px)
+  .form__not_registered
+    border-left 0
+
+.login__container
+  padding 50px 40px 30px 40px
+
+.login__what__is .login__container
+  padding 20px 40px 20px 40px
+  font-size 16px
+
+.login__tagline
+  width 70%
+
+  @media screen and (max-widtsh: 850px)
+    width 100%
+
+.login__title
+  font-size: 1.4em;
+  text-align: center;
+  margin-top: 15px;
+
+.login__subtitle
+  text-align justify
+
+.login__login_call
+  font-weight bold
+  margin 20px 20px
+
+.login__input
+  color white
+  font-weight bold !important
+  background-color transparent !important
+  border 0
+  border-radius 0 !important
+  box-shadow none !important
+  border-bottom 1px solid white !important
+  padding-top 10px !important
+  padding-left 32px !important
+  padding-bottom 10px !important
+  margin-bottom 10px !important
+
+  &::-webkit-input-placeholder
+    font-weight normal
+    color white
+
+  &::-moz-placeholder
+    font-weight normal
+    color white
+
+  &:-ms-input-placeholder
+    font-weight normal
+    color white
+
+  &:-moz-placeholder
+    font-weight normal
+    color white
+
+.login__input:-webkit-autofill
+  color white
+  font-weight bold !important
+  background-color transparent !important
+  border 0
+  border-radius 0 !important
+  box-shadow none !important
+  border-bottom 1px solid white !important
+  padding-top 10px !important
+  padding-left 32px !important
+  padding-bottom 10px !important
+  margin-bottom 10px !important
+
+.login__input__password div
+  margin 20px 0px 0px 0px
+
+.login_div_forgot_link
+  text-align right
+  .login__forgot_link
+    color #FFCB38
+    &:hover, &:focus
+      color $primary-color
+
+.login__steps
+  background-color rgba(19, 29, 60, 0.95)
+
+  &:last-child
+    margin-bottom: 10px
+
+    @media screen and (max-width: 850px)
+      margin-right: 0
+
+.login__steps__step
+  padding 20px 40px
+  background-color #151f3d
+
+.login__what__is
+  background-color rgba(255,255,255, 0.1)
+  padding 5px 60px
+  p
+    margin 5px 10px 10px 10px
+    text-align left
+
+.login__steps__step_number
+  font-size 3em
+
+.login__steps__tagline
+  font-size 2em
+  padding 10px
+
+.login__steps__step_title
+  font-size 1.2em
+  font-weight bold
+  padding-bottom 10px
+
+.login__steps__step_rede
+  background-color $primary-color
+
+  @media screen and (max-width: 850px)
+    display block
+
+.login__steps__step_final_title
+  font-size 1.8em
+  font-weight bold
+  min-width 180px
+
+  @media screen and (max-width: 850px)
+    padding 20px 0
+
+.login__steps__step_final_title_no_wrap
+  white-space nowrap
+
+.placeholder_icon
+  color $primary-color
+  position absolute
+  top 0.5rem
+  left 0.5rem
+  z-index 1
+
+.control__centered
+  margin-top 15px
+  margin-bottom 15px
+  display flex
+  justify-content space-between
+  .control__button
+    width 100%
+    button
+      width 100%
+
+.control__top_space
+  margin-top 20px
+
+.control__bottom_space
+  margin-bottom 20px
+
+  @media screen and (max-width: 850px)
+    width 100%
+
+.stripe
+  background-color $pink
+  height 5px
+  width 115px
+  margin 20px 0
+
+.orientation__image
+  float: right;
+  margin-top: 30px;
+  margin-right: -20px;
+
+.login__container__call
+  width 60%
+  height 160px
+  text-align center
+  display table
+
+  .child
+    vertical-align middle
+    display table-cell
+
+.text_highlight_pink
+  display inline-block
+  font-size 18px
+  background-color $pink
+  padding 0px 5px
+  margin 3px
+
+.button__call
+  margin-top 15px
+
+// .control__signing__btn
+//   background-color rgba(0, 0, 0, 0.5) !important
+
+
+.login__signing__container
+  background-color rgba(255, 255, 255, 0.20)
+
+.login__signing_call
+  margin-top 30px
+
+  h3
+    font-size 16px
+    margin 20px 0px 10px 5px
+
+.margin__auto
+  margin auto
+
+.accession
+  margin-top 20px
+  a
+    background-color $primary-color
+    border 0
+    padding-left 25px
+    padding-right 25px
+    &:hover, &:focus
+      background-color $primary-5
+
+.manager_info
+  color #777
+  font-size 13px
+  font-style italic
+  margin-top 30px
+  i
+    margin-right 5px
+    opacity 0.3

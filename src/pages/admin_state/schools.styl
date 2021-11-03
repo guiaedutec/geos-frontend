@@ -1,0 +1,378 @@
+@import '../../variables.styl';
+
+
+.form__label
+  color #69707a
+  margin 10px 0 0
+  &.sharing
+    margin-top 20px
+
+.form__input
+  margin 10px 0 0
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  margin-bottom 10px
+  padding-top 0
+  padding-bottom 0
+  margin-left 0!important
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background #85c440!important
+
+.form__checkbox
+  outline none
+  margin-right 10px
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.followup_container
+  padding 0 30px
+  padding-top 10px
+
+.followup_stats__container
+  padding 0 25px
+
+.followup_stats__answers_stat
+  padding 0 30px
+
+.followup__info__table_container
+  //overflow-x scroll
+  margin-top 50px
+  margin-bottom 50px
+
+.followup__info__table__principal_th
+  i:first-child
+    margin-right 10px
+    margin-left @margin-right
+
+.followup__info
+  display flex
+  justify-content center
+  align-items center
+
+.followup__info_number
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+
+.followup__info__table
+  background-color transparent
+  max-width 100%
+
+  th, td
+    vertical-align middle
+    text-align center
+
+  td
+    position relative
+
+  th
+    text-transform uppercase
+    font-weight 300
+    cursor pointer
+    outline none
+
+    transition color .3s ease-out, border-top-color .5s ease-out, border-bottom-color .5s ease-out
+
+.followup__info__table_highlightedTh
+  border-top 2px solid $green !important
+  border-bottom @border-top
+  color $green !important
+  font-weight 700 !important
+
+.followup__info__table__dot_yes, .followup__info__table__dot_no
+  border-radius 50%
+  width 10px
+  height @width
+  display inline-table
+
+.followup__info__table__dot_yes
+  background-color #85c440
+
+.followup__info__table__dot_no
+  background-color #a5a5a5
+
+.total_schools
+  font-size 1.2em
+  margin-bottom 10px
+  .number
+    font-weight bold
+
+.filter
+  flex-grow .5
+  input[type='text']
+    border-radius 5px
+
+
+$pointer-size = 10px
+.followup__info__sample
+  background-color #85c440
+  position relative
+  padding 50px 0
+
+  span
+    color #fff
+    text-transform lowercase
+
+  &:after
+    content ''
+    position absolute
+    width $pointer-size
+    height @width
+    right -($pointer-size*2)
+    border $pointer-size solid transparent
+    border-left $pointer-size solid @background-color
+
+@media(min-width 600px)
+  .followup_info__table_menu_sticky
+    width 100%
+    position fixed
+    z-index 1000
+    padding 15px
+    top 0
+    left 0
+    margin 0
+    background-color #fff
+
+@media(max-width: 769px)
+  .followup_container
+    padding-left 0
+    padding-right 0
+
+  .followup__info
+    flex-direction column
+    align-items space-around
+
+  .followup__info__sample
+    padding 15px 50px
+    margin 10px 0
+
+    &:after
+      border-left-color transparent
+      border-top-color #85c440
+      right 50%
+      margin-right -($pointer-size)
+      bottom -($pointer-size*2)
+
+  .followup_stats__answers_stat:not(:first-child)
+    margin-top 15px
+
+//.validate_school
+//  position absolute
+//  right 2px
+
+//.import_xls
+//  margin-left 10px
+
+.msg_non_city
+  color red
+
+.modal
+  position relative
+  margin 0 auto
+  top 5%
+  width 600px
+  border-radius 6px
+  box-sizing border-box
+  background-color white
+  &.modal__lg
+    max-width 910px
+
+.overlay
+  position fixed
+  z-index 10000
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background-color rgba(20,30,61,.6)
+
+.modal__header
+  padding 15px
+  border-bottom 1px solid #e5e5e5
+
+  h4
+    font-size 18px
+
+.modal__body
+  position relative
+  margin 0
+  padding 15px
+  overflow-wrap break-word
+  overflow-y auto
+  max-height 400px
+
+  ul
+    display block
+    list-style-type disc
+    -webkit-margin-before 1em
+    -webkit-margin-after 1em
+    -webkit-margin-start 0px
+    -webkit-margin-end 0px
+    -webkit-padding-start 40px
+
+    li
+      display list-item
+      text-align -webkit-match-parent
+
+  p
+    display block
+    -webkit-margin-before 1em
+    -webkit-margin-after 1em
+    -webkit-margin-start 0px
+    -webkit-margin-end 0px
+
+.modal__footer
+  padding 15px
+  text-align right
+  border-top 1px solid #e5e5e5
+
+.instructions
+  font-size 16px
+  color $dark-blue
+
+  a
+    font-weight 700
+    text-decoration underline
+    color: #54B847;
+    cursor: pointer;
+    text-decoration-color: $pink;
+    transition: none 86ms ease-out;
+
+
+
+.container
+  height 70vh
+
+.section
+  background none
+  padding-left 10px
+
+.highlighted
+  font-weight bold
+
+.header__title_stripe
+  background-color #85c440
+  width 50%
+  height 4px
+  margin 20px 0
+
+.form__label
+  color #69707a
+  margin 10px 0 0
+  &.sharing
+    margin-top 20px
+
+.form__input
+  margin 10px 0 0
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  margin-bottom 10px
+  padding-top 0
+  padding-bottom 0
+  margin-left 0!important
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background #85c440!important
+
+.form__checkbox
+  outline none
+  margin-right 10px
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.field__warning
+  position absolute
+  right 6px
+  top 3px
+  color #a7a9ab
+  z-index 9
+  background #ffffff
+  padding 6px
+  border-radius 20px
+
+.field__description
+  font-size 0.8em
+  margin -0.5em 0 0.5em
+  font-style italic
+
+.field__datepicker
+  padding-left 30px!important
+
+.field__calendar
+  position absolute
+  left 10px
+  top 10px
+  color #85c440
+  z-index 9
+
+.form_cpf
+  padding 0 10px 0 0!important
+
+.form_born
+  padding 0 0 0 10px!important
+
+@media screen and (max-width: 768px)
+  .form_cpf
+    padding 0!important
+
+  .form_born
+    padding 0!important
+
+.is_danger
+  border 1px solid #ff3860
+  border-radius 10px
+
+.title_section
+  font-size 1.7em
+  text-transform uppercase
+  color #85c440
+  font-weight bold
+
+.modal_termo
+  font-size .9em
+  header
+    p
+      flex-shrink 1
+      font-size 1.4rem
+      line-height 1.3
+      text-align center
+  ol
+    counter-reset item
+    margin-top 10px
+    padding-inline-start 15px
+  li
+    display block
+    margin-bottom 20px
+    &:before
+      margin-right 5px
+      content counters(item, ".") " "
+      counter-increment item
+
+.is_relative
+  position relative

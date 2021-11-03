@@ -1,0 +1,340 @@
+@import '../../variables.styl'
+
+
+.hamburgerMenu
+  a
+    color white !important
+  a:hover
+    color $primary-color !important
+
+
+.wrap_header
+  position fixed
+  top 0
+  width 100%
+  z-index 99
+  background $nav-non-user-bg-color
+
+.header
+  background-color $nav-non-user-bg-color
+  align-items center
+  padding 10px 30px
+  margin 0px
+  color $nav-non-user-text-color;
+  z-index 99
+  box-shadow: $nav-non-user-box-shadow
+
+  .menu__collapsed
+    color: $nav-non-user-text-color;
+
+    &:hover,
+    &:focus
+      background-color: rgba(0, 0, 0, 0.2);
+
+.position_relative
+  position relative
+
+.demonstration
+  position absolute
+  background-color #ed3079
+  z-index 99
+  top -1.5rem
+  right -5.4rem
+  transform rotate(45deg)
+  font-size 1.3rem
+  color white
+  padding 10px
+  width 16rem
+  height 8.3rem
+  display flex
+  align-items flex-end
+  justify-content center
+
+.visitor
+  padding-right 11rem
+
+.pageHeader
+  background-color #ffffff
+  border-width: $profile-border-width
+  border-style: $profile-border-style
+  border-color: $profile-border-color
+  color $secondary-color
+  padding 2rem
+  border-radius $profile-border-radius
+
+.itens_center
+  align-items center
+
+.header__user_actions__user_pic
+  border-radius 50%
+
+.header__user_actions_container
+  padding 0 10px
+
+  h2
+    font-size 16px
+    font-weight 700
+
+.header__user_actions__dropdown
+  margin-left 20px
+  color #fff
+
+.header__user_actions__greetings
+  margin 0 10px
+  text-align left
+  position relative
+
+.header__user_actions__greetings_name
+  color #fff
+
+.header__logo
+  width 180px
+  height auto
+  margin-right 2rem
+  img
+    max-height unset
+
+.navbar_start
+  width 100%
+  .navbar_main
+    width 100%
+    display block
+    .top_line
+      display flex
+      justify-content space-between
+      align-items center
+      margin-bottom 5px
+      >p
+        font-size 0.95rem
+      .base_right
+        display flex
+        align-items center
+        .social_media
+          a
+            color $medium-grey
+            margin-left 1.5rem
+            font-size 1.1em
+            &:hover,
+            &:focus
+              color $primary-color
+      .title_page
+        font-size 1.3rem
+    .bottom_line
+      border-top 1px solid $light-grey
+      width 100%
+      display flex
+      justify-content space-between
+      align-items center
+      .base_right
+        display flex
+        align-items center
+        justify-content flex-end
+        .btn_profile
+          color $primary-color
+          border  $btn-border-width $btn-border-style $primary-color
+          border-radius $btn-border-radius-base
+          &:after
+            border-color $primary-color
+        .footer_logo_secondary
+          width 9.5rem
+      .menu_itens
+        >:first-child:not(.is_not_first)
+          padding-left 0
+        padding 1.2rem 0
+        display flex
+        .link_subtitle
+          color $primary-color
+
+.navbar_dropdown
+  border 0
+  border-radius 0
+  >hr:first-child
+    display none
+
+.menu__item
+  color $nav-non-user-text-color
+  border-bottom 1px solid rgba(255,255,255,0)
+
+  h2
+    border-right 3px solid white
+    padding-right 20px
+
+a.menu__item:hover,
+a.menu__item:focus
+  color #a0a0a0
+  background-color transparent
+  border-bottom 1px solid white
+
+// Dropdown
+.header__user_actions_dropdown_menu
+  background-color #fff
+  width 100%
+  padding 10px 5px
+  position absolute
+  top 0
+  right 0
+  display none
+  border-radius 10px
+  box-shadow 0 0 2px #000
+
+  a
+    color #000
+
+.header__user_actions__greetings:hover
+  .header__user_actions_dropdown_menu
+    display block
+
+.header__mobile_links
+  @media screen and (max-width: 850px)
+    justify-content center
+
+.hero__input, .hero__input:-webkit-autofill
+  color white
+  font-weight bold
+  background-color transparent !important
+  border 0
+  border-radius 0 !important
+  box-shadow none
+  border-bottom 1px solid white
+  padding-left 32px !important
+  padding-bottom 10px !important
+  margin-bottom 10px
+
+  &::-webkit-input-placeholder
+    color white
+
+  &::-moz-placeholder
+    color white
+
+  &:-ms-input-placeholder
+    color white
+
+  &:-moz-placeholder
+    color white
+
+.form__width
+  margin 0px 15px
+
+  @media screen and (max-width: 850px)
+    width 100%
+
+.hero__form_login_call
+  font-weight bold
+  margin 0px 20px
+  text-align left
+
+.control__signing__btn__size
+  min-width 100px !important
+  height 40px
+  margin auto
+
+.control__signing__btn
+  background-color rgba(0, 0, 0, 0.5) !important
+
+.hero__signing__columns
+  margin-bottom 0px
+
+.hero__signing__column
+  padding-top 0px
+  padding-bottom 0px
+
+.hero__input__password div
+  margin 20px 0px 0px 0px
+
+.hero__forgot_link
+  margin 0px
+
+.hero_div_forgot_link
+  text-align right
+  padding-top 0px
+
+  a
+    color $primary-color
+    cursor pointer
+    text-decoration none
+    transition none 86ms ease-out
+
+.control__centered
+  display flex
+  justify-content space-between
+
+.header__action__align_middle
+  align-items center
+
+
+@media print
+  .header
+    display none
+
+  .not_print
+    display none
+
+
+@media(min-width: 1024px)
+  .navbar_start
+    align-items: stretch;
+    display: flex;
+    justify-content: flex-start;
+    margin-right: auto;
+
+.navbar
+  &:hover, &:focus
+    a > strong
+      color $secondary-color
+  .navbar_brand
+    background-color $navbar-config-bg
+
+    > a
+      transition brackground-color 0.2s
+
+      &:after
+        border-color $navbar-config-color !important
+
+      &:hover
+        background-color $navbar-config-bg-hover !important
+
+    i
+      color $navbar-config-color
+
+  .config_icon
+    display flex
+
+  .config_text
+    margin-left 1.25em
+    font-size 1.25em
+    color $navbar-config-color
+    display inline-block
+
+  .info_bar
+    padding-top 5px
+    padding-bottom 0px
+    align-items flex-start
+    display flex
+    flex-direction column
+    justify-content center
+    margin-left 30px
+
+    .subtitle
+      margin-top -0.85rem
+      line-height 1em
+      font-size 0.9rem
+
+    .bp_5
+      padding-bottom 5px
+
+  .submenu
+    margin-left 1.75rem
+    border-left 1px solid $medium-grey
+
+    > a
+      padding-left 1.0em
+
+      &:hover, &:focus
+        color $secondary-color
+
+@media(min-width 1023px)
+  .navbar
+    .submenu
+      margin-left 1.25rem
+    .config_text
+      display none

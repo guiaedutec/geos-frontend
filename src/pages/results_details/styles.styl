@@ -1,0 +1,83 @@
+@import '../../variables.styl'
+
+.title
+  padding-top 30px
+  padding-bottom 20px
+
+h2
+  font-size 28px
+  line-height 45px
+
+.question_truncate
+  overflow hidden
+  display -webkit-box
+  display -moz-box
+  display box
+  box-orient vertical
+  /* autoprefixer: off */
+  -webkit-box-orient vertical
+  -moz-box-orient horizontal
+  line-clamp 3
+  -webkit-line-clamp 3
+  height 60px
+
+
+.download_button
+  float right
+  margin-right 40px
+  margin-top 15px
+
+.overflow_container
+  overflow scroll
+  height 500px
+
+  table
+    th, td
+      text-align center
+      vertical-align bottom
+      border 1px solid #cecece
+      min-width 90px
+
+    thead
+      border 2px solid #cecece
+
+    .school_name
+      min-width 200px
+
+.still_loading
+  position: absolute;
+  bottom: 2em;
+  left: 50%;
+  margin-left: -57px;
+
+.still_loading div
+  margin-left: calc(50% - 27px);
+
+.loader
+  -webkit-box-flex 0
+  -ms-flex 0 0 auto
+  flex 0 0 auto
+  display -webkit-box
+  display -ms-flexbox
+  display flex
+  -webkit-box-orient vertical
+  -webkit-box-direction normal
+  -ms-flex-direction column
+  flex-direction column
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+  -webkit-box-pack center
+  -ms-flex-pack center
+  justify-content center
+  width 100%
+  height 100%
+  font-size 18px
+  letter-spacing 1px
+  position relative
+
+.loader_error
+  color #c0c2c4
+  font-size 16px
+  text-align center
+  font-weight 700

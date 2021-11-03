@@ -1,0 +1,120 @@
+.devolutive__title
+    color #69707a
+    text-align center
+    vertical-align center
+    font-size 16px
+
+.devolutive__title:not([align])
+  text-align center
+
+.followup_container
+  padding 0 30px
+  padding-top 50px
+
+.followup__info__table_container
+  overflow-x scroll
+  margin-top 50px
+
+.followup__info__table__principal_th
+  i:first-child
+    margin-right 10px
+    margin-left @margin-right
+
+.followup__info__table
+  background-color transparent
+  max-width 100%
+  margin-top 10px
+
+  th, td
+    vertical-align middle
+    text-align center
+
+  td
+    position relative
+
+  th
+    text-transform uppercase
+    font-weight 300
+    cursor pointer
+    outline none
+
+    transition color .3s ease-out, border-top-color .5s ease-out, border-bottom-color .5s ease-out
+
+.followup__info__table_highlightedTh
+  border-top 2px solid $green !important
+  border-bottom @border-top
+  color $green !important
+  font-weight 700 !important
+
+.followup__info__table__dot_yes, .followup__info__table__dot_no
+  border-radius 50%
+  width 10px
+  height @width
+  display inline-table
+
+.followup__info__table__dot_yes
+  background-color #85c440
+
+.followup__info__table__dot_no
+  background-color #a5a5a5
+
+.form
+  padding 0 80px
+
+.form__label
+  color #69707a
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background green !important
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.color_gray
+  color #69707a
+  font-weight bold
+
+.color_red
+  color green
+  font-size 14px
+
+.field
+  margin 20px 0
+
+.field__manager
+  margin 20px 0
+  margin-bottom 40px
+
+.remove
+  color red
+  text-align right;
+
+.btn
+  box-shadow 0 2px 4px 0 #cecece;
+  &.last_page
+    float right
+
+td.main__table__content
+  text-align left
+
+.highlighted
+  font-size 18px
+  font-weight bold
+
+.editor
+  background: white;
+  border: 1px solid #F1F1F1;
+  padding 0px 10px

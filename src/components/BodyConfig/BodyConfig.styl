@@ -1,0 +1,50 @@
+@import '../../variables.styl';
+
+.body
+  background-color #ffffff
+
+
+.followup_container
+  padding 0 30px
+  padding-top 50px
+
+.wrap_buttons
+  position relative
+  padding: 2rem 1rem;
+  display flex
+  justify-content space-between
+
+  button
+    background-color transparent
+    color $primary-color
+    border-color $primary-color
+    border-width $btn-border-width
+    border-style $btn-border-style
+    border-radius $btn-border-radius-base
+    transition all 0.2s
+
+    &:hover
+      background-color $primary-color
+      color white
+      border-color $primary-color
+
+    &:focus
+      background-color $primary-color
+      color white
+      border-color $primary-color
+
+.button_next
+  // position absolute
+  // right 0px
+  // margin 10px
+
+.button_previus
+  // position absolute
+  // margin 10px
+
+.hide
+  display none
+
+@media print
+  .button_next, .button_previus
+    display none

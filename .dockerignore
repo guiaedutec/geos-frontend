@@ -1,0 +1,7 @@
+/.circleci
+/.ebextensions
+/.elasticbeanstalk
+/temp
+.ebignore
+README.md
+Dockerfile

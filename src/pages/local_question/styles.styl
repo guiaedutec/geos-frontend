@@ -1,0 +1,125 @@
+@import '../../variables.styl';
+
+.container
+  height 70vh
+
+.followup_container
+  padding 0 30px
+  padding-top 50px
+
+.section
+  background none
+  padding-left 10px
+
+.highlighted
+  font-size 18px
+  font-weight bold
+
+.header__title_stripe
+  background-color $primary-color
+  width 50%
+  height 4px
+  margin 20px 0
+
+.header__holder
+  float left
+
+.header__holder ~ p
+  float left
+
+@media(max-width 700px)
+  .header__holder, .header__holder ~ p
+    float initial
+
+.form
+  padding 0 80px
+
+.remove
+  color red
+  text-align right;
+
+.single_check_box
+  padding 0px 0px 15px 0px
+  margin-top -5px
+
+.add_btn
+  text-align center;
+
+.remove_btn
+  text-align right;
+  color: red;
+
+.remove__option__btn
+  text-align right
+  color red
+  background none
+  border none
+  padding 0px
+  margin 0px
+  height 22px
+
+.btn__right
+  float right
+  height 23px
+
+.btn__right__new
+  padding 20px 0px 0px 10px
+  float right
+
+.div__group__option
+  display flex
+
+.div__option
+  min-height 23px
+  width 100%
+
+.input__option__type
+  width 16px
+  height 16px
+  vertical-align text-bottom !important
+
+.form__label
+  color #69707a
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background $primary-color !important
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.field
+  margin 20px 0
+
+.question__title
+  background-color $primary-color
+
+.error_msg
+  font-size:20px
+  color #FF0000
+
+.success_msg
+  font-size:20px
+  color $primary-color
+
+.obs
+  font-size 12px
+  color darkgray
+
+.local__question__title
+  padding-bottom 0px
+
+.new__question__button
+  width 260px

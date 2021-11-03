@@ -1,0 +1,454 @@
+@import '../../variables.styl'
+
+.paragraph_spacing
+  p
+    margin-bottom 20px
+
+.hero
+  background-image url(../../../public/images/bg-top.png)
+  background-repeat no-repeat
+  background-position center
+  background-size cover
+  color white
+  height 781px
+
+  strong
+    color white
+
+.hero__container
+  padding 80px 40px 30px 40px
+
+.section_top_header
+  padding 0px 40px
+  z-index 10
+  position relative
+
+  h1
+    font-size 24px
+    font-weight 700
+    text-align center
+
+.columns_board
+  padding 0px 0px
+  z-index 10
+  position relative
+
+  h1
+    font-size 24px
+    font-weight 700
+    text-align left
+
+.results_container_title
+  padding 0px 40px;
+  margin-top 20px;
+
+.results_container_selects
+  padding 0 40px
+
+.results_print_column
+  display flex
+
+.results_info_not_data
+  display flex
+  align-items center
+  justify-content flex-start
+
+  p
+    text-align left
+    font-size 18px
+    padding-top 20px
+
+.title_board_bg
+  background-image url(../../../public/images/mainboard_title_card_bg.png)
+  background-size 100% 100%
+  height 450px
+  width 40%
+  position absolute
+  z-index 1
+
+.title_board
+  margin 10px 0px
+  height 180px
+
+  h1
+    font-size 24px
+    font-weight 700
+    padding-bottom 20px
+
+  p
+    margin-right 70px
+
+.content_board
+  margin 20px
+  background-image url(../../../public/images/mainboard_card_bg.png)
+  background-size 100% 100%
+  height 310px
+
+h2
+  font-size 45px
+  line-height 45px
+
+.section_header
+  z-index 10
+  position relative
+  background-color $dark-blue
+  color white
+  margin 0px 40px
+
+  h1
+    font-size 24px
+    font-weight 700
+    margin-left: 4px
+
+.underline
+  background #fff
+  margin-top 5px
+  height 10px
+  width 100px
+
+.section_body
+  z-index 10
+  position relative
+  margin: 0px 40px;
+  background-color #fff
+  color $dark-blue
+
+  h2
+    font-size 18px
+    font-weight 700
+
+  h3
+    font-size 16px
+
+  .geral_distribution_chart
+    max-width 620px
+
+  .geral_distribution_text
+    margin 20px 20px 50px 0px
+
+    div
+      padding 0.2rem 0
+      line-height 1rem
+      margin 0 0 0.32rem
+      .content
+        font-size 11px
+.loading
+  display block
+  width 50px
+  border 0
+  background-color transparent
+
+.result_title
+  text-align center
+  background-color #eee
+
+  p
+    font-size 16px
+
+.wrap_table
+  overflow-x auto
+  .result_table
+    background-color transparent
+    margin 20px 0px
+    width 100%
+
+    tr
+      td, th
+        text-align center
+        min-width 200px
+        border solid 4px #fff
+        background-color #eee
+        vertical-align middle
+
+    .title
+      background-color $dark-blue
+      color white
+      font-size 16px
+      padding 10px
+      text-align center
+
+    td.title
+      border-top 30px solid
+      border-bottom 30px solid
+
+    .none
+      background-color transparent
+
+.result__description
+  padding-left 0px
+  font-weight 300
+  font-size 1.425rem
+
+.section1
+  .loading:after
+    border-left-color $yellow!important
+    border-bottom-color $yellow!important
+  u
+    text-decoration none
+    border-bottom 3px solid $yellow
+  .underline
+    background $yellow
+    margin-top 5px
+    height 10px
+    width 100px
+
+.section2
+  .loading:after
+    border-left-color $pink!important
+    border-bottom-color $pink!important
+  u
+    text-decoration none
+    border-bottom 3px solid $pink
+
+  .underline
+    background $pink
+    margin-top 5px
+    height 10px
+    width 100px
+
+.section3
+  .loading:after
+    border-left-color $blue!important
+    border-bottom-color $blue!important
+  u
+    text-decoration none
+    border-bottom 3px solid $blue
+
+  .underline
+    background $blue
+    margin-top 5px
+    height 10px
+    width 100px
+
+.section4
+  .loading:after
+    border-left-color $green!important
+    border-bottom-color $green!important
+  u
+    text-decoration none
+    border-bottom 3px solid $green
+
+  .underline
+    background $green
+    margin-top 5px
+    height 10px
+    width 100px
+
+.div_questions
+  position absolute
+  width 100%
+  margin 30px 30px 5px 30px
+
+.table_questions
+  width 90%
+
+  tr
+    border-bottom 1px solid
+    height 44px
+
+    td
+      vertical-align middle
+
+.question_result_li
+  display flex
+  list-style none
+  height auto
+  border-bottom 1px outset #131d3c
+  display grid
+  grid-template-columns 30% 70%
+
+.question_result_text_value
+  padding-left 8px
+  min-height 46px
+  display flex
+  flex-direction row
+  align-items center
+  justify-content flex-start
+
+.clean_column
+  width 100%
+  position relative
+  height auto
+
+.clean_column_text
+  font-size 18px
+  font-weight bold
+  padding-left: 8px;
+
+.question_title
+  margin 20px 0px 20px 0px
+
+.results_data
+  background-color rgba(19,29,60, .5)
+  font-size 16px
+
+.results_loading_container
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  width 100%
+  height 100%
+  margin 40px 0px
+
+.submit_btn
+  text-align right
+
+.question_description
+  overflow hidden
+
+.question_truncate
+  overflow hidden
+  display -webkit-box
+  display -moz-box
+  display box
+  box-orient vertical
+  /* autoprefixer: off */
+  -webkit-box-orient vertical
+  -moz-box-orient horizontal
+  line-clamp 3
+  -webkit-line-clamp 3
+
+.align__right
+  padding-right 0px
+  text-align right
+
+.result_number
+  font-weight 700
+  font-size 28px
+  margin-left 5px
+
+.description_text
+  font-size 16px
+
+.warning_result
+  color #fff
+  background-color red
+  padding 10px
+  text-align center
+  font-size 16px
+
+.result_puzzle
+  position relative
+
+.result_puzzle_text
+  font-size 28px
+  font-weight 700
+  position absolute
+  margin-top 12px
+
+.resultPerDimension
+  .dimensionChart
+      margin auto
+
+.selectRegional
+  text-align right
+
+.print
+  display none
+
+ul
+  list-style-type circle
+
+.recharts_width_print
+  width 372px!important
+
+.chart2
+  margin auto
+  width 50% !important
+
+@media print
+  @page {
+    size: A4;
+    margin: 10mm 10mm 10mm 10mm;
+  }
+
+  .button_result
+    display none
+
+  .selectRegional
+    display none
+
+  .not_print
+    display none
+
+  .print
+    display inherit
+
+  .print_column
+    display flex
+
+  .title_main
+    margin-top 0
+    padding-top 0
+    text-transform uppercase
+    .state_name
+      font-size 25px
+
+  h2
+    font-size 34px
+
+  .section_body
+    .result__description
+      font-size 13px!important
+    .result_number
+      font-size 15px!important
+  .result_title
+    margin 0px
+    p
+      font-size 13px!important
+
+  .wrap_table
+    .result_table
+      zoom 0.7
+
+  .result_table
+    margin 10px 20px
+    width min-content
+
+    tr
+      td, th
+        text-align center
+        min-width 170px
+        border solid 4px #fff
+        background-color #eee
+        vertical-align middle
+
+    .title
+      background-color $dark-blue
+      color white
+      font-size 16px
+      padding 10px
+      text-align center
+
+    td.title
+      border-top 30px solid
+      border-bottom 30px solid
+
+    .none
+      background-color transparent
+
+  .question_title
+    margin 0px 50px 0px 50px
+
+  .columns_board
+    margin 0px 50px
+    z-index 10
+    position relative
+
+  .title
+
+
+  .submit_btn
+    display none
+
+  .warning_result
+    color #fff
+    background-color red
+    padding 10px
+    text-align center
+    font-size 12px
+
+  .page_break
+    page-break-before always
+    break-before page

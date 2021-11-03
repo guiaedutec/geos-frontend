@@ -1,0 +1,69 @@
+@import '../../variables.styl';
+
+.statistics
+  .column
+    .card
+      background $primary-color
+      height 140px
+      color white
+      // box-shadow: none
+      .card_media
+        margin-bottom 0.5rem
+        .card_title
+          display flex
+          align-items center
+          font-size 1.7rem
+          font-weight 400
+          gap 10px
+          > div
+            > span
+              font-size: 1.7rem;
+        .card_subtitle
+          margin-bottom 0
+          font-size 1.7em
+          font-weight bold
+          color white
+        figure
+          width 64px
+          height 64px
+          background-color white
+          padding 0.6rem
+          border-radius 50%
+          border 3px solid $primary-color
+        *
+          color white
+  &.small
+    .column
+      padding-left 0
+      padding-right 0
+      .card
+        .card_content
+          padding 0.8rem
+        .card_media
+          .card_title
+            *
+              font-size 0.75em
+          .card_subtitle
+            font-size 1em
+            font-weight normal
+          figure
+            width 48px
+            height 48px
+            border-width 1px
+  &.clean
+    .column
+      .card
+        background white
+        color #131D3C
+        border-radius 0
+        border 1px solid #efefef
+        .card_media
+          *
+            color #131D3C
+
+//for file CountNumber.js
+.count_number
+  font-size 2rem
+  font-weight bold
+  color #131D3C
+

@@ -1,0 +1,336 @@
+@import '../../variables.styl';
+
+.show
+  display block
+
+.hide
+  display none
+
+.title_table
+  text-align center
+
+.instruction_question_disabled
+  font-style italic
+  color gray
+
+.avalie
+  margin 20px auto
+  font-weight bold
+  display block
+  text-align center
+
+.page__title
+  font-size 28px
+  font-weight bold
+
+.page__description
+  font-size 16px
+  font-weight 300  
+
+.not_question
+  .page__title
+    margin-bottom 15px
+
+  .page__description
+    font-weight normal
+
+.img_header
+  margin auto
+  width 1200px
+  height: 188px
+
+.h1
+  font-size: 20px
+  &:not(.not_question)
+    padding 20px 40px
+
+.h2_underscore
+  font-size: 18px
+  text-decoration: underline
+
+.h2
+  font-size: 18px
+
+.padding_top
+  padding-top: 20px
+
+.padding_bottom
+  padding-bottom: 20px
+
+.padding
+  padding: 20px
+
+.text_indent
+  margin-left: 10px
+
+.uppercase
+  text-transform: uppercase
+
+.section_questions
+  background-color $lightest-grey
+
+.label
+  font-size 0.8em!important
+
+.input_txt
+  -webkit-appearance: none
+  align-items: center
+  background-color: #fff;
+  border: 1px solid #d3d6db
+  border-radius: 3px
+  color: #222324
+  display: inline-flex
+  font-size: 14px
+  height: 32px
+  justify-content: flex-start
+  line-height: 24px
+  padding-left: 8px
+  padding-right: 8px
+  position: relative
+  vertical-align: top
+  box-shadow: inset 0 1px 2px hsla(0,0%,7%,.1)
+  padding-right: 32px
+  border-radius: 30px
+  padding-left: 15px
+  box-shadow: none
+  &.teachers
+    width 100%
+    padding-right 15px
+
+.img_background
+  position: absolute
+  width: 100%
+  height: 100%
+  background-size cover
+  background-attachment fixed
+
+.container
+  width: 55%
+  display: flex                  /* establish flex container */
+  flex-direction: row            /* default value; can be omitted */
+  flex-wrap: nowrap              /* default value; can be omitted */
+  justify-content: space-between /* switched from default (flex-start, see below) */
+  //background-color: lightyellow
+
+.container_infra
+  width: 100%
+  display: flex                  /* establish flex container */
+  flex-direction: row            /* default value; can be omitted */
+  flex-wrap: nowrap              /* default value; can be omitted */
+  justify-content: space-between
+
+.container > div
+  width: 100%
+  height: 100%
+  color: #222324
+  //border: 2px dashed red
+
+.container_infra > div
+  height: 100%
+  color: #222324
+
+.slider_internal
+  background : #54B847
+  -moz-border-radius:50px
+  -webkit-border-radius:50px
+  border-radius: 50px
+  color: white
+  text-align: center
+
+  span {
+    padding: 0 10px
+  }
+
+.slider_external
+  -moz-border-radius:50px
+  -webkit-border-radius:50px
+  border-radius: 50px
+  width: 200px
+  background : #69707a
+
+.slider_internal0
+  width: 0%
+
+.slider_internal1
+  width: 13%
+
+.slider_internal2
+  width: 25%
+
+.slider_internal3
+  width: 38%
+
+.slider_internal4
+  width: 50%
+
+.slider_internal5
+  width: 63%
+
+.slider_internal6
+  width: 75%
+
+.slider_internal7
+  width: 88%
+
+.slider_internal8
+  width:100%
+
+.section__2
+  .page__title
+    padding-bottom 0!important
+
+.div_html
+  display: inline
+
+.div_header_text_columns_first
+  width: 100%
+
+.div_header_text_columns
+  min-width: 199px;
+  text-align: center;
+  font-weight: bold;
+
+.div_text_columns
+  min-width: 300px;
+  min-height: 100px;
+
+.div_input_text_columns
+  line-height: 80px
+
+.input_text_columns
+  -webkit-appearance: none
+  align-items: center
+  background-color: #fff;
+  border: 1px solid #d3d6db
+  border-radius: 3px
+  color: #222324
+  display: inline-flex
+  font-size: 14px
+  height: 32px
+  justify-content: flex-start
+  line-height: 24px
+  padding-left: 8px
+  padding-right: 8px
+  position: relative
+  vertical-align: top
+  box-shadow: inset 0 1px 2px hsla(0,0%,7%,.1)
+  padding-right: 32px
+  border-radius: 30px
+  padding-left: 15px
+  box-shadow: none
+  vertical-align: middle;
+
+.tranparency
+  background-color $survey-bg-color
+  padding $survey-padding
+  font-family $font-family
+  font-size 18px
+  color #2c3e50
+
+.content_questions
+  max-width 1120px
+  margin auto
+
+.controls__button
+  .with_icon
+    display flex
+    align-items center
+    justify-content space-evenly
+    width: 100%
+
+.controls__slider
+  padding-bottom 40px
+  width 200px
+  margin auto
+
+
+
+.question__title
+  padding 0px
+
+.question__obs
+  font-size 12px
+  font-style italic
+
+.question__options
+  padding $question-options-padding
+
+  &.question__text
+    padding-left 0
+
+.card_header
+  align-items flex-start
+  flex-direction column
+  .highlight
+    padding 1px 5px 3px
+    background-color #FFEB3B
+
+.question__option
+  padding 5px 0px
+  margin-bottom 15px
+
+.text__label
+  font-size 0.9rem!important
+  line-height 1.2em
+
+.bold
+  font-weight 700
+
+.question,
+.not_question
+  background $quetion-bg-color
+  border-width $quetion-border-width
+  border-style $quetion-border-style
+  border-color $quetion-border-color
+  border-radius $quetion-border-radius
+  margin 20px 0
+  padding $quetion-padding
+  width 100%
+
+.question_title
+  display flex
+  align-items center
+
+  &.question_title_text
+    flex-direction column
+    align-items initial
+
+    span
+      font-size 40px
+
+  span
+    margin $question-options-number-margin
+    font-size $question-options-number-font-size
+    font-weight bold
+    color $question-options-number-color
+
+.box__question__compound
+  box-shadow 0 2px 5px 0 lightgrey
+  background-color white
+  border 1px solid lightgrey
+  border-radius 7px
+  padding 15px
+  .question__child
+    margin-top 1rem
+    &:last-child
+      margin-bottom 1rem
+
+.question__compound:nth-child(even)
+  align-self flex-end
+
+.title__compound
+  margin-bottom 20px
+  font-weight bold
+
+input[type='radio'], input[type='checkbox']
+  width 16px
+  height 16px
+  left -1.3rem
+  position absolute
+  top 0.1rem
+  &:checked:after
+    background-color #ffa500
+
+.label__radio
+  line-height 1.5
+  padding-left 1rem

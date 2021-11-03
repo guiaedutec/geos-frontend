@@ -1,0 +1,111 @@
+@import '../../variables.styl';
+
+
+.container
+  height 70vh
+
+.section
+  background none
+  padding-left 10px
+
+.highlighted
+  font-weight bold
+
+.header__title_stripe
+  background-color $primary-color
+  width 50%
+  height 4px
+  margin 20px 0
+
+.header__holder
+  float left
+
+.header__holder ~ p
+  float left
+
+@media(max-width 700px)
+  .header__holder, .header__holder ~ p
+    float initial
+
+.form
+  padding 0 80px
+
+.remove
+  color red
+  text-align right;
+
+.single_check_box
+  text-align right;
+
+.add_btn
+  text-align left;
+
+.remove_btn
+  text-align right;
+  color: red;
+
+.form__label
+  color #69707a
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+    background green !important
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.field
+  margin 20px 0
+
+.question__title
+  background-color #85c440
+
+.error_msg
+  font-size:20px
+  color #FF0000
+
+.success_msg
+  font-size:20px
+  color #439339
+
+.container_header_spreadsheet{
+  width: 1100px;
+  heigth: 200px;
+  overflow-y: scroll !important;
+}
+
+.container_spreadsheet{
+  width: 1520px;
+  heigth: 400px;
+}
+.container_header_top_spreadsheet{
+  width:10000px;
+}
+
+.header_table_header_first_element_spreadsheet
+  font-size:8px
+  font-weight: bold
+  display:inline-block
+  width:0px
+  text-align:center
+
+.header_table_header_element_spreadsheet
+  font-size:13px
+  display:inline-block
+  width:120px
+  text-align:center
+
+.react-grid-Canvas
+  overflowY: 'hidden'!important

@@ -1,0 +1,382 @@
+@import '../../variables.styl';
+
+//.resources
+//  min-height: 50vh;
+//  display flex
+//  flex-wrap wrap
+//  justify-content space-around
+//  align-items center
+//
+//  @media screen and (max-width: 850px)
+//    flex-direction column
+
+.resources__image
+  height 90px
+
+  @media screen and (max-width: 850px)
+    height 100px
+
+.resources__buttons
+  display flex
+  flex-direction column
+
+.tutor
+  color black
+  font-size 15pt
+  cursor pointer
+
+.resources__buttons__button
+  min-height 50px
+  min-width 300px
+  justify-content flex-start
+  padding-left 75px
+  font-size 0.8rem
+  font-weight bold
+  margin 10px 0
+  text-transform uppercase
+
+  i
+    top 12px
+    left 25px
+    transform scale(0.70)
+    transform-origin 0 0
+
+.resources__buttons__process
+  height 66px
+  width 100%
+  padding-left 70px
+  text-align left
+  justify-content flex-start
+  font-size 0.8em
+  font-weight bold
+  border-width 0!important
+  border-radius 50px
+  i
+    top 0!important
+    left 0!important
+//.resources__buttons__process
+//  background-color: white
+//  color: #131D3C
+//  min-height 70px
+//  justify-content flex-start
+//  padding-left 75px
+//  padding-right 20px
+//  font-size 0.9em
+//  font-weight bold
+//  margin 10px 0
+//  text-transform uppercase
+//
+//  i
+//    top 0px
+//    left 0px
+//    transform-origin 0 0
+
+.alert
+  padding 0.75rem 1.25rem
+  margin-bottom 1rem
+  border 1px solid transparent
+  border-radius 0.25rem
+  background-color #f2dede
+  border-color #faf2cc
+  color #ff180c
+  border-top-color #f7ecb5
+
+.notificacao
+  display flex
+  justify-content center
+  .gestor
+    padding 0.75rem 1.25rem
+    border 1px solid transparent
+    border-radius 0.25rem
+    border-top-color #f7ecb5
+    background-color #d9edf7
+    border-color #bcdff1
+    color #31708f
+
+.alert hr
+  border-top-color #f7ecb5
+
+.column__description
+  padding 10px 20px
+
+.subcontainer
+  display flex
+  width 100%
+  justify-content: space-around
+  align-items center
+
+.container__description
+  padding 20px 10px 10px
+  font-size 14px
+  background-color #efefef
+  margin -15px 25px 10px 25px
+
+.content__title
+  font-size 18px
+  margin-bottom 20px
+
+.content__paragraphs
+  p
+    font-size 15px
+    margin-bottom 10px
+
+.content__title__obs
+  font-size 12px
+
+.school_title
+  padding 5px
+  text-align center
+  display flex
+
+  h2
+    font-size 18px
+    font-weight 700
+    padding: 5px 15px;
+
+  button
+    margin 0px 20px
+    font-size 0.8rem
+
+.explicacao
+  h1
+    font-size 2em
+    font-weight bold
+  p
+    margin-bottom 10px
+  hr
+    margin 1rem 0
+  .pedagogica
+    border 1px solid #d3d5d7
+    .title__area
+      background-color $pedagogica-color
+  .cidadania__digital
+    border 1px solid #d3d5d7
+    .title__area
+      background-color $cidadania-digital-color
+  .desenvolvimento__profissional
+    border 1px solid #d3d5d7
+    .title__area
+      background-color $dev-profissional
+  .title__area
+    color #ffffff
+    text-transform uppercase
+    text-align center
+    padding 10px 0
+    margin-bottom 7px
+  .competencias
+    margin 0
+    div
+      padding 0.3rem
+      p
+        border 1px solid #d3d5d7
+        padding 0.5rem
+        font-size 1em
+        word-break break-word
+        margin 0
+        background-color #f2f2f2
+  .intro
+    margin-bottom 0
+  .escala
+    margin-bottom 0
+    >div
+      margin-top 60px
+    .nivel
+      font-weight bold
+      text-transform uppercase
+      position relative
+      &:before
+        content ''
+        position absolute
+        background-color #14243d
+        width 100%
+        bottom 30px
+        left 0
+        height 15px
+      &.exp:before
+        height 20px
+        opacity 0.2
+      &.fam:before
+        height 30px
+        opacity 0.4
+      &.ada:before
+        height 40px
+        opacity 0.6
+      &.int:before
+        height 50px
+        opacity 0.8
+      &.tra:before
+        height 60px
+  .descricao
+    .title__mobile
+      text-transform uppercase
+      font-weight bold
+      font-size 1.2em
+    p
+      font-size 0.9em
+  .encerramento
+    margin-bottom 50px
+
+
+.devolutive
+  background-color transparent
+  .section
+    padding 0 1.5rem 1rem
+  h1
+    color #131D3C
+    font-size 2.2em
+    strong
+      font-size 1.2em
+      color #131D3C
+  h2
+    text-transform uppercase
+    font-size 2em
+    margin-bottom 5px
+    font-weight bold
+    color $primary-color
+
+  .icon
+    margin-bottom 20px
+    img
+      width auto
+      height 50px
+
+  .structure
+    h2
+      text-shadow none
+    .amount
+      text-align center
+      .number
+        font-size 3rem
+        position relative
+        color #ffffff
+        background-color #011e3a
+        padding 6px
+        width 90px
+        height 90px
+        margin 0 auto 15px
+        border-radius 50%
+        &:before
+          content ''
+          position absolute
+          width 114px
+          height 114px
+          border 1px dashed #011e3a
+          top -12px
+          left -12px
+          border-radius 50%
+      .text
+        font-size 1.2em
+        color #011e3a
+        font-weight bold
+    .number_area
+      flex-direction column
+      justify-content center
+    .area
+      text-align center
+      .pedadogica,
+      .cidadania,
+      .desenvolvimento
+        border-radius 10px
+        padding 20px 10px
+        width 100%
+      .pedadogica
+        background-color $pedagogica-color
+      .cidadania
+        background-color $cidadania-digital-color
+      .desenvolvimento
+        background-color $dev-profissional
+      .icon
+        margin-bottom 20px
+        img
+          width auto
+          height 8rem
+      .title
+        font-size 1.2em
+        text-transform uppercase
+        color #ffffff
+    .competences
+      li
+        border-bottom-width 5px
+        border-bottom-style solid
+        margin-bottom 15px
+        padding-bottom 5px
+        font-size 1em
+        text-transform uppercase
+    .pedadogica
+      .competences
+        li
+          border-bottom-color $pedagogica-color
+    .cidadania
+      .competences
+        li
+          border-bottom-color $cidadania-digital-color
+    .desenvolvimento
+      .competences
+        li
+          border-bottom-color $dev-profissional
+    .levels
+      .panel_heading
+        border-radius 0
+      .panel_block
+        p
+          font-size 1em
+    .tabs
+      font-size 12px!important
+
+hr.topless
+  margin-top 0!important
+
+.matriz
+  table
+    thead
+      tr
+        th
+          background-color #131D3C
+          color white
+    tbody
+      tr
+        th
+          background-color $primary
+          color white
+
+          &.pedadogica_th
+            background-color $pedagogica-color
+
+          &.citizenship_th
+            background-color $cidadania-digital-color
+
+          &.professionals_th
+            background-color $dev-profissional
+    tr
+      th
+        text-align center
+        vertical-align middle
+      td
+        text-align center
+        vertical-align middle
+
+
+// Nova estrutura
+.steps
+  margin-bottom 50px;
+
+  .step
+    padding 30px 0
+    display flex
+    align-items center
+    justify-content space-between
+
+    + div
+      border-top 1px solid #DDDDDD
+
+    > span
+      font-size 50px
+      font-weight bold
+      color $step-color-text-number
+
+    > div
+      flex 1
+      margin 0 30px
+
+      strong
+        display block

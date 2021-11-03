@@ -1,0 +1,87 @@
+@import '../../variables.styl';
+
+
+// Temporário: Em manutenção
+.site__content__temporary
+  .initial__temporary
+    height 14rem!important
+    .logo__principal__temporary
+      margin 10px 0 0 40px!important
+// End Temporário
+
+.languages
+  display flex
+  justify-content space-between
+  align-items center
+  padding-right 40px
+
+.what_is
+  background $lightest-grey
+  padding 3rem 0
+  .site__content
+    background white
+    padding 3rem
+    .content
+      margin 0
+      .icon
+        display flex
+        align-items center
+        height 100%
+        justify-content center
+        img
+          max-height 240px
+
+.site__content
+  h4.strip
+    position relative
+    margin-bottom 20px
+
+    &:after
+      content ""
+      position absolute
+      bottom 0
+      left calc(50% - 70px)
+      width 140px
+      height 3px
+      background-color $primary-color
+      margin-bottom -10px
+
+  .initial
+    display flex;
+    gap 30px 40px;
+    padding 0 20px;
+    align-items center;
+    > p
+      font-size 2.3rem;
+      font-weight 300
+
+    .title
+      h3
+        font-size 1.3em
+
+  .home__dashboard
+    color $secondary-color
+    padding 2rem 0 3rem
+
+.home__logo
+  padding 40px 0px 20px 0px
+
+.home__text
+  padding 20px
+  font-size 24px
+  text-align center
+
+.content
+  color $secondary-color
+  margin 60px auto
+  p
+    margin-bottom 1rem
+
+.programas
+  padding 10px 20px
+  text-align right
+  display $logo-home-header-secondary-display
+
+  img
+    width 100%
+    max-width 180px

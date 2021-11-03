@@ -1,0 +1,161 @@
+@import '../../variables.styl'
+
+.progress_container
+  padding 30px 30px 30px
+  display flex
+
+  @media screen and (max-width: 799px)
+    flex-direction column
+
+  .progress_stage
+    width 100%
+    padding-bottom 30px
+    display flex
+    flex-direction column
+    justify-content flex-end
+
+    @media screen and (max-width: 799px)
+      justify-content start
+
+      > div .progress_item:last-child
+        flex none
+
+        &:after
+          display none
+
+
+    &:last-child
+      > div .progress_item:last-child
+        flex none
+
+        &:after
+          display none
+
+    strong
+      padding-right: 15px
+      margin-bottom 10px
+      text-transform uppercase
+
+    > div
+      display flex
+
+      .progress_item
+        flex 1
+        display flex
+        position relative
+
+        &.progress_item_check
+          span
+            background $primary-color
+
+        &:after
+          content ''
+          position absolute
+          left 0
+          top 50%
+          margin-top -0.5px
+          width 100%
+          border 1px dashed #A1A1A1;
+          z-index 1
+
+        span
+          position relative
+          display block
+          background #ffffff
+          width 30px
+          height 30px
+          border-width 4px
+          border-style solid
+          border-color $primary-color
+          border-radius 50%
+          z-index 2
+
+          // &.pedagogica_stage
+          //   border-color $pedagogica-color
+
+          // &.pedagogica_stage
+          //   border-color $pedagogica-color
+
+  .pedagogica_stage
+    strong
+      color $pedagogica-color
+
+    > div .progress_item
+      &.progress_item_check
+         span
+          background $pedagogica-color
+
+      span
+        border-color $pedagogica-color
+
+  .cidadania_digital_stage
+    strong
+      color $cidadania-digital-color
+
+    > div .progress_item
+      &.progress_item_check
+         span
+          background $cidadania-digital-color
+
+      span
+        border-color $cidadania-digital-color
+
+  .dev_profissional_stage
+    strong
+      color $dev-profissional
+
+    > div .progress_item
+      &.progress_item_check
+         span
+          background $dev-profissional
+
+      span
+        border-color $dev-profissional
+
+  .visao_title
+    strong
+      color $yellow
+
+    > div .progress_item
+      &.progress_item_check
+         span
+          background $yellow
+
+      span
+        border-color $yellow
+
+  .comp_title
+    strong
+      color $pink
+
+    > div .progress_item
+      &.progress_item_check
+         span
+          background $pink
+
+      span
+        border-color $pink
+
+  .crd_title
+    strong
+      color $blue
+
+    > div .progress_item
+      &.progress_item_check
+         span
+          background $blue
+
+      span
+        border-color $blue
+
+  .infra_title
+    strong
+      color $primary-color
+
+    > div .progress_item
+      &.progress_item_check
+         span
+          background $primary-color
+
+      span
+        border-color $primary-color

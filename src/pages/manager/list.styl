@@ -1,0 +1,130 @@
+@import '../../variables.styl';
+
+.followup_container
+  padding 0 30px
+  // padding-top 50px
+
+.followup_stats__container
+  padding 0 25px
+
+.followup_stats__answers_stat
+  padding 0 30px
+
+.followup__info__table_container
+  overflow-x scroll
+  margin-top 50px
+
+.followup__info__table__principal_th
+  i:first-child
+    margin-right 10px
+    margin-left @margin-right
+
+.followup__info
+  display flex
+  justify-content center
+  align-items center
+
+.followup__info_number
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+
+.followup__info__table
+  background-color transparent
+  width 100%
+  max-width 100%
+
+  th, td
+    vertical-align middle
+    text-align center
+
+  td
+    position relative
+
+  th
+    text-transform uppercase
+    font-weight 300
+    cursor pointer
+    outline none
+
+    transition color .3s ease-out, border-top-color .5s ease-out, border-bottom-color .5s ease-out
+
+.followup__info__table_highlightedTh
+  border-top 2px solid $green !important
+  border-bottom @border-top
+  color $green !important
+  font-weight 700 !important
+
+.followup__info__table__dot_yes, .followup__info__table__dot_no
+  border-radius 50%
+  width 10px
+  height @width
+  display inline-table
+
+.followup__info__table__dot_yes
+  background-color #85c440
+
+.followup__info__table__dot_no
+  background-color #a5a5a5
+
+
+$pointer-size = 10px
+.followup__info__sample
+  background-color #85c440
+  position relative
+  padding 50px 0
+
+  span
+    color #fff
+    text-transform lowercase
+
+  &:after
+    content ''
+    position absolute
+    width $pointer-size
+    height @width
+    right -($pointer-size*2)
+    border $pointer-size solid transparent
+    border-left $pointer-size solid @background-color
+
+@media(min-width 600px)
+  .followup_info__table_menu_sticky
+    width 100%
+    position fixed
+    z-index 1000
+    padding 15px
+    top 0
+    left 0
+    margin 0
+    background-color #fff
+
+@media(max-width: 769px)
+  .followup_container
+    padding-left 0
+    padding-right 0
+
+  .followup__info
+    flex-direction column
+    align-items space-around
+
+  .followup__info__sample
+    padding 15px 50px
+    margin 10px 0
+
+    &:after
+      border-left-color transparent
+      border-top-color #85c440
+      right 50%
+      margin-right -($pointer-size)
+      bottom -($pointer-size*2)
+
+  .followup_stats__answers_stat:not(:first-child)
+    margin-top 15px
+
+
+.msg_non_city
+  color red
+
+.import_xls
+  margin-left: 10px

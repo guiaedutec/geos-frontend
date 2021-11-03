@@ -1,0 +1,40 @@
+@import '../../variables.styl';
+
+.button__rounded
+  position relative
+  min-width 150px
+  min-height 35px
+  border-radius $btn-border-radius-base
+  text-transform uppercase
+  font-size 1em
+
+  @media screen and (max-width: 850px)
+    min-width 110px
+    min-height 25px
+
+  i.owner_icon
+    text-align left
+    position absolute
+    left 15px
+    top 5px
+
+.button__disabled
+  color $primary-color !important
+  background-color $primary-color !important
+
+.button__normal
+  background-color transparent
+  color $primary-color
+  border-color $primary-color
+  border-width $btn-border-width
+  border-style $btn-border-style
+
+  &:hover
+    background-color $primary-color
+    color white
+    border-color $primary-color
+
+  &:focus
+    background-color $primary-color
+    color white;
+    border-color $primary-color

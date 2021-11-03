@@ -1,0 +1,33 @@
+@import '../../variables.styl';
+
+.button__rounded
+  position relative
+  min-width 150px
+  min-height 35px
+  border-radius $btn-border-radius-base
+  text-transform uppercase
+
+  @media screen and (max-width: 850px)
+    min-width 110px
+    min-height 25px
+
+  i
+    text-align left
+    position absolute
+    left 15px
+    top 5px
+
+.button__disabled
+  background-color $grey
+
+.button__normal
+  background-color transparent
+  color white
+  border-color $green
+  border-width 2px
+  transition background-color 0.2s
+
+  &:hover
+    background-color $secondary-color
+    color white
+    border-color $secondary-color

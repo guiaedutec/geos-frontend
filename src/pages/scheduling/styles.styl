@@ -1,0 +1,183 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
+@import '../../variables.styl';
+
+.table
+  width 100%
+  border 2px solid $primary-color
+
+  th, td
+    padding 10px
+    border 1px solid #d3d3d3
+  th
+    width 150px
+
+
+.important{
+  color: $primary-color
+  text-align center
+  font-weight bold
+  font-size 1.0rem
+
+}
+
+.text_result
+  font-weight 900 !important
+  color $primary-color
+  margin-top 1rem
+  border-radius 10px
+  border 2px solid $primary-color
+  padding 15px
+  position relative
+  // &:before
+  //   position absolute
+  //   content 'Importante'
+  //   top -13px
+  //   left 50%
+  //   background-color #ffffff
+  //   border-left 2px solid #73AD21
+  //   border-right 2px solid #73AD21
+  //   padding 0 15px
+  //   margin-left -65px
+  //   text-transform uppercase
+
+
+.select_day
+  width 190px
+
+.followup_container
+  padding 0 30px
+  padding-top 50px
+
+.followup__info__table_container
+  overflow-x scroll
+  margin-top 50px
+
+.followup__info__table__principal_th
+  i:first-child
+    margin-right 10px
+    margin-left @margin-right
+
+.followup__info__table
+  background-color transparent
+  max-width 100%
+
+  th, td
+    vertical-align middle
+    text-align center
+
+  td
+    position relative
+
+  th
+    text-transform uppercase
+    font-weight 300
+    cursor pointer
+    outline none
+
+    transition color .3s ease-out, border-top-color .5s ease-out, border-bottom-color .5s ease-out
+
+.followup__info__table_highlightedTh
+  border-top 2px solid $green !important
+  border-bottom @border-top
+  color $green !important
+  font-weight 700 !important
+
+.followup__info__table__dot_yes, .followup__info__table__dot_no
+  border-radius 50%
+  width 10px
+  height @width
+  display inline-table
+
+.followup__info__table__dot_yes
+  background-color #85c440
+
+.followup__info__table__dot_no
+  background-color #a5a5a5
+
+.form
+  padding 0 80px
+
+.form__label
+  color #69707a
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background green !important
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.field
+  margin 20px 0
+
+.field__manager
+  margin 20px 0
+  margin-bottom 40px
+
+.highlighted
+  font-size 18px
+  font-weight bold
+  margin-bottom 18px
+
+p
+  margin-bottom 0.5rem
+
+.introducao
+  margin-bottom 1rem
+
+.loading
+  margin 1rem 0 3rem
+
+.sliders
+  background-color #f2f2f2
+  padding 0 2rem
+  .wrap_slider
+    outline none
+    .slider
+      border 1px solid #aaaaaa
+      background-color #ffffff
+      min-height 3rem
+      margin .5rem
+      padding 0.5rem 1rem
+      display block
+      color black
+      font-weight normal
+      h1
+        font-weight bold
+        border-bottom 1px dotted rgba(0,0,0,.3)
+        margin-bottom 4px
+        padding-bottom 4px
+      &.new_cicle
+        border-width 2px
+        border-style dotted
+        background-color #ffffff
+        padding 1rem
+        text-align center
+      &.transition
+        background-color transparent
+        border 0
+        position relative
+        display flex
+        align-items center
+        justify-content center
+        &:before
+          position absolute
+          content '●  ●  ●'
+      &.blank
+        border-width 2px
+        border-style dotted
+        padding 1.7rem 4rem
+        background-color #ffffff

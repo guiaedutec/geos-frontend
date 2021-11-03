@@ -1,0 +1,103 @@
+@import '../../variables.styl';
+
+.div__dropzone
+  background-image url(../../../public/images/Upload_alt_font_awesome.svg.png)
+  padding-left 100px
+  height 70px
+  width 190px
+  position relative
+  z-index 15
+  bottom -45px
+  left 50%
+  margin -35px 0 0 -95px
+  -webkit-filter grayscale(100%)
+   filter grayscale(100%)
+
+ .div__dropzone__footer
+   height 70px
+   width 100%
+   text-align center
+   position relative
+   z-index 15
+   top 50px
+   left 0%
+
+.div__round
+  border-radius 25px
+  border 2px solid #73AD21
+  padding 30px;
+
+.container
+  height 70vh
+
+.followup_container
+  padding 0 30px
+  padding-top 10px
+
+.section
+  background none
+  padding-left 10px
+
+.highlighted
+  font-weight bold
+
+.header__title_stripe
+  background-color $primary-color
+  width 50%
+  height 4px
+  margin 20px 0
+
+.header__holder
+  float left
+
+.header__holder ~ p
+  float left
+
+@media(max-width 700px)
+  .header__holder, .header__holder ~ p
+    float initial
+
+.form
+  padding 0 80px
+
+.remove
+  color red
+  text-align right;
+
+.add
+  margin-top 10px;
+  margin-bottom 20px;
+  text-align right;
+
+.form__label
+  color #69707a
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+    background green !important
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.field
+  margin 20px 0
+
+.field__manager
+  margin 20px 0
+  margin-bottom 40px
+
+.thumbnail
+  width 120px
+  height 120px

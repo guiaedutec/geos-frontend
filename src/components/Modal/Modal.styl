@@ -1,0 +1,106 @@
+.modal
+  position relative
+  margin 0 auto
+  top 5%
+  max-width 800px
+  border-radius 6px
+  box-sizing border-box
+  background-color white
+  &.modal__lg
+    max-width 910px
+
+
+.w__modal
+  width auto
+  max-width 1200px
+
+@media screen and (min-width: 910px)
+  .modal__card__lg
+    width 910px
+
+
+.overlay
+  position fixed
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background-color rgba(20,30,61,.6)
+  z-index 100000
+
+.modal__header
+  padding 15px
+  border-bottom 1px solid #e5e5e5
+
+  h4
+    font-size 18px
+    text-transform uppercase
+
+.modal__video
+  iframe
+    height 315px
+    width 100%
+
+
+.modal__body
+  position relative
+  margin 20px
+  padding 15px
+  overflow-wrap break-word
+  overflow-y auto
+  max-height 400px
+
+  h2
+    font-weight bold
+    font-size 1.2em
+    position relative
+    &:after
+      position absolute
+      content ''
+      width 114px
+      height 2px
+      background-color #85c440
+      bottom -2px
+      left 0
+
+  ul
+    display block
+    list-style-type disc
+    -webkit-margin-before 1em
+    -webkit-margin-after 1em
+    -webkit-margin-start 0px
+    -webkit-margin-end 0px
+    -webkit-padding-start 40px
+
+    li
+      display list-item
+      text-align -webkit-match-parent
+
+  p
+    display block
+    -webkit-margin-before 1em
+    -webkit-margin-after 1em
+    -webkit-margin-start 0px
+    -webkit-margin-end 0px
+
+.modal__footer
+  padding 15px
+  text-align right
+  border-top 1px solid #e5e5e5
+  &.more__than__one
+    display flex
+    justify-content space-between
+
+.modal__btn
+  margin-left 10px
+  padding 0px 20px
+  font-weight 400
+
+.btn_print
+  float right
+  border-radius 30px
+  padding 0px 10px
+  border 0
+  font-size .9em
+  i
+    margin-left 10px;

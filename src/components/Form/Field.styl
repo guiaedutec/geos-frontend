@@ -1,0 +1,77 @@
+@import '../../variables.styl'
+
+.field
+  margin 20px 0px
+  &.slim
+    margin 10px 0 0
+  &.slim-max
+    margin 0
+
+.field_no_margin_botton
+  margin 20px 0px 0px 0px
+
+.field__label
+  color #69707a
+
+.field__textarea
+  min-height 90px
+
+.field__checkboxes
+  display flex
+
+.field__checkboxes__column
+  padding 10px
+  display flex
+  flex-direction column
+
+.form__label
+  color #69707a
+  margin 10px 0 0
+  &.sharing
+    margin-top 20px
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.field__input
+  margin 10px 0 0
+
+.field__radio
+  margin-bottom 10px
+  padding-top 0
+  padding-bottom 0
+  margin-left 0!important
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background $primary-color !important
+
+.field__checkbox
+  input[type='radio'], input[type='checkbox']
+    margin-right 5px
+    outline none
+
+  input:checked:before
+    background $primary-7 !important
+
+.field__warning
+  position absolute
+  right 6px
+  top 3px
+  color #a7a9ab
+  z-index 9
+  background #ffffff
+  padding 6px
+  border-radius 20px
+
+.field__description
+  font-size 0.8em
+  margin -0.5em 0 0.5em
+  font-style italic

@@ -1,0 +1,20 @@
+
+# Compiled output
+public/dist
+public/index.html
+public/200.html
+public/sitemap.xml
+# Node.js and NPM
+node_modules
+npm-debug.log
+
+# Firebase
+firebase-debug.log
+.nyc_output
+.idea/
+.vscode/
+
+
+.env
+sonar-project.properties
+package-lock.json

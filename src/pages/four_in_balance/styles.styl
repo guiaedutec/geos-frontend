@@ -1,0 +1,203 @@
+@import '../../variables.styl'
+
+.content
+  font-family $font-family
+  font-size 16px
+  font-weight 400
+
+h2
+  font-size 45px
+  line-height 45px
+  color #122438
+
+h3
+  font-size 24px
+  line-height 26px
+  color #122438
+
+.diagram
+  text-align center
+  >div:nth-child(1),
+  >div:nth-child(3)
+    border-right 3px dotted #fed700
+  >div:nth-child(1),
+  >div:nth-child(2)
+    border-bottom 3px dotted #fed700
+  h1
+    font-size 1.8em
+    text-transform uppercase
+    color #122438
+    font-weight bold
+    letter-spacing -2px
+    margin-bottom 1rem
+  ul
+    margin 1rem
+    li
+      font-size 0.7em
+      color #122438
+      &::before
+        margin-right 5px
+        display inline-block
+        font-style normal
+        font-variant normal
+        text-rendering auto
+        -webkit-font-smoothing antialiased
+        font-family "Font Awesome 5 Free"
+        font-weight 900
+        content "\f00c"
+
+.section
+  background-attachment scroll !important
+  height auto !important
+  position relative
+
+.section1
+  padding-top 100px
+  padding-bottom 40px
+  background-color #ffffff
+
+.section2
+  padding-top 100px
+  padding-bottom 100px
+  background-color #e5ded8
+
+.section3
+  padding-top 60px
+  padding-bottom 60px
+  background-color #fff
+
+.section4
+  padding-top 0px
+  padding-bottom 60px
+  background-color #fff
+
+.hr_margin
+  margin 0 auto 30px
+
+.intro_pad
+  padding 25px 0px 0px 0px
+
+.description_padd_right
+  padding 0px 0px 0px 40px
+
+.description_padd_left
+  padding 0px 40px 0px 0px
+
+.first_session_padd
+  padding 0px 0px 40px 0px
+
+.second_session_padd
+  padding 20px 0px 0px 0px
+
+.text_session_padd
+  padding 0px 0px 60px 0px
+
+.section_wrapper .column
+  margin 0
+  width 100% !important
+  clear both
+
+.highlight_left:after,
+.highlight_right:after
+  background #ebebeb
+  content ""
+  position absolute
+  width 50%
+  height 100%
+  top 0
+
+.highlight_right:after
+  right 0
+
+.highlight_left .section_wrapper,
+.highlight_right .section_wrapper
+  z-index 2
+
+img, img.scale_with_grid
+  max-width 100%
+  height auto
+
+.intro_pad_dimensions
+  margin-left 50px
+  font-weight 700
+  font-size 16px
+  ul
+    list-style-position outside
+    list-style-type square
+    li
+      font-size 18px
+      font-weight 700
+
+@media(min-width 1240px)
+  .section_wrapper
+    max-width 1100px
+    margin 0 auto
+    position relative
+
+@media(min-width 960px) and (max-width 1239px)
+  .section_wrapper
+    max-width 940px
+    margin 0 auto
+    position relative
+
+@media(min-width 768px) and (max-width 959px)
+  .section_wrapper
+    max-width 708px
+    margin 0 auto
+    position relative
+
+@media(max-width 767px)
+  .section_wrapper
+    max-width 90%
+    max-width calc( 100% - 67px ) !important
+    margin 0 auto
+    position relative
+
+  .highlight_left:after,
+  .highlight_right:after
+    content:none
+
+  .section_wrapper .column
+    width 100% !important
+    clear both
+    margin 0 0 20px
+    height auto !important
+
+
+.eyesight
+    position relative
+    & > img
+        width 100%
+    .items
+        position absolute
+        width 100%
+        height 100%
+        left 0
+        top 0
+        display flex
+        flex-wrap wrap
+        & > div
+            width 50%
+            height 50%
+            padding 50px
+            display flex
+            flex-direction column
+            justify-content center
+            align-items center
+            &.item1
+                padding-right 80px
+                padding-bottom 80px
+            &.item2
+                padding-bottom 80px
+            &.item3
+                padding-top 80px
+            &.item4
+                padding-left 80px
+            img
+                width 100%
+                max-width 200px
+            strong
+                display block
+                text-align center
+                font-size 0.85rem
+                color #ffffff

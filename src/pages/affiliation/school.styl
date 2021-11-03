@@ -1,0 +1,204 @@
+@import '../../variables.styl';
+
+.form__label
+  color #69707a
+  margin 10px 0 0
+  &.sharing
+    margin-top 20px
+
+.form__input
+  margin 10px 0 0
+
+.form__select
+  width 100%
+
+.form__submit_button
+  display flex
+  justify-content space-between
+
+.layout
+  .body_config
+    background-color transparent!important
+
+.container
+  height 70vh
+
+.followup_container
+  padding 0 30px
+  padding-top 50px
+
+.section
+  background none
+  padding-left 10px
+
+.highlighted
+  font-weight bold
+
+.header__title_stripe
+  background-color #85c440
+  width 50%
+  height 4px
+  margin 20px 0
+
+.header__holder
+  float left
+
+.header__holder ~ p
+  float left
+
+@media(max-width 700px)
+  .header__holder, .header__holder ~ p
+    float initial
+
+.form
+  padding 0 80px
+
+.remove
+  color red
+  text-align right;
+
+.add
+  margin-top 5px;
+  text-align right;
+
+.add_infra
+  margin-top 10px;
+  margin-bottom 20px;
+  text-align left;
+
+.form__label
+  color #69707a
+
+.form__select
+  width 100%
+
+  select
+    width 100%
+    border-radius 30px
+    color #69707a
+
+.form__radio
+  input[type='radio']
+    outline none
+    margin-right 10px
+
+  input:checked:before
+      background green !important
+
+.form__submit_button, .button_share
+  margin-top 25px
+
+.field
+  margin 20px 0
+
+.field__manager
+  margin 20px 0
+  margin-bottom 40px
+
+.title_section
+  font-size 1.4em
+  text-transform uppercase
+  color $primary-color
+  font-weight bold
+
+
+
+.checkbox_level_list
+  list-style: none;
+  .checkbox_level
+    display inline
+    label
+      display inline-block
+      background-color rgba(255, 255, 255, .9)
+      border 2px solid rgba(139, 139, 139, .3)
+      color #adadad
+      border-radius 25px
+      white-space nowrap
+      -webkit-touch-callout none
+      -webkit-user-select none
+      -moz-user-select none
+      -ms-user-select none
+      user-select none
+      -webkit-tap-highlight-color transparent
+      transition all .2s
+      margin 0 10px 5px 0
+      padding 2px 10px
+      cursor pointer
+      &::before
+        display inline-block
+        font-style normal
+        font-variant normal
+        text-rendering auto
+        -webkit-font-smoothing antialiased
+        font-family "Font Awesome 5 Free"
+        font-weight 900
+        font-size 12px
+        padding 2px 6px 2px 2px
+        content "\f067"
+        transition transform .3s ease-in-out
+
+    input[type="checkbox"]:checked + label::before
+      content "\f00c"
+      transform rotate(-360deg)
+      transition transform .3s ease-in-out
+
+    input[type="checkbox"]:checked + label
+      background-color #85c440
+      color #fff
+      transition all .2s
+
+    input[type="checkbox"]
+      display absolute
+      position absolute
+      opacity 0
+
+
+.level_table
+  tbody
+    &:last-child
+      >tr:first-child
+        >td:first-child
+          border-bottom 0
+      >tr:last-child
+        >td
+          border-bottom 0
+    tr
+      td
+        vertical-align middle
+      &:last-child
+        td
+          border-bottom-width 1px
+
+
+.media_left
+  position relative
+  margin-right 1.4rem
+  a
+    img
+      transition all .3s ease-in-out
+  a:hover, a:focus
+    img
+      background-color lightgray
+      border-radius 10px
+  .saiba_mais
+    position absolute
+    top 0
+    right -1.2rem
+    font-size 1.2em
+
+
+.modal_infra
+  h2
+    font-weight bold
+    font-size 1.2em
+
+  .titulo_descritivo
+    &:not(:first-child)
+      margin-top 20px
+    font-weight bold
+    display flex
+    justify-content space-between
+    border-bottom 1px solid lightgray
+    padding-bottom 5px
+    margin-bottom 5px
+    color #85c440
