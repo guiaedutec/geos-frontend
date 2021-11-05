@@ -26,6 +26,10 @@ export function createUrlWithParams(uri, params) {
   return `${uri}?${$.param(params)}`;
 }
 
+export function getLang() {
+  return localStorage.getItem("lang");
+}
+
 export function getUrlParamString(field, url) {
   var href = url ? url : window.location.href;
   var reg = new RegExp("[?&]" + field + "=([^&#]*)", "i");

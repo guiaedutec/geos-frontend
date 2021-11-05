@@ -1,5 +1,6 @@
 import co from "co";
 import {
+  getLang,
   getUserToken,
   setUserToken,
   setUserId,
@@ -139,7 +140,7 @@ export default function ({ apiURL, users }) {
       return co(function* () {
         const response = yield fetch(`${apiURL}/${users.forgotPassword}`, {
           method: "POST",
-          body: JSON.stringify({ user: email }),
+          body: JSON.stringify({ user: email, lang: getLang() }),
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -164,6 +165,7 @@ export default function ({ apiURL, users }) {
               password,
               reset_password_token,
             },
+            lang: getLang()
           }),
           headers: {
             Accept: "application/json",
