@@ -9,5 +9,4 @@ Access the available documentation here:
 
 Access to other projects
 * [Back-end](https://github.com/guiaedutec/geos-backend)
-* [Front-end](https://github.com/guiaedutec/geos-frontend)
 * [Database](https://github.com/guiaedutec/geos-database)
