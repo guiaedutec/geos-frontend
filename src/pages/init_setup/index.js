@@ -60,6 +60,7 @@ class InitSetup extends Component {
       langs: [],
       isLoading: false,
       errors: {},
+      uploadErrors: {},
     };
     this.submitTranslations = this.submitTranslations.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
@@ -111,21 +112,39 @@ class InitSetup extends Component {
   }
 
   fileUpload(e, name) {
+    const { uploadErrors } = this.state;
     const file = e.target.files[0];
-    const formData = new FormData();
-    var fr;
-    formData.append(name, file);
-
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
+    if (file.size > 2097152) {
+      e.target.value = "";
       this.setState({
-        [`${name}Name`]: file.name,
-        [name]: reader.result,
+        [`${name}Name`]: "",
+        [name]: "",
+        uploadErrors: {
+          ...uploadErrors,
+          [name]: this.translate("InitSetup.uploadError"),
+        },
       });
-    };
+    } else {
+      this.setState({ errors: { ...this.state.errors, [name]: "" } });
+      const formData = new FormData();
+      formData.append(name, file);
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.setState({
+          [`${name}Name`]: file.name,
+          [name]: reader.result,
+        });
+      };
 
-    e.target.value = "";
+      e.target.value = "";
+      this.setState({
+        uploadErrors: {
+          ...uploadErrors,
+          [name]: "",
+        },
+      });
+    }
   }
 
   async fetchLangs() {
@@ -266,7 +285,7 @@ class InitSetup extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, uploadErrors } = this.state;
     return [
       <Helmet title={parse(this.translate("InitSetup.pageHeader"))} />,
       <section className="section">
@@ -345,9 +364,10 @@ class InitSetup extends Component {
                       />
                     </label>
                   </div>
-                  <span className={styles.error}>
-                    {errors && errors.imgLogoHeader}
-                  </span>
+                  <div className={styles.error}>
+                    <p>{errors && errors.imgLogoHeader}</p>
+                    <p>{uploadErrors && uploadErrors.imgLogoHeader}</p>
+                  </div>
                 </div>
 
                 <div className="column is-half">
@@ -370,9 +390,10 @@ class InitSetup extends Component {
                       />
                     </label>
                   </div>
-                  <span className={styles.error}>
-                    {errors && errors.imgLogoHeaderSec}
-                  </span>
+                  <div className={styles.error}>
+                    <p>{errors && errors.imgLogoHeaderSec}</p>
+                    <p>{uploadErrors && uploadErrors.imgLogoHeaderSec}</p>
+                  </div>
                 </div>
 
                 <div className="column is-half">
@@ -396,9 +417,10 @@ class InitSetup extends Component {
                       />
                     </label>
                   </div>
-                  <span className={styles.error}>
-                    {errors && errors.imgLogoFooter}
-                  </span>
+                  <div className={styles.error}>
+                    <p>{errors && errors.imgLogoFooter}</p>
+                    <p>{uploadErrors && uploadErrors.imgLogoFooter}</p>
+                  </div>
                 </div>
 
                 <div className="column is-half">
@@ -421,9 +443,10 @@ class InitSetup extends Component {
                       />
                     </label>
                   </div>
-                  <span className={styles.error}>
-                    {errors && errors.imgLogoFooterSec}
-                  </span>
+                  <div className={styles.error}>
+                    <p>{errors && errors.imgLogoFooterSec}</p>
+                    <p>{uploadErrors && uploadErrors.imgLogoFooterSec}</p>
+                  </div>
                 </div>
 
                 <div className="column is-full">
@@ -445,9 +468,10 @@ class InitSetup extends Component {
                       />
                     </label>
                   </div>
-                  <span className={styles.error}>
-                    {errors && errors.imgBgHome}
-                  </span>
+                  <div className={styles.error}>
+                    <p>{errors && errors.imgBgHome}</p>
+                    <p>{uploadErrors && uploadErrors.imgBgHome}</p>
+                  </div>
                 </div>
               </div>
 
