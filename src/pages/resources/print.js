@@ -43,21 +43,23 @@ class PrintList extends React.Component {
 
   organizeInfraQuestions = (questions) => {
     let questionsInfra = questions.find(
-      (question) => question.name === "Infraestrutura"
+      (question) => question.pageTitleCssClass === "infraTitle"
     );
 
-    if (questionsInfra) {
+    if (questionsInfra && questionsInfra.survey_question) {
       // INFRA D ALUNO
       let surveyQuestionInfraD1 = questionsInfra.survey_question.filter(
         (surveyQuestion) => surveyQuestion.compound_ref === "infra-d-aluno"
       );
 
+      console.log(surveyQuestionInfraD1);
       const surveyQuestionDescriptionInfraD1 = surveyQuestionInfraD1.map(
         (surveyQuestion) => surveyQuestion.survey_question_description[0]
       );
-
-      surveyQuestionInfraD1[0].survey_question_description =
-        surveyQuestionDescriptionInfraD1;
+      if (surveyQuestionDescriptionInfraD1.length !== 0) {
+        surveyQuestionInfraD1[0].survey_question_description =
+          surveyQuestionDescriptionInfraD1;
+      }
 
       //  INFRA D PROFESSOR
       let surveyQuestionInfraD2 = questionsInfra.survey_question.filter(
@@ -68,9 +70,10 @@ class PrintList extends React.Component {
       const surveyQuestionDescriptionInfraD2 = surveyQuestionInfraD2.map(
         (surveyQuestion2) => surveyQuestion2.survey_question_description[0]
       );
-
-      surveyQuestionInfraD2[0].survey_question_description =
-        surveyQuestionDescriptionInfraD2;
+      if (surveyQuestionDescriptionInfraD2.length !== 0) {
+        surveyQuestionInfraD2[0].survey_question_description =
+          surveyQuestionDescriptionInfraD2;
+      }
 
       const itemsToBeRemoved = [3, 4, 6, 7];
       questionsInfra.survey_question = questionsInfra.survey_question

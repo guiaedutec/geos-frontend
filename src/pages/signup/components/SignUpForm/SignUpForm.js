@@ -15,6 +15,7 @@ import CONF from "~/api/index";
 import $ from "jquery";
 import { FormattedMessage, injectIntl } from "react-intl";
 import parse from "html-react-parser";
+import FieldCreatableSelect from "~/components/Form/FieldCreatableSelect";
 
 // Components
 import SignUpFormPrincipalFields from "./PrincipalFields";
@@ -40,6 +41,8 @@ import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import { setUserId, setUserToken } from "~/api/utils";
+import { omitFieldProperties } from "../../../../helpers/redux-form-fields";
+const regex = new RegExp("^([A-zÀ-ú \\- \\/ \\( \\) ])+$");
 
 const createUser = (values, affiliation_id, noLogin = false, noaff = false) => {
   let user = {
@@ -68,6 +71,32 @@ const createUser = (values, affiliation_id, noLogin = false, noaff = false) => {
 
     /* eslint-enable camelcase */
   };
+
+  console.log("teste");
+
+  if (values.profile === "teacher") {
+    user = {
+      ...user,
+      gender: values.gender,
+      initial_formation: values.initial_formation.value,
+      institution_initial_formation: values.institution_initial_formation.value,
+      internship_practice: values.internship_practice.value,
+      technology_in_teaching_and_learning:
+        values.technology_in_teaching_and_learning,
+      course_modality: values.course_modality,
+      final_year_of_initial_formation: values.final_year_of_initial_formation,
+      teacher_data: {
+        formation_level: values.formation_level.value,
+        cont_educ_in_the_use_of_digital_technologies:
+          values.cont_educ_in_the_use_of_digital_technologies.value,
+        years_teaching: values.years_teaching.value,
+        years_of_uses_technology_for_teaching:
+          values.years_of_uses_technology_for_teaching.value,
+        technology_application: values.technology_application,
+      },
+    };
+  }
+
   if (values.profile === "admin_state") user.locked = true;
   if (values.origin) user.origin = values.origin;
   if (values.profile === "admin_state") {
@@ -121,6 +150,8 @@ class SignUpForm extends React.Component {
       affiliation_id: "",
       stages_keys: [],
       knowledges_keys: [],
+      initial_formation_options: [],
+      institution_initial_formation_options: [],
     };
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleOpenModalProfile = this.handleOpenModalProfile.bind(this);
@@ -135,6 +166,7 @@ class SignUpForm extends React.Component {
     this._onChangeSharing = this._onChangeSharing.bind(this);
     this.handleButtonUserWithoutLinks =
       this.handleButtonUserWithoutLinks.bind(this);
+    this.setInitialFormation = this.setInitialFormation.bind(this);
   }
 
   componentDidMount() {
@@ -143,6 +175,8 @@ class SignUpForm extends React.Component {
     if (this.props.profile === "gestor") {
       this.fetchAffiliations();
     }
+
+    this.setInitialFormation();
   }
 
   translate = (id) => this.props.intl.formatMessage({ id });
@@ -323,6 +357,7 @@ class SignUpForm extends React.Component {
   }
 
   _submit(values) {
+    console.log(values);
     const params = new URLSearchParams(window.location.search);
     if (params.get("origem") !== null) values.origin = params.get("origem");
 
@@ -330,12 +365,6 @@ class SignUpForm extends React.Component {
       values.sharing = true;
     } else if (values.sharing === "nao") {
       values.sharing = false;
-    }
-
-    if (values.formation === "sim") {
-      values.formation = true;
-    } else if (values.formation === "nao") {
-      values.formation = false;
     }
 
     if (values.school_type === "Particular") {
@@ -354,10 +383,6 @@ class SignUpForm extends React.Component {
       ? values.emailConfirmation.trim()
       : values.emailConfirmation;
 
-    values.formation_level =
-      this.state.formation_level.length > 0
-        ? this.state.formation_level
-        : undefined;
     values.stages = this.state.stages_keys;
     values.knowledges = this.state.knowledges_keys;
     values.profile =
@@ -373,6 +398,32 @@ class SignUpForm extends React.Component {
     values.isTeacherWithoutLinks = this.state.isTeacherWithoutLinks;
     values.isPrincipalWithoutLinks = this.state.isPrincipalWithoutLinks;
 
+    let schemaAux;
+
+    if (values.profile === "teacher") {
+      values.technology_application =
+        values.technology_application && values.technology_application[0]
+          ? values.technology_application.map((option) => option.value)
+          : [];
+
+      if (values.technology_in_teaching_and_learning) {
+        if (values.technology_in_teaching_and_learning === "sim") {
+          values.technology_in_teaching_and_learning = true;
+        } else if (values.technology_in_teaching_and_learning === "nao") {
+          values.technology_in_teaching_and_learning = false;
+        }
+      } else {
+        values.technology_in_teaching_and_learning = null;
+      }
+
+      if (values.years_of_uses_technology_for_teaching) {
+        if (values.years_of_uses_technology_for_teaching.value === "Não uso") {
+          const { technology_application, ...rest } = schema;
+          schemaAux = { ...rest };
+        }
+      }
+    }
+
     return new Promise((resolve, reject) => {
       const errors = _.mapValues(
         validate(values, schema, { fullMessages: false }),
@@ -380,6 +431,8 @@ class SignUpForm extends React.Component {
           return value[0];
         }
       );
+
+      console.log(errors);
       delete values["isTeacherWithoutLinks"];
       delete values["isPrincipalWithoutLinks"];
       /* eslint-disable no-console */
@@ -409,6 +462,17 @@ class SignUpForm extends React.Component {
       }
     });
   }
+
+  setInitialFormation = () => {
+    console.log("oi");
+    const initial_formation_options = this.translate(
+      "SignUpForm.initial_formation.options"
+    )
+      .split(",")
+      .map((option) => ({ label: option, value: option }));
+    console.log(initial_formation_options);
+    this.setState({ initial_formation_options: initial_formation_options });
+  };
 
   _onChangeStages(options) {
     options = options || [];
@@ -872,72 +936,174 @@ class SignUpForm extends React.Component {
             <Field
               label={this.translate("SignUpForm.label.name")}
               classField="slim"
-              {...fields.name}
+              {...omitFieldProperties(fields.name)}
             />
             {this.props.profile === "educador" ? (
-              <div className="columns is-marginless">
-                <div className={classnames("column is-half", styles.form_cpf)}>
-                  <Field
-                    label={this.translate("SignUpForm.label.cpf")}
-                    classField="slim"
-                    description={this.translate("SignUpForm.description.cpf")}
-                    {...fields.cpf}
-                  />
-                </div>
-                <div className={classnames("column is-half", styles.form_born)}>
-                  <label className={classnames("label", styles.form__label)}>
-                    {parse(this.translate("SignUpForm.label.birthDate"))}
-                  </label>
+              <div>
+                <div className="columns is-marginless">
                   <div
-                    className={classnames(
-                      "is-small",
-                      styles.field__description
-                    )}
+                    className={classnames("column is-half", styles.form_cpf)}
                   >
-                    {parse(this.translate("SignUpForm.description.birthDate"))}
+                    <Field
+                      label={this.translate("SignUpForm.label.cpf")}
+                      classField="slim"
+                      description={this.translate("SignUpForm.description.cpf")}
+                      {...omitFieldProperties(fields.cpf)}
+                    />
                   </div>
-                  <div className={styles.is_relative}>
+                  <div
+                    className={classnames("column is-half", styles.form_born)}
+                  >
+                    <label className={classnames("label", styles.form__label)}>
+                      {parse(this.translate("SignUpForm.label.birthDate"))}
+                    </label>
                     <div
                       className={classnames(
-                        "control react-datepicker-width-large"
+                        "is-small",
+                        styles.field__description
                       )}
                     >
-                      <DatePicker
-                        name="born"
-                        className={classnames(
-                          "input",
-                          styles.field__datepicker,
-                          Boolean(fields.born.error) ? styles.is_danger : null
-                        )}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                        selected={this.state.born}
-                        onChange={this.handleChangeDate}
-                        dateFormat="dd/MM/yyyy"
-                      />
-                    </div>
-                    <i
-                      className={classnames(
-                        "fas fa-calendar-alt",
-                        styles.field__calendar
+                      {parse(
+                        this.translate("SignUpForm.description.birthDate")
                       )}
-                    ></i>
-                    {fields.born.error ? (
+                    </div>
+                    <div className={styles.is_relative}>
+                      <div
+                        className={classnames(
+                          "control react-datepicker-width-large"
+                        )}
+                      >
+                        <DatePicker
+                          name="born"
+                          className={classnames(
+                            "input",
+                            styles.field__datepicker,
+                            Boolean(fields.born.error) ? styles.is_danger : null
+                          )}
+                          peekNextMonth
+                          showMonthDropdown
+                          showYearDropdown
+                          dropdownMode="select"
+                          selected={this.state.born}
+                          onChange={this.handleChangeDate}
+                          dateFormat="dd/MM/yyyy"
+                        />
+                      </div>
                       <i
                         className={classnames(
-                          "fas fa-exclamation-triangle",
-                          styles.field__warning
+                          "fas fa-calendar-alt",
+                          styles.field__calendar
                         )}
                       ></i>
-                    ) : null}
-                    {fields.born.error ? (
-                      <span className="help is-danger">
-                        {fields.born.error}
-                      </span>
-                    ) : null}
+                      {fields.born.error ? (
+                        <i
+                          className={classnames(
+                            "fas fa-exclamation-triangle",
+                            styles.field__warning
+                          )}
+                        ></i>
+                      ) : null}
+                      {fields.born.error ? (
+                        <span className="help is-danger">
+                          {fields.born.error}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
+                </div>
+                <label className={classnames("label", styles.form__label)}>
+                  {this.translate("SignUpForm.label.gender")}
+                </label>
+                <div
+                  className={classnames(
+                    "control columns is-multiline",
+                    styles.form__input
+                  )}
+                >
+                  <label
+                    className={classnames(
+                      "radio column is-3",
+                      styles.form__radio
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      {...omitFieldProperties(fields.gender)}
+                      value={this.translate("SignUpForm.gender.feminine")}
+                      checked={
+                        fields.gender.value ===
+                        this.translate("SignUpForm.gender.feminine")
+                      }
+                      {...(this.state.disabledAdminCity ||
+                      this.state.disabledAdminState
+                        ? { disabled: true }
+                        : {})}
+                    />
+                    {this.translate("SignUpForm.gender.feminine")}
+                  </label>
+                  <label
+                    className={classnames(
+                      "radio column is-3",
+                      styles.form__radio
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      {...omitFieldProperties(fields.gender)}
+                      value={this.translate("SignUpForm.gender.masculine")}
+                      checked={
+                        fields.gender.value ===
+                        this.translate("SignUpForm.gender.masculine")
+                      }
+                      {...(this.state.disabledAdminCity ||
+                      this.state.disabledAdminState
+                        ? { disabled: true }
+                        : {})}
+                    />
+                    {this.translate("SignUpForm.gender.masculine")}
+                  </label>
+                  <label
+                    className={classnames(
+                      "radio column is-3",
+                      styles.form__radio
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      {...omitFieldProperties(fields.gender)}
+                      value={this.translate("SignUpForm.gender.others")}
+                      checked={
+                        fields.gender.value ===
+                        this.translate("SignUpForm.gender.others")
+                      }
+                      {...(this.state.disabledAdminCity ||
+                      this.state.disabledAdminState
+                        ? { disabled: true }
+                        : {})}
+                    />
+                    {this.translate("SignUpForm.gender.others")}
+                  </label>
+                  <label
+                    className={classnames(
+                      "radio column is-3",
+                      styles.form__radio
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      {...omitFieldProperties(fields.gender)}
+                      value={this.translate("SignUpForm.gender.preferNotToSay")}
+                      checked={
+                        fields.gender.value ===
+                        this.translate("SignUpForm.gender.preferNotToSay")
+                      }
+                      {...(this.state.disabledAdminCity ||
+                      this.state.disabledAdminState
+                        ? { disabled: true }
+                        : {})}
+                    />
+                    {this.translate("SignUpForm.gender.preferNotToSay")}
+                  </label>
                 </div>
               </div>
             ) : null}
@@ -945,24 +1111,24 @@ class SignUpForm extends React.Component {
               label={this.translate("SignUpForm.label.email")}
               classField="slim"
               description={this.translate("SignUpForm.description.email")}
-              {...fields.email}
+              {...omitFieldProperties(fields.email)}
             />
             <Field
               label={this.translate("SignUpForm.label.emailConfirmation")}
               classField="slim"
-              {...fields.emailConfirmation}
+              {...omitFieldProperties(fields.emailConfirmation)}
             />
             <Field
               label={this.translate("SignUpForm.label.password")}
               type="password"
               classField="slim"
-              {...fields.password}
+              {...omitFieldProperties(fields.password)}
             />
             <Field
               label={this.translate("SignUpForm.label.confirmPassword")}
               type="password"
               classField="slim"
-              {...fields.confirmPassword}
+              {...omitFieldProperties(fields.confirmPassword)}
             />
           </div>
 
@@ -1000,7 +1166,7 @@ class SignUpForm extends React.Component {
                             )}
                           >
                             <select
-                              {...fields.country}
+                              {...omitFieldProperties(fields.country)}
                               onChange={(e) => {
                                 this.updateSelectedCountry(e);
                                 this.getProvinces(e);
@@ -1058,7 +1224,7 @@ class SignUpForm extends React.Component {
                             )}
                           >
                             <select
-                              {...fields.province}
+                              {...omitFieldProperties(fields.province)}
                               onChange={(e) => {
                                 this.updateSelectedProvince(e);
                                 this.getStates(e);
@@ -1118,7 +1284,7 @@ class SignUpForm extends React.Component {
                             )}
                           >
                             <select
-                              {...fields.state}
+                              {...omitFieldProperties(fields.state)}
                               onChange={(e) => {
                                 this.updateSelectedState(e);
                                 this.getCities(e);
@@ -1280,7 +1446,7 @@ class SignUpForm extends React.Component {
                   })}
                 >
                   <select
-                    {...fields.affiliation_id}
+                    {...omitFieldProperties(fields.affiliation_id)}
                     onChange={(e) => {
                       this.updateSelectedAffiliation(e);
                     }}
@@ -1322,21 +1488,21 @@ class SignUpForm extends React.Component {
                   "SignUpFormAdminStates.affiliationBox.responsibleName"
                 )}
                 classField="slim"
-                {...fields.responsible_name}
+                {...omitFieldProperties(fields.responsible_name)}
               />
               <Field
                 label={this.translate(
                   "SignUpFormAdminStates.affiliationBox.responsibleEmail"
                 )}
                 classField="slim"
-                {...fields.responsible_email}
+                {...omitFieldProperties(fields.responsible_email)}
               />
               <Field
                 label={this.translate(
                   "SignUpFormAdminStates.affiliationBox.responsiblePhoneNumber"
                 )}
                 classField="slim"
-                {...fields.responsible_phone_number}
+                {...omitFieldProperties(fields.responsible_phone_number)}
               />
             </div>
           )}
@@ -1386,84 +1552,639 @@ class SignUpForm extends React.Component {
           {this.props.profile === "educador" ? (
             <div className="box">
               <h1 className={styles.title_section}>
-                {parse(this.translate("SignUpForm.formationTitle"))}
+                {this.translate("SignUpForm.formation")}
               </h1>
-              <label className={classnames("label", styles.form__label)}>
-                {parse(this.translate("SignUpForm.label.formation"))}
-              </label>
-              <div className={styles.is_relative}>
-                <div
-                  className={classnames(
-                    "control columns",
-                    styles.form__input,
-                    Boolean(fields.formation.error) ? styles.is_danger : null
+              <FieldSelect
+                name="formation_level"
+                {...omitFieldProperties(fields.formation_level)}
+                error={fields.formation_level.error}
+                label={this.translate("SignUpForm.label.formationLevel")}
+                options={getFormation(this.props)}
+                isMulti={false}
+                closeMenuOnSelect={true}
+                classField="slim"
+                noOptionsMessage={() => {
+                  return "Sem opções.";
+                }}
+                loadingMessage={() => {
+                  return "Carregando...";
+                }}
+                placeholder="Selecione uma opção"
+              />
+
+              <FieldCreatableSelect
+                name="initial_formation"
+                {...omitFieldProperties(fields.initial_formation)}
+                error={fields.initial_formation.error}
+                label={this.translate("SignUpForm.label.initial_formation")}
+                options={this.state.initial_formation_options}
+                {...omitFieldProperties(fields.initial_formation)}
+                onCreateOption={(option) => {
+                  if (!option.trim()) return;
+                  // if (!regex.test(option)) return;
+                  const value = { label: option, value: option };
+                  fields.initial_formation.onChange(value);
+                  this.setState({
+                    initial_formation_options: [
+                      ...this.state.initial_formation_options,
+                      value,
+                    ],
+                  });
+                }}
+                isMulti={false}
+                closeMenuOnSelect={true}
+                classField="slim"
+                noOptionsMessage={() => {
+                  return "Sem opções.";
+                }}
+                loadingMessage={() => {
+                  return "Carregando...";
+                }}
+                placeholder="Selecione uma opção"
+              />
+
+              <div className={classnames("column is-half", styles.form_born)}>
+                <label className={classnames("label", styles.form__label)}>
+                  {this.translate(
+                    "SignUpForm.label.final_year_of_initial_formation"
                   )}
+                </label>
+                <div
+                  className={classnames("is-small", styles.field__description)}
                 >
-                  <label
-                    className={classnames(
-                      "radio column is-half",
-                      styles.form__radio
-                    )}
-                  >
-                    <input
-                      type="radio"
-                      {...fields.formation}
-                      onClick={this._onChangeFormation}
-                      value="sim"
-                    />
-                    {parse(this.translate("SignUpForm.yes"))}
-                  </label>
-                  <label
-                    className={classnames(
-                      "radio column is-half",
-                      styles.form__radio
-                    )}
-                  >
-                    <input
-                      type="radio"
-                      {...fields.formation}
-                      onClick={this._onChangeFormation}
-                      value="nao"
-                    />
-                    {parse(this.translate("SignUpForm.no"))}
-                  </label>
+                  Formato correto DD/MM/AAAA
                 </div>
-                {fields.formation.error ? (
+                <div className={styles.is_relative}>
+                  <div
+                    className={classnames(
+                      "control react-datepicker-width-large"
+                    )}
+                  >
+                    <DatePicker
+                      name="final_year_of_initial_formation"
+                      {...omitFieldProperties(
+                        fields.final_year_of_initial_formation
+                      )}
+                      className={classnames(
+                        "input",
+                        styles.field__datepicker,
+                        Boolean(fields.final_year_of_initial_formation.error)
+                          ? styles.is_danger
+                          : null
+                      )}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                      disabled={false}
+                      selected={fields.final_year_of_initial_formation.value}
+                      // readOnly={true}
+                      // dateFormatCalendar={"DD/MM/YYYY"}
+                      dateFormat="dd/MM/yyyy"
+                      // locale="pt-BR"
+                    />
+                  </div>
                   <i
                     className={classnames(
-                      "fas fa-exclamation-triangle",
-                      styles.field__warning
+                      "fas fa-calendar-alt",
+                      styles.field__calendar
                     )}
                   ></i>
-                ) : null}
-                {fields.formation.error ? (
-                  <span className="help is-danger">
-                    {fields.formation.error}
-                  </span>
-                ) : null}
+                  {fields.final_year_of_initial_formation.error ? (
+                    <i
+                      className={classnames(
+                        "fas fa-exclamation-triangle",
+                        styles.field__warning
+                      )}
+                    ></i>
+                  ) : null}
+                  {fields.final_year_of_initial_formation.error ? (
+                    <span className="help is-danger">
+                      {fields.final_year_of_initial_formation.error}
+                    </span>
+                  ) : null}
+                </div>
               </div>
 
-              {this.state.formationAnswers ? (
-                <FieldSelect
-                  name="formation_level"
-                  error={fields.formation_level.error}
-                  label={parse(
-                    this.translate("SignUpForm.label.formationLevel")
+              <FieldSelect
+                name="internship_practice"
+                {...omitFieldProperties(fields.internship_practice)}
+                error={fields.internship_practice.error}
+                label={this.translate("SignUpForm.label.internship_practice")}
+                options={[
+                  {
+                    label: this.translate("SignUpForm.internship_practice.0"),
+                    value: this.translate("SignUpForm.internship_practice.0"),
+                  },
+                  {
+                    label: this.translate("SignUpForm.internship_practice.1"),
+                    value: this.translate("SignUpForm.internship_practice.1"),
+                  },
+                  {
+                    label: this.translate("SignUpForm.internship_practice.2"),
+                    value: this.translate("SignUpForm.internship_practice.2"),
+                  },
+                  {
+                    label: this.translate("SignUpForm.internship_practice.3"),
+                    value: this.translate("SignUpForm.internship_practice.3"),
+                  },
+                ]}
+                isMulti={false}
+                closeMenuOnSelect={true}
+                classField="slim"
+                noOptionsMessage={() => {
+                  return "Sem opções.";
+                }}
+                loadingMessage={() => {
+                  return "Carregando...";
+                }}
+                placeholder="Selecione uma opção"
+              />
+
+              <FieldCreatableSelect
+                name="institution_initial_formation"
+                error={fields.institution_initial_formation.error}
+                label={this.translate(
+                  "SignUpForm.label.institution_initial_formation"
+                )}
+                options={this.state.institution_initial_formation_options}
+                {...omitFieldProperties(fields.institution_initial_formation)}
+                onCreateOption={(option) => {
+                  const value = { label: option, value: option };
+                  fields.institution_initial_formation.onChange(value);
+                  this.setState({
+                    institution_initial_formation_options: [
+                      ...this.state.institution_initial_formation_options,
+                      value,
+                    ],
+                  });
+                }}
+                isMulti={false}
+                closeMenuOnSelect={true}
+                classField="slim"
+                noOptionsMessage={() => {
+                  return "Sem opções.";
+                }}
+                loadingMessage={() => {
+                  return "Carregando...";
+                }}
+                placeholder="Selecione uma opção"
+              />
+
+              <label className={classnames("label", styles.form__label)}>
+                {this.translate(
+                  "SignUpForm.label.technology_in_teaching_and_learning"
+                )}
+              </label>
+              <div
+                className={classnames(
+                  "control columns is-multiline",
+                  styles.form__input,
+                  Boolean(fields.technology_in_teaching_and_learning.error)
+                    ? styles.is_danger
+                    : null
+                )}
+              >
+                <label
+                  className={classnames(
+                    "radio column is-3",
+                    styles.form__radio
                   )}
-                  options={getFormation(this.props)}
+                >
+                  <input
+                    type="radio"
+                    {...omitFieldProperties(
+                      fields.technology_in_teaching_and_learning
+                    )}
+                    value={this.translate(
+                      "SignUpForm.technology_in_teaching_and_learning.yes"
+                    )}
+                    checked={
+                      fields.technology_in_teaching_and_learning.value ===
+                      this.translate(
+                        "SignUpForm.technology_in_teaching_and_learning.yes"
+                      )
+                    }
+                    {...(this.state.disabledAdminCity ||
+                    this.state.disabledAdminState
+                      ? { disabled: true }
+                      : {})}
+                  />
+                  {this.translate(
+                    "SignUpForm.technology_in_teaching_and_learning.yes"
+                  )}
+                </label>
+                <label
+                  className={classnames(
+                    "radio column is-3",
+                    styles.form__radio
+                  )}
+                >
+                  <input
+                    type="radio"
+                    {...omitFieldProperties(
+                      fields.technology_in_teaching_and_learning
+                    )}
+                    value={this.translate(
+                      "SignUpForm.technology_in_teaching_and_learning.no"
+                    )}
+                    checked={
+                      fields.technology_in_teaching_and_learning.value ===
+                      this.translate(
+                        "SignUpForm.technology_in_teaching_and_learning.no"
+                      )
+                    }
+                    {...(this.state.disabledAdminCity ||
+                    this.state.disabledAdminState
+                      ? { disabled: true }
+                      : {})}
+                  />
+                  {this.translate(
+                    "SignUpForm.technology_in_teaching_and_learning.no"
+                  )}
+                </label>
+              </div>
+              {fields.technology_in_teaching_and_learning.error ? (
+                <i
+                  className={classnames(
+                    "fas fa-exclamation-triangle",
+                    styles.field__warning
+                  )}
+                ></i>
+              ) : null}
+              {fields.technology_in_teaching_and_learning.error ? (
+                <span className="help is-danger">
+                  {fields.technology_in_teaching_and_learning.error}
+                </span>
+              ) : null}
+              <label className={classnames("label", styles.form__label)}>
+                {this.translate("SignUpForm.label.course_modality")}
+              </label>
+              <div
+                className={classnames(
+                  "control columns is-multiline",
+                  styles.form__input,
+                  Boolean(fields.course_modality.error)
+                    ? styles.is_danger
+                    : null
+                )}
+              >
+                <label
+                  className={classnames(
+                    "radio column is-3",
+                    styles.form__radio
+                  )}
+                >
+                  <input
+                    type="radio"
+                    {...omitFieldProperties(fields.course_modality)}
+                    value={this.translate(
+                      "SignUpForm.course_modality.inPerson"
+                    )}
+                    checked={
+                      fields.course_modality.value ===
+                      this.translate("SignUpForm.course_modality.inPerson")
+                    }
+                    {...(this.state.disabledAdminCity ||
+                    this.state.disabledAdminState
+                      ? { disabled: true }
+                      : {})}
+                  />
+                  {this.translate("SignUpForm.course_modality.inPerson")}
+                </label>
+                <label
+                  className={classnames(
+                    "radio column is-3",
+                    styles.form__radio
+                  )}
+                >
+                  <input
+                    type="radio"
+                    {...omitFieldProperties(fields.course_modality)}
+                    value={this.translate("SignUpForm.course_modality.blended")}
+                    checked={
+                      fields.course_modality.value ===
+                      this.translate("SignUpForm.course_modality.blended")
+                    }
+                    {...(this.state.disabledAdminCity ||
+                    this.state.disabledAdminState
+                      ? { disabled: true }
+                      : {})}
+                  />
+                  {this.translate("SignUpForm.course_modality.blended")}
+                </label>
+                <label
+                  className={classnames(
+                    "radio column is-3",
+                    styles.form__radio
+                  )}
+                >
+                  <input
+                    type="radio"
+                    {...omitFieldProperties(fields.course_modality)}
+                    value={this.translate(
+                      "SignUpForm.course_modality.fromADistance"
+                    )}
+                    checked={
+                      fields.course_modality.value ===
+                      this.translate("SignUpForm.course_modality.fromADistance")
+                    }
+                    {...(this.state.disabledAdminCity ||
+                    this.state.disabledAdminState
+                      ? { disabled: true }
+                      : {})}
+                  />
+                  {this.translate("SignUpForm.course_modality.fromADistance")}
+                </label>
+              </div>
+              {fields.course_modality.error ? (
+                <i
+                  className={classnames(
+                    "fas fa-exclamation-triangle",
+                    styles.field__warning
+                  )}
+                ></i>
+              ) : null}
+              {fields.course_modality.error ? (
+                <span className="help is-danger">
+                  {fields.course_modality.error}
+                </span>
+              ) : null}
+              <FieldSelect
+                name="cont_educ_in_the_use_of_digital_technologies"
+                {...omitFieldProperties(
+                  fields.cont_educ_in_the_use_of_digital_technologies
+                )}
+                error={
+                  fields.cont_educ_in_the_use_of_digital_technologies.error
+                }
+                label={this.translate(
+                  "SignUpForm.label.cont_educ_in_the_use_of_digital_technologies"
+                )}
+                options={[
+                  {
+                    label: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.0"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.0"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.1"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.1"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.2"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.2"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.3"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.3"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.4"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.4"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.5"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.5"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.6"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.cont_educ_in_the_use_of_digital_technologies.6"
+                    ),
+                  },
+                ]}
+                isMulti={false}
+                closeMenuOnSelect={true}
+                classField="slim"
+                noOptionsMessage={() => {
+                  return "Sem opções.";
+                }}
+                loadingMessage={() => {
+                  return "Carregando...";
+                }}
+                placeholder="Selecione uma opção"
+              />
+              <FieldSelect
+                {...omitFieldProperties(fields.years_teaching)}
+                name="years_teaching"
+                error={fields.years_teaching.error}
+                label={this.translate("SignUpForm.label.years_teaching")}
+                options={[
+                  {
+                    label: this.translate("SignUpForm.years_teaching.0"),
+                    value: this.translate("SignUpForm.years_teaching.0"),
+                  },
+                  {
+                    label: this.translate("SignUpForm.years_teaching.1"),
+                    value: this.translate("SignUpForm.years_teaching.1"),
+                  },
+                  {
+                    label: this.translate("SignUpForm.years_teaching.2"),
+                    value: this.translate("SignUpForm.years_teaching.2"),
+                  },
+                  {
+                    label: this.translate("SignUpForm.years_teaching.3"),
+                    value: this.translate("SignUpForm.years_teaching.3"),
+                  },
+                ]}
+                isMulti={false}
+                closeMenuOnSelect={true}
+                classField="slim"
+                noOptionsMessage={() => {
+                  return "Sem opções.";
+                }}
+                loadingMessage={() => {
+                  return "Carregando...";
+                }}
+                placeholder="Selecione uma opção"
+              />
+              <FieldSelect
+                {...omitFieldProperties(
+                  fields.years_of_uses_technology_for_teaching
+                )}
+                name="years_of_uses_technology_for_teaching"
+                error={fields.years_of_uses_technology_for_teaching.error}
+                onChange={(value) => {
+                  fields.years_of_uses_technology_for_teaching.onChange(value);
+                  if (
+                    value.value ===
+                    this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.0"
+                    )
+                  ) {
+                    fields.technology_application.onChange("");
+                  }
+                }}
+                label={this.translate(
+                  "SignUpForm.label.years_of_uses_technology_for_teaching"
+                )}
+                options={[
+                  {
+                    label: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.0"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.0"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.1"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.1"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.2"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.2"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.3"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.3"
+                    ),
+                  },
+                  {
+                    label: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.4"
+                    ),
+                    value: this.translate(
+                      "SignUpForm.years_of_uses_technology_for_teaching.4"
+                    ),
+                  },
+                ]}
+                isMulti={false}
+                closeMenuOnSelect={true}
+                classField="slim"
+                noOptionsMessage={() => {
+                  return "Sem opções.";
+                }}
+                loadingMessage={() => {
+                  return "Carregando...";
+                }}
+                placeholder="Selecione uma opção"
+              />
+              {fields.years_of_uses_technology_for_teaching.value.value !==
+                this.translate(
+                  "SignUpForm.years_of_uses_technology_for_teaching.0"
+                ) && (
+                <FieldSelect
+                  {...omitFieldProperties(fields.technology_application)}
+                  name="technology_application"
+                  error={fields.technology_application.error}
+                  label={this.translate(
+                    "SignUpForm.label.technology_application"
+                  )}
+                  options={[
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.0"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.0"
+                      ),
+                    },
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.1"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.1"
+                      ),
+                    },
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.2"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.2"
+                      ),
+                    },
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.3"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.3"
+                      ),
+                    },
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.4"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.4"
+                      ),
+                    },
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.5"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.5"
+                      ),
+                    },
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.6"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.6"
+                      ),
+                    },
+                    {
+                      label: this.translate(
+                        "SignUpForm.technology_application.7"
+                      ),
+                      value: this.translate(
+                        "SignUpForm.technology_application.7"
+                      ),
+                    },
+                  ]}
+                  isMulti={true}
                   classField="slim"
-                  onChange={this._onChangeFormationLevel.bind(this)}
                   noOptionsMessage={() => {
-                    return parse(this.translate("SignUpForm.noOptions"));
+                    return "Sem opções.";
                   }}
                   loadingMessage={() => {
-                    return parse(this.translate("Global.loading"));
+                    return "Carregando...";
                   }}
-                  placeholder={this.translate(
-                    "SignUpForm.placeholderSelectOptions"
-                  )}
+                  placeholder="Selecione uma ou mais opções"
                 />
-              ) : null}
+              )}
             </div>
           ) : null}
           {this.props.profile === "educador" ? (
@@ -1477,7 +2198,7 @@ class SignUpForm extends React.Component {
               >
                 <input
                   type="checkbox"
-                  {...fields.term}
+                  {...omitFieldProperties(fields.term)}
                   className={styles.form__checkbox}
                 />
                 <FormattedMessage
@@ -1528,7 +2249,7 @@ class SignUpForm extends React.Component {
                         >
                           <input
                             type="radio"
-                            {...fields.sharing}
+                            {...omitFieldProperties(fields.sharing)}
                             onClick={this._onChangeSharing}
                             value="sim"
                           />
@@ -1546,7 +2267,7 @@ class SignUpForm extends React.Component {
                         >
                           <input
                             type="radio"
-                            {...fields.sharing}
+                            {...omitFieldProperties(fields.sharing)}
                             onClick={this._onChangeSharing}
                             value="nao"
                           />

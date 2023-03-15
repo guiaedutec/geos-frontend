@@ -25,6 +25,8 @@ import FieldRadio from "~/components/Form/FieldRadio";
 import Layout from "~/components/Layout";
 import Body from "~/components/Body";
 import SignUpFormPrincipalFields from "~/pages/signup/components/SignUpForm/PrincipalFields";
+import FieldCreatableSelect from "~/components/Form/FieldCreatableSelect";
+import { removeCPFMask } from "~/helpers/form";
 import SubmitBtn from "~/components/SubmitBtn";
 import {
   getStages,
@@ -34,6 +36,9 @@ import {
   getComputerFrequency,
   getUseTechnologies,
 } from "~/helpers/data_const";
+
+import { omitFieldProperties } from "~/helpers/redux-form-fields";
+
 import { isAdmin } from "~/helpers/users";
 import ReactModal from "react-modal";
 
@@ -54,19 +59,20 @@ import $ from "jquery";
 import stylesModal from "../../components/Modal/Modal.styl";
 import history from "~/core/history";
 
-const updateUser = (values) => {
+const updateUser = (values, affiliation_id) => {
   let user = {
     /* eslint-disable camelcase */
     _id: values._id,
     name: values.name,
     cpf: values.cpf,
     born: values.born,
+    affiliation_id: affiliation_id,
     country_id: values.country,
     province_id: values.province,
     state_id: values.state,
     city_id: values.city,
     profile: values.profile,
-    school_id: values.school,
+    school_id: values.school._id.$oid,
     institution: values.institution,
     school_type: values.school_type,
     stages: values.stages,
@@ -79,6 +85,29 @@ const updateUser = (values) => {
     geo_structure_level3_name: "",
     geo_structure_level4_name: "",
   };
+
+  if (values.profile === "teacher") {
+    user = {
+      ...user,
+      gender: values.gender,
+      initial_formation: values.initial_formation.value,
+      institution_initial_formation: values.institution_initial_formation.value,
+      internship_practice: values.internship_practice.value,
+      technology_in_teaching_and_learning:
+        values.technology_in_teaching_and_learning,
+      course_modality: values.course_modality,
+      final_year_of_initial_formation: values.final_year_of_initial_formation,
+      teacher_data: {
+        formation_level: values.formation_level.value,
+        cont_educ_in_the_use_of_digital_technologies:
+          values.cont_educ_in_the_use_of_digital_technologies.value,
+        years_teaching: values.years_teaching.value,
+        years_of_uses_technology_for_teaching:
+          values.years_of_uses_technology_for_teaching.value,
+        technology_application: values.technology_application,
+      },
+    };
+  }
 
   return API.Users.patch(user);
 };
@@ -118,9 +147,26 @@ class EditUser extends React.Component {
       user_id: "",
       stages_keys: [],
       knowledges_keys: [],
+      initial_formation_options: [],
+      institution_initial_formation_options: [],
+      survey_id: null,
+      survey_response_id: null,
+      have_response: false,
     };
     this.remove = this.remove.bind(this);
     this._logout = this._logout.bind(this);
+    this.setInitialFormation = this.setInitialFormation.bind(this);
+  }
+
+  async fetchSurveys() {
+    const response = await axios.get(
+      CONF.ApiURL + "/api/v1/survey/surveys_list?access_token=" + getUserToken()
+    );
+    const survey = response.data.surveys.find(
+      (survey) => survey.type === "personal"
+    );
+    if (!survey) return;
+    this.setState({ survey_id: survey.id });
   }
 
   async remove() {
@@ -171,8 +217,34 @@ class EditUser extends React.Component {
     return newStages;
   };
 
+  async fetchResponses() {
+    const response = await axios.get(
+      CONF.ApiURL +
+        "/api/v1/survey/responses_user/" +
+        this.state.survey_id +
+        "?access_token=" +
+        getUserToken()
+    );
+
+    this.setState(
+      { survey_response_id: response.data.response._id.$oid },
+      () => {
+        const { user } = this.props.accounts;
+        if (
+          user.teacher_data &&
+          !user.teacher_data[this.state.survey_response_id]
+        ) {
+          this.setState({ showModalUpdateTeacherData: true });
+        }
+
+        if (!user.teacher_data) {
+          this.setState({ showModalUpdateTeacherData: true });
+        }
+      }
+    );
+  }
+
   populateForm = () => {
-    this.setState({ setUser: true });
     const user = this.props.accounts && this.props.accounts.user;
 
     if (Object.keys(user).length !== 0) {
@@ -215,6 +287,47 @@ class EditUser extends React.Component {
       this.props.fields.city.onChange(city_id);
       this.props.fields.school.onChange(school_id);
       this.props.fields.institution.onChange(user.institution_name);
+      console.log(user);
+      Object.entries(user).forEach(([key, value]) => {
+        if (["born", "final_year_of_initial_formation"].includes(key)) {
+          this.props.fields[key] && this.props.fields[key].onChange(new Date());
+        } else {
+          this.props.fields[key] && this.props.fields[key].onChange(value);
+        }
+      });
+
+      this.props.fields.initial_formation.onChange({
+        label: user.initial_formation,
+        value: user.initial_formation,
+      });
+      this.props.fields.institution_initial_formation.onChange({
+        label: user.institution_initial_formation,
+        value: user.institution_initial_formation,
+      });
+      this.props.fields.internship_practice.onChange({
+        label: user.internship_practice,
+        value: user.internship_practice,
+      });
+      this.props.fields.technology_in_teaching_and_learning.onChange(
+        user.technology_in_teaching_and_learning ? "sim" : "nao"
+      );
+
+      if (user._profile === "teacher" && user.teacher_data) {
+        user.teacher_data[this.state.survey_response_id] &&
+          Object.entries(
+            user.teacher_data[this.state.survey_response_id]
+          ).forEach(([key, value]) => {
+            if (Array.isArray(value)) {
+              this.props.fields[key].onChange(
+                value.map((option) => ({ label: option, value: option }))
+              );
+            } else {
+              if (!["created_at", "updated_at"].includes(key)) {
+                this.props.fields[key].onChange({ label: value, value: value });
+              }
+            }
+          });
+      }
 
       const stages_keys_without_duplicates = [...new Set(user.stages)];
       const stages_values = getStages(this.props).filter((stage) =>
@@ -262,52 +375,50 @@ class EditUser extends React.Component {
         let sharing = user.sharing ? "sim" : "nao";
         this.props.fields.sharing.onChange(sharing);
       }
-
-      setTimeout(() => {
-        let stages = [];
-        let knowledges = [];
-        let formationlevel = [];
-
-        user.stages &&
-          user.stages.forEach((stage) => {
-            stages.push(
-              getStages(this.props).find((s) => {
-                return s.value == stage;
-              })
-            );
-          });
-
-        user.knowledges &&
-          user.knowledges.forEach((knowledge) => {
-            getKnowledges(this.props).forEach((st) => {
-              let know = st.options.find((k) => {
-                return k.value == knowledge;
-              });
-              if (know != undefined) {
-                knowledges.push(know);
-              }
-            });
-          });
-
-        user.formation_level &&
-          user.formation_level.forEach((level) => {
-            formationlevel.push(
-              getFormation(this.props).find((f) => {
-                return f.value == level;
-              })
-            );
-          });
-
-        this._onChangeStages(stages);
-        this._onChangeKnowledges(knowledges);
-        this._onChangeFormationLevel(formationlevel);
-      }, 0);
     }
   };
+
+  populateStages = (user) => {
+    let stages = [];
+
+    if (user.stages) {
+      user.stages.forEach((stage) => {
+        stages.push(
+          getStages(this.props).find((s) => {
+            return s.key == stage;
+          })
+        );
+      });
+
+      this._onChangeStages(stages);
+    }
+  };
+
+  populateKnowledges = (user) => {
+    let knowledges = [];
+
+    if (user.knowledges) {
+      user.knowledges.forEach((knowledge) => {
+        getKnowledges(this.props).forEach((st) => {
+          let know = st.options.find((k) => {
+            return k.key == knowledge;
+          });
+          if (know != undefined) {
+            knowledges.push(know);
+          }
+        });
+      });
+
+      this._onChangeKnowledges(knowledges);
+    }
+  };
+
   componentDidMount = () => {
     const url = new URL(window.location.href);
     const id = url.searchParams.get("id");
     this.props.fetchCountries();
+    this.fetchSurveys();
+
     this.setState({ user_id: id });
 
     getUser(id).then(
@@ -319,15 +430,29 @@ class EditUser extends React.Component {
       }
     );
 
-    this.populateForm();
+    const user = this.props.accounts.user;
+    this.populateKnowledges(user);
+    this.populateStages(user);
+    this.setInitialFormation();
+
+    // this.populateForm();
   };
 
   componentDidUpdate = (prevProps) => {
+    if (!!this.state.survey_id && !this.state.have_response) {
+      this.setState({ have_response: true });
+      this.fetchResponses();
+    }
     if (
-      this.state.hasUser === false &&
-      prevProps.apiData.countries !== this.props.apiData.countries
+      !this.state.hasUser &&
+      // prevProps.apiData.countries !== this.props.apiData.countries &&
+      this.state.survey_response_id
     ) {
+      this.setState({ hasUser: true });
       this.populateForm();
+      const user = this.props.accounts.user;
+      this.populateKnowledges(user);
+      this.populateStages(user);
     }
 
     if (
@@ -357,7 +482,6 @@ class EditUser extends React.Component {
     const values = _.isArray(options)
       ? options.map((option) => option.value)
       : [options && options.value];
-
     const options_keys = options.map((option) => option.key);
     const stages_keys_without_duplicates = [...new Set(options_keys)];
     this.props.fields.stages.onChange(options);
@@ -448,7 +572,22 @@ class EditUser extends React.Component {
   };
 
   _updateUser = (values) => {
-    return updateUser(values).then(
+    let affiliation_id;
+
+    if (
+      values.profile !== "admin_state" &&
+      !this.state.isPrincipalWithoutLinks &&
+      !this.state.isTeacherWithoutLinks
+    ) {
+      affiliation_id = this.props.apiData.schools.find(
+        (school) => school._id.$oid === values.school._id.$oid
+      ).affiliation_id;
+      if (affiliation_id instanceof Object) {
+        affiliation_id = affiliation_id.$oid;
+      }
+    }
+
+    return updateUser(values, affiliation_id).then(
       (response) => {
         if (response.error) {
           this.setState({ updateStatus: "fail" });
@@ -576,15 +715,39 @@ class EditUser extends React.Component {
     values.born = fields.born.value ? fields.born.value : undefined;
     values.email = values.email ? values.email.trim() : values.email;
     values.profile = this.state.user._profile;
-    values.formation_level =
-      this.state.formation_level.length > 0
-        ? this.state.formation_level
-        : undefined;
 
     values.stages = this.state.stages_keys || [];
     values.knowledges = this.state.knowledges_keys || [];
 
     values.isUserWithoutLinks = this.isUserWithoutLinks();
+
+    let schemaAux;
+
+    if (values.profile === "teacher") {
+      values.technology_application =
+        values.technology_application && values.technology_application[0]
+          ? values.technology_application.map((option) => option.value)
+          : [];
+
+      if (values.technology_in_teaching_and_learning) {
+        if (values.technology_in_teaching_and_learning === "sim") {
+          values.technology_in_teaching_and_learning = true;
+        } else if (values.technology_in_teaching_and_learning === "nao") {
+          values.technology_in_teaching_and_learning = false;
+        }
+      } else {
+        values.technology_in_teaching_and_learning = null;
+      }
+
+      if (values.years_of_uses_technology_for_teaching) {
+        if (values.years_of_uses_technology_for_teaching.value === "Não uso") {
+          const { technology_application, ...rest } = schema;
+          schemaAux = { ...rest };
+        }
+      }
+    }
+
+    values.cpf = removeCPFMask(values.cpf);
 
     return new Promise((resolve, reject) => {
       const errors = _.mapValues(
@@ -593,6 +756,8 @@ class EditUser extends React.Component {
           return value[0];
         }
       );
+
+      console.log(errors);
 
       delete values["isUserWithoutLinks"];
 
@@ -606,7 +771,7 @@ class EditUser extends React.Component {
             reject(errors);
           }
         );
-        history.push("/recursos");
+        // history.push("/recursos");
       } else {
         var name = Object.entries(errors)[0][0];
         var field = $('[name="' + name + '"]')
@@ -625,6 +790,16 @@ class EditUser extends React.Component {
     });
   };
   translate = (id) => this.props.intl.formatMessage({ id });
+
+  setInitialFormation = () => {
+    const initial_formation_options = this.translate(
+      "SignUpForm.initial_formation.options"
+    )
+      .split(",")
+      .map((option) => ({ label: option, value: option }));
+    console.log(initial_formation_options);
+    this.setState({ initial_formation_options: initial_formation_options });
+  };
 
   render() {
     const { fields, apiData, handleSubmit, submitting } = this.props;
@@ -722,6 +897,129 @@ class EditUser extends React.Component {
                         {...fields.cpf}
                       />
                     )}
+
+                    {_.result(user, "_profile") === "teacher" && (
+                      <div>
+                        <label
+                          className={classNames("label", styles.form__label)}
+                        >
+                          {this.translate("SignUpForm.label.gender")}
+                        </label>
+                        <div
+                          className={classNames(
+                            "control columns is-multiline",
+                            styles.form__input
+                          )}
+                        >
+                          <label
+                            className={classNames(
+                              "radio column is-3",
+                              styles.form__radio
+                            )}
+                          >
+                            <input
+                              type="radio"
+                              {...omitFieldProperties(fields.gender)}
+                              value={this.translate(
+                                "SignUpForm.gender.feminine"
+                              )}
+                              checked={
+                                fields.gender.value ===
+                                this.translate("SignUpForm.gender.feminine")
+                              }
+                              {...(this.state.disabledAdminCity ||
+                              this.state.disabledAdminState
+                                ? { disabled: true }
+                                : {})}
+                            />
+                            {this.translate("SignUpForm.gender.feminine")}
+                          </label>
+                          <label
+                            className={classNames(
+                              "radio column is-3",
+                              styles.form__radio
+                            )}
+                          >
+                            <input
+                              type="radio"
+                              {...omitFieldProperties(fields.gender)}
+                              value={this.translate(
+                                "SignUpForm.gender.masculine"
+                              )}
+                              checked={
+                                fields.gender.value ===
+                                this.translate("SignUpForm.gender.masculine")
+                              }
+                              {...(this.state.disabledAdminCity ||
+                              this.state.disabledAdminState
+                                ? { disabled: true }
+                                : {})}
+                            />
+                            {this.translate("SignUpForm.gender.masculine")}
+                          </label>
+                          <label
+                            className={classNames(
+                              "radio column is-3",
+                              styles.form__radio
+                            )}
+                          >
+                            <input
+                              type="radio"
+                              {...omitFieldProperties(fields.gender)}
+                              value={this.translate("SignUpForm.gender.others")}
+                              checked={
+                                fields.gender.value ===
+                                this.translate("SignUpForm.gender.others")
+                              }
+                              {...(this.state.disabledAdminCity ||
+                              this.state.disabledAdminState
+                                ? { disabled: true }
+                                : {})}
+                            />
+                            {this.translate("SignUpForm.gender.others")}
+                          </label>
+                          <label
+                            className={classNames(
+                              "radio column is-3",
+                              styles.form__radio
+                            )}
+                          >
+                            <input
+                              type="radio"
+                              {...omitFieldProperties(fields.gender)}
+                              value={this.translate(
+                                "SignUpForm.gender.preferNotToSay"
+                              )}
+                              checked={
+                                fields.gender.value ===
+                                this.translate(
+                                  "SignUpForm.gender.preferNotToSay"
+                                )
+                              }
+                              {...(this.state.disabledAdminCity ||
+                              this.state.disabledAdminState
+                                ? { disabled: true }
+                                : {})}
+                            />
+                            {this.translate("SignUpForm.gender.preferNotToSay")}
+                          </label>
+                        </div>
+                        {fields.gender.error && (
+                          <i
+                            className={classNames(
+                              "fas fa-exclamation-triangle",
+                              styles.field__warning
+                            )}
+                          ></i>
+                        )}
+                        {fields.gender.error && (
+                          <span className="help is-danger">
+                            {fields.gender.error}
+                          </span>
+                        )}
+                      </div>
+                    )}
+
                     {_.result(user, "_profile") === "teacher" && (
                       <div>
                         <label
@@ -731,7 +1029,8 @@ class EditUser extends React.Component {
                         </label>
                         <div
                           className={classNames(
-                            "control react-datepicker-width-large"
+                            "control react-datepicker-width-large",
+                            styles.is_relative
                           )}
                         >
                           <DatePicker
@@ -781,98 +1080,6 @@ class EditUser extends React.Component {
                       disabled
                     />
                   </div>
-                  {_.result(user, "_profile") === "teacher" && (
-                    <div className="box">
-                      <h1 className={styles.title_section}>
-                        {parse(this.translate("SignUpForm.formationTitle"))}
-                      </h1>
-                      <label
-                        className={classNames("label", styles.form__label)}
-                      >
-                        {parse(this.translate("SignUpForm.label.formation"))}
-                      </label>
-                      <div
-                        className={classNames(
-                          "control columns",
-                          styles.form__input,
-                          Boolean(fields.formation.error)
-                            ? styles.is_danger
-                            : null
-                        )}
-                      >
-                        <label
-                          className={classNames(
-                            "radio column is-half",
-                            styles.form__radio
-                          )}
-                        >
-                          <input
-                            type="radio"
-                            {...fields.formation}
-                            onClick={this._onChangeFormation}
-                            value="sim"
-                            checked={
-                              this.props.fields.formation.value === "sim"
-                            }
-                          />
-                          {parse(this.translate("SignUpForm.yes"))}
-                        </label>
-                        <label
-                          className={classNames(
-                            "radio column is-half",
-                            styles.form__radio
-                          )}
-                        >
-                          <input
-                            type="radio"
-                            {...fields.formation}
-                            onClick={this._onChangeFormation}
-                            value="nao"
-                            checked={
-                              this.props.fields.formation.value === "nao"
-                            }
-                          />
-                          {parse(this.translate("SignUpForm.no"))}
-                        </label>
-                        {fields.formation.error ? (
-                          <i
-                            className={classNames(
-                              "fas fa-exclamation-triangle",
-                              styles.field__warning
-                            )}
-                          ></i>
-                        ) : null}
-                      </div>
-                      {fields.formation.error ? (
-                        <span className="help is-danger">
-                          {fields.formation.error}
-                        </span>
-                      ) : null}
-                      {this.state.formationAnswers ? (
-                        <FieldSelect
-                          error={fields.formation_level.error}
-                          label={parse(
-                            this.translate("SignUpForm.label.formationLevel")
-                          )}
-                          options={getFormation(this.props)}
-                          value={this.state.formationLevelDyn}
-                          classField="slim"
-                          onChange={this._onChangeFormationLevel}
-                          noOptionsMessage={() => {
-                            return parse(
-                              this.translate("SignUpForm.noOptions")
-                            );
-                          }}
-                          loadingMessage={() => {
-                            return parse(this.translate("Global.loading"));
-                          }}
-                          placeholder={this.translate(
-                            "SignUpForm.placeholderSelectOptions"
-                          )}
-                        />
-                      ) : null}
-                    </div>
-                  )}
                 </div>
                 {/* Professionals Data */}
                 {this.showProfessionalsData() && (
@@ -1299,6 +1506,721 @@ class EditUser extends React.Component {
                     </div>
                   </div>
                 )}
+              </div>
+              <div className="columns">
+                <div className="column is-12">
+                  {_.result(user, "_profile") === "teacher" && (
+                    <div className="box">
+                      <h1 className={styles.title_section}>
+                        {this.translate("SignUpForm.formation")}
+                      </h1>
+                      <FieldSelect
+                        name="formation_level"
+                        {...omitFieldProperties(fields.formation_level)}
+                        error={fields.formation_level.error}
+                        label={this.translate(
+                          "SignUpForm.label.formationLevel"
+                        )}
+                        options={getFormation(this.props)}
+                        isMulti={false}
+                        closeMenuOnSelect={true}
+                        classField="slim"
+                        noOptionsMessage={() => {
+                          return "Sem opções.";
+                        }}
+                        loadingMessage={() => {
+                          return "Carregando...";
+                        }}
+                        placeholder="Selecione uma opção"
+                      />
+
+                      <FieldCreatableSelect
+                        name="initial_formation"
+                        error={fields.initial_formation.error}
+                        label={this.translate(
+                          "SignUpForm.label.initial_formation"
+                        )}
+                        options={this.state.initial_formation_options}
+                        {...omitFieldProperties(fields.initial_formation)}
+                        onCreateOption={(option) => {
+                          if (!option.trim()) return;
+                          // if (!regex.test(option)) return;
+                          const value = { label: option, value: option };
+                          fields.initial_formation.onChange(value);
+                          this.setState({
+                            initial_formation_options: [
+                              ...this.state.initial_formation_options,
+                              value,
+                            ],
+                          });
+                        }}
+                        isMulti={false}
+                        closeMenuOnSelect={true}
+                        classField="slim"
+                        noOptionsMessage={() => {
+                          return "Sem opções.";
+                        }}
+                        loadingMessage={() => {
+                          return "Carregando...";
+                        }}
+                        placeholder="Selecione uma opção"
+                      />
+
+                      <div className={classNames("", styles.form_born)}>
+                        <label
+                          className={classNames("label", styles.form__label)}
+                        >
+                          {this.translate(
+                            "SignUpForm.label.final_year_of_initial_formation"
+                          )}
+                        </label>
+
+                        <div className={styles.is_relative}>
+                          <div
+                            className={classNames(
+                              "control react-datepicker-width-large"
+                            )}
+                          >
+                            <DatePicker
+                              name="final_year_of_initial_formation"
+                              {...omitFieldProperties(
+                                fields.final_year_of_initial_formation
+                              )}
+                              className={classNames(
+                                "input",
+                                styles.field__datepicker,
+                                Boolean(
+                                  fields.final_year_of_initial_formation.error
+                                )
+                                  ? styles.is_danger
+                                  : null
+                              )}
+                              peekNextMonth
+                              showMonthDropdown
+                              showYearDropdown
+                              dropdownMode="select"
+                              disabled={false}
+                              selected={
+                                fields.final_year_of_initial_formation.value
+                              }
+                              dateFormat="dd/MM/yyyy"
+                            />
+                          </div>
+                          <i
+                            className={classNames(
+                              "fas fa-calendar-alt",
+                              styles.field__calendar
+                            )}
+                          ></i>
+                          {fields.final_year_of_initial_formation.error ? (
+                            <i
+                              className={classNames(
+                                "fas fa-exclamation-triangle",
+                                styles.field__warning
+                              )}
+                            ></i>
+                          ) : null}
+                          {fields.final_year_of_initial_formation.error ? (
+                            <span className="help is-danger">
+                              {fields.final_year_of_initial_formation.error}
+                            </span>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      <FieldSelect
+                        name="internship_practice"
+                        {...omitFieldProperties(fields.internship_practice)}
+                        error={fields.internship_practice.error}
+                        label={this.translate(
+                          "SignUpForm.label.internship_practice"
+                        )}
+                        options={[
+                          {
+                            label: this.translate(
+                              "SignUpForm.internship_practice.0"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.internship_practice.0"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.internship_practice.1"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.internship_practice.1"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.internship_practice.2"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.internship_practice.2"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.internship_practice.3"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.internship_practice.3"
+                            ),
+                          },
+                        ]}
+                        isMulti={false}
+                        closeMenuOnSelect={true}
+                        classField="slim"
+                        noOptionsMessage={() => {
+                          return "Sem opções.";
+                        }}
+                        loadingMessage={() => {
+                          return "Carregando...";
+                        }}
+                        placeholder="Selecione uma opção"
+                      />
+
+                      <FieldCreatableSelect
+                        name="institution_initial_formation"
+                        error={fields.institution_initial_formation.error}
+                        label={this.translate(
+                          "SignUpForm.label.institution_initial_formation"
+                        )}
+                        options={
+                          this.state.institution_initial_formation_options
+                        }
+                        {...omitFieldProperties(
+                          fields.institution_initial_formation
+                        )}
+                        onCreateOption={(option) => {
+                          const value = { label: option, value: option };
+                          fields.institution_initial_formation.onChange(value);
+                          this.setState({
+                            institution_initial_formation_options: [
+                              ...this.state
+                                .institution_initial_formation_options,
+                              value,
+                            ],
+                          });
+                        }}
+                        isMulti={false}
+                        closeMenuOnSelect={true}
+                        classField="slim"
+                        noOptionsMessage={() => {
+                          return "Sem opções.";
+                        }}
+                        loadingMessage={() => {
+                          return "Carregando...";
+                        }}
+                        placeholder="Selecione uma opção"
+                      />
+
+                      <label
+                        className={classNames("label", styles.form__label)}
+                      >
+                        {this.translate(
+                          "SignUpForm.label.technology_in_teaching_and_learning"
+                        )}
+                      </label>
+                      <div
+                        className={classNames(
+                          "control columns is-multiline",
+                          styles.form__input,
+                          Boolean(
+                            fields.technology_in_teaching_and_learning.error
+                          )
+                            ? styles.is_danger
+                            : null
+                        )}
+                      >
+                        <label
+                          className={classNames(
+                            "radio column is-3",
+                            styles.form__radio
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...omitFieldProperties(
+                              fields.technology_in_teaching_and_learning
+                            )}
+                            value={this.translate(
+                              "SignUpForm.technology_in_teaching_and_learning.yes"
+                            )}
+                            checked={
+                              fields.technology_in_teaching_and_learning
+                                .value ===
+                              this.translate(
+                                "SignUpForm.technology_in_teaching_and_learning.yes"
+                              )
+                            }
+                            {...(this.state.disabledAdminCity ||
+                            this.state.disabledAdminState
+                              ? { disabled: true }
+                              : {})}
+                          />
+                          {this.translate(
+                            "SignUpForm.technology_in_teaching_and_learning.yes"
+                          )}
+                        </label>
+                        <label
+                          className={classNames(
+                            "radio column is-3",
+                            styles.form__radio
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...omitFieldProperties(
+                              fields.technology_in_teaching_and_learning
+                            )}
+                            value={this.translate(
+                              "SignUpForm.technology_in_teaching_and_learning.no"
+                            )}
+                            checked={
+                              fields.technology_in_teaching_and_learning
+                                .value ===
+                              this.translate(
+                                "SignUpForm.technology_in_teaching_and_learning.no"
+                              )
+                            }
+                            {...(this.state.disabledAdminCity ||
+                            this.state.disabledAdminState
+                              ? { disabled: true }
+                              : {})}
+                          />
+                          {this.translate(
+                            "SignUpForm.technology_in_teaching_and_learning.no"
+                          )}
+                        </label>
+                      </div>
+                      {fields.technology_in_teaching_and_learning.error ? (
+                        <i
+                          className={classNames(
+                            "fas fa-exclamation-triangle",
+                            styles.field__warning
+                          )}
+                        ></i>
+                      ) : null}
+                      {fields.technology_in_teaching_and_learning.error ? (
+                        <span className="help is-danger">
+                          {fields.technology_in_teaching_and_learning.error}
+                        </span>
+                      ) : null}
+                      <label
+                        className={classNames("label", styles.form__label)}
+                      >
+                        {this.translate("SignUpForm.label.course_modality")}
+                      </label>
+                      <div
+                        className={classNames(
+                          "control columns is-multiline",
+                          styles.form__input,
+                          Boolean(fields.course_modality.error)
+                            ? styles.is_danger
+                            : null
+                        )}
+                      >
+                        <label
+                          className={classNames(
+                            "radio column is-3",
+                            styles.form__radio
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...omitFieldProperties(fields.course_modality)}
+                            value={this.translate(
+                              "SignUpForm.course_modality.inPerson"
+                            )}
+                            checked={
+                              fields.course_modality.value ===
+                              this.translate(
+                                "SignUpForm.course_modality.inPerson"
+                              )
+                            }
+                            {...(this.state.disabledAdminCity ||
+                            this.state.disabledAdminState
+                              ? { disabled: true }
+                              : {})}
+                          />
+                          {this.translate(
+                            "SignUpForm.course_modality.inPerson"
+                          )}
+                        </label>
+                        <label
+                          className={classNames(
+                            "radio column is-3",
+                            styles.form__radio
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...omitFieldProperties(fields.course_modality)}
+                            value={this.translate(
+                              "SignUpForm.course_modality.blended"
+                            )}
+                            checked={
+                              fields.course_modality.value ===
+                              this.translate(
+                                "SignUpForm.course_modality.blended"
+                              )
+                            }
+                            {...(this.state.disabledAdminCity ||
+                            this.state.disabledAdminState
+                              ? { disabled: true }
+                              : {})}
+                          />
+                          {this.translate("SignUpForm.course_modality.blended")}
+                        </label>
+                        <label
+                          className={classNames(
+                            "radio column is-3",
+                            styles.form__radio
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...omitFieldProperties(fields.course_modality)}
+                            value={this.translate(
+                              "SignUpForm.course_modality.fromADistance"
+                            )}
+                            checked={
+                              fields.course_modality.value ===
+                              this.translate(
+                                "SignUpForm.course_modality.fromADistance"
+                              )
+                            }
+                            {...(this.state.disabledAdminCity ||
+                            this.state.disabledAdminState
+                              ? { disabled: true }
+                              : {})}
+                          />
+                          {this.translate(
+                            "SignUpForm.course_modality.fromADistance"
+                          )}
+                        </label>
+                      </div>
+                      {fields.course_modality.error ? (
+                        <i
+                          className={classNames(
+                            "fas fa-exclamation-triangle",
+                            styles.field__warning
+                          )}
+                        ></i>
+                      ) : null}
+                      {fields.course_modality.error ? (
+                        <span className="help is-danger">
+                          {fields.course_modality.error}
+                        </span>
+                      ) : null}
+                      <FieldSelect
+                        name="cont_educ_in_the_use_of_digital_technologies"
+                        {...omitFieldProperties(
+                          fields.cont_educ_in_the_use_of_digital_technologies
+                        )}
+                        error={
+                          fields.cont_educ_in_the_use_of_digital_technologies
+                            .error
+                        }
+                        label={this.translate(
+                          "SignUpForm.label.cont_educ_in_the_use_of_digital_technologies"
+                        )}
+                        options={[
+                          {
+                            label: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.0"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.0"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.1"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.1"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.2"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.2"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.3"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.3"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.4"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.4"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.5"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.5"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.6"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.cont_educ_in_the_use_of_digital_technologies.6"
+                            ),
+                          },
+                        ]}
+                        isMulti={false}
+                        closeMenuOnSelect={true}
+                        classField="slim"
+                        noOptionsMessage={() => {
+                          return "Sem opções.";
+                        }}
+                        loadingMessage={() => {
+                          return "Carregando...";
+                        }}
+                        placeholder="Selecione uma opção"
+                      />
+                      <FieldSelect
+                        {...omitFieldProperties(fields.years_teaching)}
+                        name="years_teaching"
+                        error={fields.years_teaching.error}
+                        label={this.translate(
+                          "SignUpForm.label.years_teaching"
+                        )}
+                        options={[
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_teaching.0"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_teaching.0"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_teaching.1"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_teaching.1"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_teaching.2"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_teaching.2"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_teaching.3"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_teaching.3"
+                            ),
+                          },
+                        ]}
+                        isMulti={false}
+                        closeMenuOnSelect={true}
+                        classField="slim"
+                        noOptionsMessage={() => {
+                          return "Sem opções.";
+                        }}
+                        loadingMessage={() => {
+                          return "Carregando...";
+                        }}
+                        placeholder="Selecione uma opção"
+                      />
+                      <FieldSelect
+                        {...omitFieldProperties(
+                          fields.years_of_uses_technology_for_teaching
+                        )}
+                        onChange={(value) => {
+                          fields.years_of_uses_technology_for_teaching.onChange(
+                            value
+                          );
+                          if (
+                            value.value ===
+                            this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.0"
+                            )
+                          ) {
+                            fields.technology_application.onChange("");
+                          }
+                        }}
+                        name={this.translate(
+                          "SignUpForm.label.years_of_uses_technology_for_teaching"
+                        )}
+                        error={
+                          fields.years_of_uses_technology_for_teaching.error
+                        }
+                        label={this.translate(
+                          "SignUpForm.label.years_of_uses_technology_for_teaching"
+                        )}
+                        options={[
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.0"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.0"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.1"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.1"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.2"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.2"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.3"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.3"
+                            ),
+                          },
+                          {
+                            label: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.4"
+                            ),
+                            value: this.translate(
+                              "SignUpForm.years_of_uses_technology_for_teaching.4"
+                            ),
+                          },
+                        ]}
+                        isMulti={false}
+                        closeMenuOnSelect={true}
+                        classField="slim"
+                        noOptionsMessage={() => {
+                          return "Sem opções.";
+                        }}
+                        loadingMessage={() => {
+                          return "Carregando...";
+                        }}
+                        placeholder="Selecione uma opção"
+                      />
+                      {fields.years_of_uses_technology_for_teaching.value
+                        .value !==
+                        this.translate(
+                          "SignUpForm.years_of_uses_technology_for_teaching.0"
+                        ) && (
+                        <FieldSelect
+                          {...omitFieldProperties(
+                            fields.technology_application
+                          )}
+                          name="technology_application"
+                          error={fields.technology_application.error}
+                          label={this.translate(
+                            "SignUpForm.label.technology_application"
+                          )}
+                          options={[
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.0"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.0"
+                              ),
+                            },
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.1"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.1"
+                              ),
+                            },
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.2"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.2"
+                              ),
+                            },
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.3"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.3"
+                              ),
+                            },
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.4"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.4"
+                              ),
+                            },
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.5"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.5"
+                              ),
+                            },
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.6"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.6"
+                              ),
+                            },
+                            {
+                              label: this.translate(
+                                "SignUpForm.technology_application.7"
+                              ),
+                              value: this.translate(
+                                "SignUpForm.technology_application.7"
+                              ),
+                            },
+                          ]}
+                          isMulti={true}
+                          classField="slim"
+                          noOptionsMessage={() => {
+                            return "Sem opções.";
+                          }}
+                          loadingMessage={() => {
+                            return "Carregando...";
+                          }}
+                          placeholder="Selecione uma ou mais opções"
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
               {_.result(user, "_profile") === "teacher" &&
                 !isAdmin(this.props.accounts.user) && (

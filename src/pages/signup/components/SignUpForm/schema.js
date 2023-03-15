@@ -201,8 +201,6 @@ export default {
 
   knowledges: requiredForTeacher,
 
-  formation: requiredForTeacher,
-
   formation_level: requiredForTeacherWithFormation,
 
   term: requiredForTeacher,
@@ -212,6 +210,28 @@ export default {
   profile: {
     presence: false,
   },
+
+  gender: requiredForTeacher,
+
+  initial_formation: requiredForTeacher,
+
+  final_year_of_initial_formation: requiredForTeacher,
+
+  internship_practice: requiredForTeacher,
+
+  institution_initial_formation: requiredForTeacher,
+
+  technology_in_teaching_and_learning: requiredForTeacher,
+
+  cont_educ_in_the_use_of_digital_technologies: requiredForTeacher,
+
+  course_modality: requiredForTeacher,
+
+  years_teaching: requiredForTeacher,
+
+  years_of_uses_technology_for_teaching: requiredForTeacher,
+
+  technology_application: requiredForTeacher,
 
   locked: {},
 
